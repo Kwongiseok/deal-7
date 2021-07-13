@@ -24,6 +24,13 @@ export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
         imageFiles: [...this.state.imageFiles, addFiles],
       });
     },
+    onDeleteImageHandler: (name) => {
+      const updatedFiles = { ...this.state.imageFiles };
+      const updatedUrls = { ...this.state.imageUrls };
+      delete updatedFiles[name];
+      delete updatedUrls[name];
+      this.setState({ ...this.state, imageFiles: updatedFiles, imageUrls: updatedUrls });
+    },
     initialState: {
       counts: this.state.imageUrls.length,
       imageUrls: this.state.imageUrls,

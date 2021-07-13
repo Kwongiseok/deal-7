@@ -1,10 +1,12 @@
+import ImageCardList from './ImageCardList/ImageCardList.js';
 import ImageUploader from './ImageUploader/ImageUploader.js';
 
 export default function ImageContainer({ $target, onImageUploadHandler, onDeleteImageHandler, initialState }) {
-  this.state = initialState;
+  this.state = initialState; // counts , imageUrls
   this.onImageUploadHandler = onImageUploadHandler;
   this.onDeleteImageHandler = onDeleteImageHandler;
   this.$imageContainer = document.createElement('div');
+  this.$imageCardList = document.createElement('ul');
 
   this.$imageUploader = new ImageUploader({
     $target: this.$imageContainer,
@@ -12,14 +14,22 @@ export default function ImageContainer({ $target, onImageUploadHandler, onDelete
     counts: this.state.counts,
   });
 
+  this.$imageCardList = new ImageCardList({
+    $target,
+    onDeleteImageHandler,
+    imageUrls: this.state.imageUrls,
+  });
+
   $target.appendChild(this.$imageContainer);
 
   this.setState = (nextState) => {
-    console.log(nextState);
     this.state = nextState;
     this.$imageUploader.setState({ counts: this.state.counts });
+    this.$imageCardList.setState({ imageUrls: this.state.imageUrls });
     this.render();
   };
 
   this.render = () => {};
+
+  this.render();
 }
