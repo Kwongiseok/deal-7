@@ -1,11 +1,14 @@
 const mysql = require("mysql2");
+const {
+  CREATE_CHAT_TABLE_QUERY,
+  CREATE_PRODUCT_TABLE_QUERY,
+  CREATE_USER_TABLE_QUERY,
+} = require("./constants/createTableQuery");
 
 const pool = mysql.createPool({
-  // 예시
   host: "localhost",
   user: "root",
-  password: "xhakxhakxh",
-  database: "2ndweeksetting",
+  database: "deal",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -13,4 +16,9 @@ const pool = mysql.createPool({
 });
 
 const promisePool = pool.promise();
+
+promisePool.query(CREATE_CHAT_TABLE_QUERY);
+promisePool.query(CREATE_PRODUCT_TABLE_QUERY);
+promisePool.query(CREATE_USER_TABLE_QUERY);
+
 module.exports = { promisePool };

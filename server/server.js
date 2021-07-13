@@ -2,6 +2,7 @@ const http = require("http");
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const { promisePool: DB } = require("./db.js");
 dotenv.config();
 
 const app = express();
@@ -13,5 +14,5 @@ app.use(express.json());
 app.use(cors());
 
 server.listen(PORT, () => {
-  console.log("server is runnig : ", PORT);
+  console.log("server is running : ", PORT);
 });
