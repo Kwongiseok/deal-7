@@ -2,8 +2,8 @@
 name: Bug Report
 about: 버그 제보
 title: ''
-labels: bug
-assignees: HobinLee, jonghopark95
+labels: 버그
+assignees: Kwongiseok, jonghopark95
 
 ---
 

@@ -2,8 +2,8 @@
 name: Feature Request
 about: 추가해야 할 기능 제안
 title: ''
-labels: feature
-assignees: HobinLee, jonghopark95
+labels: 작업 준비
+assignees: Kwongiseok, jonghopark95
 
 ---
 
