@@ -6,7 +6,7 @@ export default function ImageContainer({ $target, onImageUploadHandler, onDelete
   this.onImageUploadHandler = onImageUploadHandler;
   this.onDeleteImageHandler = onDeleteImageHandler;
   this.$imageContainer = document.createElement('div');
-  this.$imageCardList = document.createElement('ul');
+  this.$imageContainer.className = 'create-product-image-container';
 
   this.$imageUploader = new ImageUploader({
     $target: this.$imageContainer,
@@ -15,7 +15,7 @@ export default function ImageContainer({ $target, onImageUploadHandler, onDelete
   });
 
   this.$imageCardList = new ImageCardList({
-    $target,
+    $target: this.$imageContainer,
     onDeleteImageHandler,
     imageUrls: this.state.imageUrls,
   });

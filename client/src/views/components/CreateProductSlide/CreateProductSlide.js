@@ -24,11 +24,9 @@ export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
         imageFiles: [...this.state.imageFiles, addFiles],
       });
     },
-    onDeleteImageHandler: (name) => {
-      const updatedFiles = { ...this.state.imageFiles };
-      const updatedUrls = { ...this.state.imageUrls };
-      delete updatedFiles[name];
-      delete updatedUrls[name];
+    onDeleteImageHandler: (index) => {
+      const updatedFiles = [...this.state.imageFiles].filter((item, i) => index != i);
+      const updatedUrls = [...this.state.imageUrls].filter((item, i) => index != i);
       this.setState({ ...this.state, imageFiles: updatedFiles, imageUrls: updatedUrls });
     },
     initialState: {

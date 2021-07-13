@@ -1,16 +1,17 @@
-import ImageCard from './ImageCard/ImageCard.js';
+import { IMAGE_DELETE_BUTTON } from '../../../../../constants/imagePath.js';
 
 export default function ImageCardList({ $target, onDeleteImageHandler, imageUrls }) {
   this.state = {
     imageUrls,
   };
   this.$imageCardList = document.createElement('ul');
+  this.$imageCardList.className = 'imageCardList';
   this.onDeleteImageHandler = onDeleteImageHandler;
 
   $target.appendChild(this.$imageCardList);
   this.$imageCardList.addEventListener('click', (e) => {
     const deleteButton = e.target.closest('button');
-    onDeleteImageHandler(deleteButton.dataset.name);
+    onDeleteImageHandler(deleteButton.dataset.index);
   });
 
   this.setState = (nextState) => {
@@ -19,11 +20,18 @@ export default function ImageCardList({ $target, onDeleteImageHandler, imageUrls
   };
 
   this.render = () => {
-    this.$imageCardList.innerHTML = '';
-    Object.keys(this.state.imageUrls).forEach((index) => {
-      const file = Object.entries(this.state.imageUrls[index]); // ['name', 'url']
-      new ImageCard({ $target: this.$imageCardList, fileName: file[0][0], imageUrl: file[0][1] });
-    });
+    const HTML = Object.keys(this.state.imageUrls)
+      .map((index) => {
+        const file = Object.entries(this.state.imageUrls[index]); // ['name', 'url']
+        return `<li class="imageCard">
+        <img class="imageCard_image" src=${file[0][1]} />
+        <button class="imageCard_delete_button" data-index=${index}>
+          <img class="button_icon" src="${IMAGE_DELETE_BUTTON}"/>
+        </button>
+      </li>`;
+      })
+      .join('');
+    this.$imageCardList.innerHTML = HTML;
   };
 
   this.render();
