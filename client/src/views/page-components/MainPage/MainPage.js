@@ -21,7 +21,7 @@ function MainPage() {
     };
   };
 
-  const body = document.querySelector('#body');
+  const body = document.querySelector('#root');
   this.$header = document.createElement('header');
   this.$main = document.createElement('main');
   this.$main.className = 'main';
