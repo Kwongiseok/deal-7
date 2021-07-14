@@ -1,4 +1,4 @@
-import { IMAGE_DELETE_BUTTON } from '../../../../../constants/imagePath.js';
+import { DELETE_PHOTO_ICON } from '../../../../../constants/imagePath.js';
 
 export default function ImageCardList({ $target, onDeleteImageHandler, imageUrls }) {
   this.state = {
@@ -26,7 +26,7 @@ export default function ImageCardList({ $target, onDeleteImageHandler, imageUrls
         return `<li class="imageCard">
         <img class="imageCard_image" src=${file[0][1]} />
         <button class="imageCard_delete_button" data-index=${index}>
-          <img class="button_icon" src="${IMAGE_DELETE_BUTTON}"/>
+          <img class="button_icon" src="${DELETE_PHOTO_ICON}"/>
         </button>
       </li>`;
       })

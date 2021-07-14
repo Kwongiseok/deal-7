@@ -1,4 +1,4 @@
-import { ALBUM } from '../../../../../constants/imagePath.js';
+import { PHOTO_ICON } from '../../../../../constants/imagePath.js';
 
 export default function ImageUploader({ $target, onImageUploadHandler, counts }) {
   this.state = {
@@ -12,7 +12,7 @@ export default function ImageUploader({ $target, onImageUploadHandler, counts })
   this.$imageUploadButton = document.createElement('button');
   this.$imageUploadButton.className = 'image_Upload_Button';
   this.$icon = document.createElement('img');
-  this.$icon.src = ALBUM;
+  this.$icon.src = PHOTO_ICON;
 
   this.$countBox = document.createElement('span');
 
