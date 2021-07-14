@@ -24,7 +24,20 @@ export default function CreateProductSlide({ $target, town }) {
 
   const createProductHeader = new CreateProductHeader({
     $target: this.$createProductSlide,
-    onSubmit: (e) => console.log(this.state),
+    onSubmit: () => {
+      const formData = new FormData();
+      const uploadFiles = { ...this.state.imageFiles };
+
+      Object.keys(this.state.imageFiles).forEach((key) => {
+        const file = uploadFiles[key][Object.keys(uploadFiles[key])[0]];
+        formData.append('files', file);
+      });
+      formData.append('title', this.state.title);
+      formData.append('category', this.state.category);
+      formData.append('price', this.state.price);
+      formData.append('content', this.state.content);
+      formData.append('town', this.state.town);
+    },
     initialState: { title: this.state.title, category: this.state.category, content: this.state.content },
   });
 
