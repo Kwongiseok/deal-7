@@ -1,0 +1,18 @@
+.CreateProduct__header {
+  display: flex;
+  box-sizing: border-box;
+  height: 56px;
+  width: 100%;
+  position: absolute;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line-color);
+  padding: 0 20px;
+}
+
+.CreateProduct__header__check {
+  filter: invert(86%) sepia(0%) saturate(1978%) hue-rotate(233deg) brightness(89%) contrast(88%);
+}
+.CreateProduct__header__check.checked {
+  filter: invert(65%) sepia(25%) saturate(1101%) hue-rotate(129deg) brightness(94%) contrast(90%);
+}

@@ -11,7 +11,7 @@ export default function ImageCardList({ $target, onDeleteImageHandler, imageUrls
   $target.appendChild(this.$imageCardList);
   this.$imageCardList.addEventListener('click', (e) => {
     const deleteButton = e.target.closest('button');
-    onDeleteImageHandler(deleteButton.dataset.index);
+    deleteButton && onDeleteImageHandler(deleteButton.dataset.index);
   });
 
   this.setState = (nextState) => {
