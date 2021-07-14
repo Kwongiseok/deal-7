@@ -11,6 +11,10 @@ function ProductDetailPage() {
   //   $target: this.$ProductDetailPage,
   //   town,
   // });
+  // new CreateProductSlide({
+  //   $target: this.$ProductDetailPage,
+  //   town,
+  // });
 }
 
 new ProductDetailPage();

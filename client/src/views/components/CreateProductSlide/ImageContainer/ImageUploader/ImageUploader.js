@@ -8,6 +8,7 @@ export default function ImageUploader({ $target, onImageUploadHandler, counts })
   this.$ImageUploader.type = 'file';
   this.$ImageUploader.multiple = true;
   this.$ImageUploader.hidden = true; // 숨겨야한다.
+  this.$ImageUploader.accept = '.jpg, .jpeg, .png';
 
   this.$imageUploadButton = document.createElement('button');
   this.$imageUploadButton.className = 'image_Upload_Button';

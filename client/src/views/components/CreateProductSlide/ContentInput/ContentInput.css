@@ -1,12 +1,13 @@
-.CreateProduct__price {
-  height: 6vh;
+.CreateProduct__content {
   border: none;
+  height: 25vh;
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
-  border-bottom: 1px solid var(--line-color);
+  padding: 48px 0;
   margin: 0 20px;
+  resize: none;
 }
-.CreateProduct__price:focus {
+.CreateProduct__content:focus {
   outline: none;
 }
