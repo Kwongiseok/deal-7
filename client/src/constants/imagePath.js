@@ -5,6 +5,7 @@ export const CLOSE_ICON = '/client/public/images/icons/close.svg';
 export const DOWN_ICON = '/client/public/images/icons/down.svg';
 export const DROPDOWN_ICON = '/client/public/images/icons/dropdown.svg';
 export const HEART_ICON = '/client/public/images/icons/heart.svg';
+export const FILLED_HEART_ICON = '/client/public/images/icons/filledHeart.svg';
 export const LEFT_ICON = '/client/public/images/icons/left.svg';
 export const LOCATION_ICON = '/client/public/images/icons/location.svg';
 export const LOGOUT_ICON = '/client/public/images/icons/logout.svg';

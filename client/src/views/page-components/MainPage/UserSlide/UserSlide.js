@@ -1,21 +1,22 @@
-export default function UserSlide({ $main, onHandler, initialState }) {
-  this.state = {
-    name: initialState,
-  };
-  this.$UserSlide = document.createElement("div");
-  this.onHandler = onHandler;
+import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
-  $main.appendChild(this.$UserSlide);
+export default function UserSlide({ $selector }) {
+  this.$UserSlide = createDOMwithSelector('div', '.user-slide');
+  $selector.appendChild(this.$UserSlide);
 
-  this.$UserSlide.addEventListener("click", this.onHandler);
+  this.openUserSlide = (currentlyOpenedSlide) => {
+    if (currentlyOpenedSlide !== 'user') {
+      return this.$UserSlide.classList.remove('slide-trigerred');
+    }
 
-  this.setState = (nextState) => {
-    this.state = nextState;
-    this.render();
+    return this.$UserSlide.classList.add('slide-trigerred');
   };
 
   this.render = () => {
-    this.$UserSlide.innerText = this.state.name;
+    this.$UserSlide.innerHTML = `
+      <h1>USER</h1>
+    `;
   };
+
   this.render();
 }

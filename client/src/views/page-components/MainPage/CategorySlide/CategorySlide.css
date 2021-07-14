@@ -1,14 +1,14 @@
-.user-slide{
+.category-slide{
     will-change: transform;
     position:absolute;
     top:0;
     width:100%;
     height:100%;
-    background-color:palegreen;
-    transform:translateX(100%);
+    background-color:pink;
+    transform:translateX(-100%);
     transition: transform 0.3s ease-in-out;
 }
 
-.user-slide.slide-trigerred {
-    transform:translateX(10%);
+.category-slide.slide-trigerred {
+    transform:translateX(-10%);
 }
