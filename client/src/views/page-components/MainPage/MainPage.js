@@ -1,59 +1,95 @@
 import { SAMPLE_PRODUCTS_STATE } from '../../../dummy-file.js';
+import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
+import CategorySlide from './CategorySlide/CategorySlide.js';
 import CreateProductButton from './CreateProductButton/CreateProductButton.js';
+import CreateProductSlide from './CreateProductSlide/CreateProductSlide.js';
 import MainPageNavBar from './MainPageNavBar/MainPageNavBar.js';
+import MenuSlide from './MenuSlide/MenuSlide.js';
 import ProductsWrap from './ProductsWrap/ProductsWrap.js';
+import TownModal from './TownModal/TownModal.js';
+import TownSlide from './TownSlide/TownSlide.js';
+import UserSlide from './UserSlide/UserSlide.js';
 
 function MainPage() {
   /**
    * State
    * currentlyopendSlide
    * - 현재 오픈되어 있는 슬라이드 입니다.
-   * - 들어올 수 있는 값은 null | category | user | town | createProduct | menu 입니다.
+   * - 들어올 수 있는 값은 null | category | user | town | create | menu 입니다.
    */
   this.state = {
     products: SAMPLE_PRODUCTS_STATE,
     currentlyOpenedSlide: null,
+    isTownModalOpened: false,
   };
 
   this.setState = (nextState) => {
     this.state = nextState;
 
-    console.log(this.state);
+    triggerSlides(this.state.currentlyOpenedSlide);
+    triggerTownModal(this.state.isTownModalOpened);
   };
 
-  // render
-  const body = document.querySelector('#root');
-  this.$header = document.createElement('header');
-  this.$main = document.createElement('main');
-  this.$main.className = 'main';
+  const triggerSlides = (slideState) => {
+    $CategorySlide.openCategorySlide(slideState);
+    $UserSlide.openUserSlide(slideState);
+    $MenuSlide.openMenuSlide(slideState);
+    $CreateProductSlide.openCreateProductSlide(slideState);
+    $TownSlide.openTownSlide(slideState);
+  };
 
-  body.appendChild(this.$header);
-  body.appendChild(this.$main);
-
-  this.$NavBar = new MainPageNavBar({
-    $selector: this.$header,
-  });
-
-  this.$ProductsWrap = new ProductsWrap({
-    $selector: this.$main,
-    products: this.state.products,
-  });
-
-  this.$CreateProductButton = new CreateProductButton({
-    $selector: body,
-  });
+  const triggerTownModal = (isTownModalOpened) => $TownModal.showTownModal(isTownModalOpened);
 
   // Events
   this.setCurrentlyOpenedSlide = (val) => {
     this.setState({ ...this.state, currentlyOpenedSlide: val });
   };
 
+  this.setTownModalOpenedState = (state = 'open') => {
+    const willModalOpen = state === 'open' ? true : false;
+    this.setState({ ...this.state, isTownModalOpened: willModalOpen });
+  };
+
   const bindEvents = () => {
     document.addEventListener('click', ({ target }) => {
-      const value = getSlideItemValue(target);
-      this.setCurrentlyOpenedSlide(value);
+      if (target.closest('.main-screen')) {
+        const value = getSlideItemValue(target);
+        this.setCurrentlyOpenedSlide(value);
+      }
+
+      if (target.closest('[data-item=set-town]')) {
+        this.setTownModalOpenedState('open');
+      } else {
+        this.setTownModalOpenedState('close');
+      }
     });
   };
+
+  // render
+  const body = document.querySelector('#root');
+  this.$MainScreen = createDOMwithSelector('div', '.main-screen');
+  body.appendChild(this.$MainScreen);
+
+  this.$header = document.createElement('header');
+  this.$main = document.createElement('main');
+  this.$main.className = 'main';
+
+  this.$MainScreen.appendChild(this.$header);
+  this.$MainScreen.appendChild(this.$main);
+
+  new MainPageNavBar({ $selector: this.$header });
+  new ProductsWrap({ $selector: this.$main, products: this.state.products });
+  new CreateProductButton({ $selector: this.$MainScreen });
+  const $CategorySlide = new CategorySlide({ $selector: body });
+  const $UserSlide = new UserSlide({ $selector: body });
+  const $MenuSlide = new MenuSlide({ $selector: body });
+  const $CreateProductSlide = new CreateProductSlide({ $selector: body });
+  const $TownSlide = new TownSlide({ $selector: body });
+  const $TownModal = new TownModal({
+    $selector: body,
+    setTownModalOpenedState: this.setTownModalOpenedState,
+    setCurrentlyOpenedSlide: this.setCurrentlyOpenedSlide,
+  });
 
   bindEvents();
 }
