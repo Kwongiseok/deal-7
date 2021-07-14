@@ -1,0 +1,18 @@
+.add-product-btn{
+    position:absolute;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    bottom:20px;
+    right:20px;
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background-color:var(--button-color-initial);
+}
+
+.add-img {
+    width:30px;
+    height:30px;
+    filter: invert(100%) sepia(97%) saturate(13%) hue-rotate(220deg) brightness(103%) contrast(103%);
+}
