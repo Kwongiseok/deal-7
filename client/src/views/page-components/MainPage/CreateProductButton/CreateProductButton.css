@@ -9,6 +9,7 @@
     height:80px;
     border-radius:50%;
     background-color:var(--button-color-initial);
+    cursor:pointer;
 }
 
 .add-img {
