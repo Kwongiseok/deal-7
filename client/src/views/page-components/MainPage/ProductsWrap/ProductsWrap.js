@@ -5,10 +5,8 @@ export default function ProductsWrap({ $selector, products }) {
   this.$ProductsWrap = createDOMwithSelector('div', '.products-wrap');
   $selector.appendChild(this.$ProductsWrap);
 
-  this.products = products;
-
   this.render = () => {
-    this.products.map((productInfo) => {
+    products.map((productInfo) => {
       new Product({ $selector: this.$ProductsWrap, infos: productInfo });
     });
   };
