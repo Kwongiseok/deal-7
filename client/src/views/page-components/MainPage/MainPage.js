@@ -28,16 +28,6 @@ function MainPage() {
     this.render();
   };
 
-  const triggerSlides = (slideState) => {
-    $CategorySlide.openCategorySlide(slideState);
-    $UserSlide.openUserSlide(slideState);
-    $MenuSlide.openMenuSlide(slideState);
-    $CreateProductSlide.openCreateProductSlide(slideState);
-    $TownSlide.openTownSlide(slideState);
-  };
-
-  const triggerTownModal = (isTownModalOpened) => $TownModal.showTownModal(isTownModalOpened);
-
   // Events
   this.setCurrentlyOpenedSlide = (val) => {
     this.setState({ ...this.state, currentlyOpenedSlide: val });
@@ -93,6 +83,16 @@ function MainPage() {
     triggerSlides(this.state.currentlyOpenedSlide);
     triggerTownModal(this.state.isTownModalOpened);
   };
+
+  const triggerSlides = (slideState) => {
+    $CategorySlide.openCategorySlide(slideState);
+    $UserSlide.openUserSlide(slideState);
+    $MenuSlide.openMenuSlide(slideState);
+    $CreateProductSlide.openCreateProductSlide(slideState);
+    $TownSlide.openTownSlide(slideState);
+  };
+
+  const triggerTownModal = (isTownModalOpened) => $TownModal.showTownModal(isTownModalOpened);
 
   bindEvents();
   this.render();
