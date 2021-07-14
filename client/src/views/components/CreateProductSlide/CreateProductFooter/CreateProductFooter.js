@@ -7,7 +7,7 @@ export default function CreateProductFooter({ $target, town }) {
 
   this.render = () => {
     this.$CreateFooter.innerHTML = `
-      <img class="CreateProduct__footer__icon" src="${LOCATION_ICON}" />
+      <img class="CreateProduct__footer__icon" src=${LOCATION_ICON} />
       <span>${town}</span>
     `;
   };

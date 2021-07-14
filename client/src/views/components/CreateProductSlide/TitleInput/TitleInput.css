@@ -1,10 +1,9 @@
 .CreateProduct__title {
-  height: 10vh;
+  height: 8vh;
   border: none;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 22px;
-  border-bottom: 1px solid var(--line-color);
   margin: 0 20px;
 }
 .CreateProduct__title:focus {

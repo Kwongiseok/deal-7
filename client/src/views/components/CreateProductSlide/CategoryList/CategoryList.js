@@ -2,6 +2,7 @@ import { CATEGORY_LIST } from '../../../../constants/categoryList.js';
 
 export default function CategoryList({ $target, onClickHandler, initialState }) {
   this.state = initialState; // {title: '', category : '' }
+  this.category_list = [...CATEGORY_LIST].sort(() => Math.random() - Math.random());
   this.$categoryListContainer = document.createElement('div');
   this.$categoryListContainer.className = 'categoryList__container';
   this.$categoryListTitle = document.createElement('p');
@@ -18,7 +19,6 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
   $target.appendChild(this.$categoryListContainer);
   this.$categoryListContainer.appendChild(this.$categoryListTitle);
   this.$categoryListContainer.appendChild(this.$categoryList);
-  this.$categoryListContainer.style.display = 'none';
   this.$categoryList.addEventListener('click', this.onClickHandler);
 
   this.setState = (nextState) => {
@@ -27,15 +27,11 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
   };
 
   this.render = () => {
-    if (this.state.title.length > 0) {
-      this.$categoryListContainer.style.display = 'flex';
-      this.convertToHTML();
-    }
+    this.convertToHTML();
   };
 
   this.convertToHTML = () => {
-    const category_list = [...CATEGORY_LIST];
-    const html = category_list
+    const html = this.category_list
       .map((category) => {
         if (category === this.state.category) {
           return `<li class="categoryList__category category__clicked" data-category=${category}>${category}</li>`;
@@ -45,5 +41,6 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
       .join('');
     this.$categoryList.innerHTML = html;
   };
+
   this.render();
 }
