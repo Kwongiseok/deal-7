@@ -1,4 +1,5 @@
 import ImageContainer from './ImageContainer/ImageContainer.js';
+import TitleInput from './TitleInput/TitleInput.js';
 
 export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
   this.state = {
@@ -35,10 +36,19 @@ export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
     },
   });
 
+  const titleInput = new TitleInput({
+    $target: this.$createProductSlide,
+    onInputHandler: (e) => {
+      const value = e.target.value;
+      this.setState({ ...this.state, title: value });
+    },
+    initialState: { title: this.state.title },
+  });
+
   this.setState = (nextState) => {
     this.state = nextState;
     imageContainer.setState({ counts: this.state.imageUrls.length, imageUrls: this.state.imageUrls });
-
+    titleInput.setState({ title: this.state.title });
     this.render();
   };
 
