@@ -1,10 +1,12 @@
+import CategoryList from './CategoryList/CategoryList.js';
 import ContentInput from './ContentInput/ContentInput.js';
 import CreateProductFooter from './CreateProductFooter/CreateProductFooter.js';
+import CreateProductHeader from './Header/CreateProductHeader.js';
 import ImageContainer from './ImageContainer/ImageContainer.js';
 import PriceInput from './PriceInput/PriceInput.js';
 import TitleInput from './TitleInput/TitleInput.js';
 
-export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
+export default function CreateProductSlide({ $target, town }) {
   this.state = {
     imageFiles: [],
     imageUrls: [],
@@ -17,7 +19,14 @@ export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
 
   this.$createProductSlide = document.createElement('div');
   $target.appendChild(this.$createProductSlide);
-  this.$createProductSlide.classList.add('createProductSlide');
+
+  this.$createProductSlide.className = 'createProductSlide';
+
+  const createProductHeader = new CreateProductHeader({
+    $target: this.$createProductSlide,
+    onSubmit: (e) => console.log(this.state),
+    initialState: { title: this.state.title, category: this.state.category, content: this.state.content },
+  });
 
   const imageContainer = new ImageContainer({
     $target: this.$createProductSlide,
@@ -46,6 +55,14 @@ export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
       this.setState({ ...this.state, title: value });
     },
     initialState: { title: this.state.title },
+  });
+
+  const categoryList = new CategoryList({
+    $target: this.$createProductSlide,
+    onClickHandler: (category) => {
+      this.setState({ ...this.state, category });
+    },
+    initialState: { title: this.state.title, category: this.state.category },
   });
 
   const priceInput = new PriceInput({
@@ -77,8 +94,14 @@ export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
+    createProductHeader.setState({
+      title: this.state.title,
+      category: this.state.category,
+      content: this.state.content,
+    });
     imageContainer.setState({ counts: this.state.imageUrls.length, imageUrls: this.state.imageUrls });
     titleInput.setState({ title: this.state.title });
+    categoryList.setState({ title: this.state.title, category: this.state.category });
     priceInput.setState({ price: this.state.price });
     contentInput.setState({ content: this.state.content });
     this.render();

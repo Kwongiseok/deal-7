@@ -1,0 +1,5 @@
+.imageCardList {
+  display: flex;
+  height: 76px;
+  flex-wrap: nowrap;
+}

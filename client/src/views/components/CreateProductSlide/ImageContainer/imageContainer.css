@@ -1,0 +1,7 @@
+.create-product-image-container {
+  margin-top: 56px;
+  display: inline-flex;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line-color);
+  overflow: auto;
+}

@@ -1,0 +1,11 @@
+.CreateProduct__content {
+  border: none;
+  height: 25vh;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  padding: 24px 0;
+}
+.CreateProduct__content:focus {
+  outline: none;
+}

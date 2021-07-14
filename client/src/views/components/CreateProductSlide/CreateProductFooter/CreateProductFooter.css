@@ -1,0 +1,11 @@
+.CreateProduct__footer {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 320px;
+  height: 36px;
+}
+.CreateProduct__footer__icon {
+  margin-right: 8px;
+}

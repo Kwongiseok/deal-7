@@ -1,0 +1,14 @@
+.CreateProduct__header {
+  display: flex;
+  height: 56px;
+  width: 100%;
+  position: absolute;
+  justify-content: space-between;
+  align-items: center;
+  /* border-bottom: 1px solid var(--line-color); */
+}
+
+/* .CreateProduct__header__check {
+  width: 18px;
+  height: 12px;
+} */

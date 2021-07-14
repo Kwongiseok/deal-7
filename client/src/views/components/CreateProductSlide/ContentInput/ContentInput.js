@@ -1,7 +1,8 @@
 export default function ContentInput({ $target, onInputHandler, initialState }) {
   this.state = initialState; // { content : ''}
   this.onInputHandler = onInputHandler;
-  this.$contentInput = document.createElement('input');
+  this.$contentInput = document.createElement('textarea');
+  this.$contentInput.className = 'CreateProduct__content';
   this.$contentInput.placeholder = '게시글 내용을 작성해주세요.';
 
   this.$contentInput.addEventListener('input', this.onInputHandler);
