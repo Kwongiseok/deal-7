@@ -2,9 +2,6 @@
   display: flex;
   flex-wrap: nowrap;
 }
-.imageCardList::-webkit-scrollbar {
-  display: none;
-}
 .imageCard {
   display: flex;
   position: relative;
