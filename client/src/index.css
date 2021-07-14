@@ -1,6 +1,6 @@
 @import './reset.css';
 @import './views/components/components.css';
-
+@import './views/page-components/ProductDetailPage/ProductDetailPage.css';
 :root {
   --button-color-initial: #2ac1bc;
   --button-color-hovered: #219a95;
