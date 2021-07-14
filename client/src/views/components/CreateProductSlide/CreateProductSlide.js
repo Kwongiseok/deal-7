@@ -1,14 +1,17 @@
+import ContentInput from './ContentInput/ContentInput.js';
+import CreateProductFooter from './CreateProductFooter/CreateProductFooter.js';
 import ImageContainer from './ImageContainer/ImageContainer.js';
+import PriceInput from './PriceInput/PriceInput.js';
 import TitleInput from './TitleInput/TitleInput.js';
 
 export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
   this.state = {
     imageFiles: [],
     imageUrls: [],
-    title: null,
-    category: null,
-    price: null,
-    content: null,
+    title: '',
+    category: '',
+    price: '',
+    content: '',
     town: town,
   };
 
@@ -45,10 +48,39 @@ export default function CreateProductSlide({ $target, onSubmitHandler, town }) {
     initialState: { title: this.state.title },
   });
 
+  const priceInput = new PriceInput({
+    $target: this.$createProductSlide,
+    onInputHandler: (e) => {
+      const value = e.target.value;
+      this.setState({ ...this.state, price: value });
+    },
+    initialState: {
+      price: this.state.price,
+    },
+  });
+
+  const contentInput = new ContentInput({
+    $target: this.$createProductSlide,
+    onInputHandler: (e) => {
+      const value = e.target.value;
+      this.setState({ ...this.state, content: value });
+    },
+    initialState: {
+      content: this.state.content,
+    },
+  });
+
+  const createProductFooter = new CreateProductFooter({
+    $target: this.$createProductSlide,
+    town: this.state.town,
+  });
+
   this.setState = (nextState) => {
     this.state = nextState;
     imageContainer.setState({ counts: this.state.imageUrls.length, imageUrls: this.state.imageUrls });
     titleInput.setState({ title: this.state.title });
+    priceInput.setState({ price: this.state.price });
+    contentInput.setState({ content: this.state.content });
     this.render();
   };
 
