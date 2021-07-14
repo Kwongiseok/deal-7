@@ -1,0 +1,41 @@
+@import "./reset.css";
+@import "./views/components/components.css";
+
+:root{
+    --button-color-initial: #2ac1bc;
+    --button-color-hovered:#219a95;
+    --button-color-focused:#2ac1bc;
+    --button-color-disabled:#a0e1e0;
+
+    --error-color:#f45452;
+    --sub-bg-color:#f6f6f6;
+    --line-color:#d7d7d7;
+    --placeholder-color:#bbbbbb;
+    --title-link-color:#222;
+    --font-color:#222;
+    --mobile-default-width: 500px;
+}
+
+@font-face{
+    font-family:HannaAir;
+    src:url("../public/font/BMHANNAAir.otf")
+}
+
+@font-face{
+    font-family:HannaPro;
+    src:url("../public/font/BMHANNAPro.otf")
+}
+
+
+body {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-height:100vh;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 0 20px 30px 20px;
+    font-family: HannaAir,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-shadow: #ddd 2px 2px 20px;
+    background-color: #fff;
+}
