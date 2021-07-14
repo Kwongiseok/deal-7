@@ -1,4 +1,6 @@
+import { CATEGORY_LIST } from '../../../../constants/categoryList.js';
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
+import Category from '../Category/Category.js';
 
 export default function CategorySlide({ $selector }) {
   this.$CategorySlide = createDOMwithSelector('div', '.category-slide');
@@ -14,9 +16,21 @@ export default function CategorySlide({ $selector }) {
 
   this.render = () => {
     this.$CategorySlide.innerHTML = `
-        <h1>CATEGORY</h1>
+        <h2 class="category-slide__title">카테고리</h2>
+        <div class="category-main">
+          <div class="category-grid">
+          </div>
+        </div>
     `;
+
+    createCategoriesDOM(document.querySelector('.category-grid'));
   };
 
   this.render();
 }
+
+const createCategoriesDOM = ($selector) => {
+  CATEGORY_LIST.map((category) => {
+    new Category({ $selector, infos: category });
+  });
+};
