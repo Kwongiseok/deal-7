@@ -11,6 +11,7 @@ export default function Carousel({ $target }) {
   this.$carousel.className = 'carousel__container';
   this.$slides = document.createElement('div');
   this.$slides.className = 'carousel__slides';
+
   this.slideArr = this.images.map((src) => {
     const $slide = document.createElement('img');
     $slide.src = src;
@@ -18,7 +19,8 @@ export default function Carousel({ $target }) {
     return $slide;
   });
 
-  this.slideArr.forEach((slide) => this.$carousel.appendChild(slide));
+  this.slideArr.forEach((slide) => this.$slides.appendChild(slide));
+  this.$carousel.appendChild(this.$slides);
   $target.appendChild(this.$carousel);
 
   this.slide = (wrapper, items) => {
@@ -30,15 +32,14 @@ export default function Carousel({ $target }) {
     let slidesLength = this.images.length;
     let firstSlide = this.slideArr[0];
     let lastSlide = this.slideArr[this.slideArr.length - 1];
+    let slideSize = this.slideArr[0].offsetWidth;
     let cloneFirst = firstSlide.cloneNode(true);
     let cloneLast = lastSlide.cloneNode(true);
     let index = 0;
     let allowShift = true;
 
     items.appendChild(cloneFirst);
-    items.insertBefore(cloneLast, firstSlide);
-
-    wrapper.classList.add('loaded');
+    this.$slides.insertBefore(cloneLast, firstSlide);
 
     // Touch events
     items.addEventListener('touchstart', dragStart);
