@@ -3,6 +3,16 @@
 @import "./views/components/components.css";
 @import "./views/page-components/MainPage/MainPage.css";
 
+@font-face{
+    font-family:HannaAir;
+    src:url("../public/font/BMHANNAAir.otf")
+}
+
+@font-face{
+    font-family:HannaPro;
+    src:url("../public/font/BMHANNAPro.otf")
+}
+
 :root{
     --button-color-initial: #2ac1bc;
     --button-color-hovered:#219a95;
@@ -21,17 +31,7 @@
     --mobile-default-width: 500px;
 }
 
-@font-face{
-    font-family:HannaAir;
-    src:url("../public/font/BMHANNAAir.otf")
-}
-
-@font-face{
-    font-family:HannaPro;
-    src:url("../public/font/BMHANNAPro.otf")
-}
-
-body {
+html, body {
     width:100vw;
     height:100vh;
 }

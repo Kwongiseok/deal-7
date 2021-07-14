@@ -8,8 +8,8 @@ export default function CreateProductButton({ $selector }) {
 
   this.render = () => {
     this.$AddProductBtn.innerHTML = `
-            <img class="add-img" src=${ADD_ICON}>
-        `;
+      <img class="add-img" src=${ADD_ICON} data-slide-item="createProduct">
+    `;
   };
 
   this.render();
