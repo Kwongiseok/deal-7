@@ -21,6 +21,10 @@ function MainPage() {
     products: SAMPLE_PRODUCTS_STATE,
     currentlyOpenedSlide: null,
     isTownModalOpened: false,
+    productFilter: {
+      town: '역삼동',
+      category: null,
+    },
   };
 
   this.setState = (nextState) => {
@@ -36,6 +40,13 @@ function MainPage() {
   this.setTownModalOpenedState = (state = 'open') => {
     const willModalOpen = state === 'open' ? true : false;
     this.setState({ ...this.state, isTownModalOpened: willModalOpen });
+  };
+
+  this.setCategoryFilter = (category) => {
+    if (this.state.productFilter.category === category) {
+      return this.setState({ ...this.state, productFilter: { ...this.state.productFilter, category: null } });
+    }
+    return this.setState({ ...this.state, productFilter: { ...this.state.productFilter, category } });
   };
 
   const bindEvents = () => {
@@ -68,7 +79,11 @@ function MainPage() {
   new MainPageNavBar({ $selector: this.$header });
   new ProductsWrap({ $selector: this.$main, products: this.state.products });
   new CreateProductButton({ $selector: this.$MainScreen });
-  const $CategorySlide = new CategorySlide({ $selector: body });
+  const $CategorySlide = new CategorySlide({
+    $selector: body,
+    currentCategory: this.state.productFilter.category,
+    setCategoryFilter: this.setCategoryFilter,
+  });
   const $UserSlide = new UserSlide({ $selector: body });
   const $MenuSlide = new MenuSlide({ $selector: body });
   const $CreateProductSlide = new CreateProductSlide({ $selector: body });
@@ -82,6 +97,7 @@ function MainPage() {
   this.render = () => {
     triggerSlides(this.state.currentlyOpenedSlide);
     triggerTownModal(this.state.isTownModalOpened);
+    $CategorySlide.setState({ currentCategory: this.state.productFilter.category });
   };
 
   const triggerSlides = (slideState) => {
