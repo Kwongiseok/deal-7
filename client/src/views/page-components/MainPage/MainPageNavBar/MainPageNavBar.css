@@ -1,0 +1,49 @@
+.nav {
+    position:relative;
+    height:70px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color:var(--button-color-initial);
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.category-img{
+    position:absolute;
+    left:20px;
+    top:17px;
+    width:30px;
+    filter: invert(100%) sepia(97%) saturate(13%) hue-rotate(220deg) brightness(103%) contrast(103%);
+}
+
+.user-img {
+    position:absolute;
+    right:65px;
+    top:17px;
+    width:30px;
+    filter: invert(100%) sepia(97%) saturate(13%) hue-rotate(220deg) brightness(103%) contrast(103%);
+}
+
+.menu-img {
+    position:absolute;
+    right:20px;
+    top:17px;
+    width:30px;
+    filter: invert(100%) sepia(97%) saturate(13%) hue-rotate(220deg) brightness(103%) contrast(103%);
+}
+
+.location-wrap{
+    position:absolute;
+    top:17px;
+    left:calc(50% - 42px);
+    width:200px;
+    height:30px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    filter: invert(100%) sepia(97%) saturate(13%) hue-rotate(220deg) brightness(103%) contrast(103%);
+}
+
+.location-wrap__title {
+    font-size:20px;
+}
