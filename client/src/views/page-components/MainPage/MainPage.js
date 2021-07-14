@@ -25,9 +25,7 @@ function MainPage() {
 
   this.setState = (nextState) => {
     this.state = nextState;
-
-    triggerSlides(this.state.currentlyOpenedSlide);
-    triggerTownModal(this.state.isTownModalOpened);
+    this.render();
   };
 
   const triggerSlides = (slideState) => {
@@ -91,7 +89,13 @@ function MainPage() {
     setCurrentlyOpenedSlide: this.setCurrentlyOpenedSlide,
   });
 
+  this.render = () => {
+    triggerSlides(this.state.currentlyOpenedSlide);
+    triggerTownModal(this.state.isTownModalOpened);
+  };
+
   bindEvents();
+  this.render();
 }
 
 new MainPage();
