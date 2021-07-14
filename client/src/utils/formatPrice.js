@@ -1,5 +1,5 @@
 export default function formatPrice(price) {
-  price = price.replace(/\,/g, '');
-  const convertPrice = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  return convertPrice;
+  let number = price.replace(/[^0-9]/g, '');
+  const convertPrice = number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  return '₩ ' + convertPrice;
 }
