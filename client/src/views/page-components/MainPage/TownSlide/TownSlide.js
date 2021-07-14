@@ -2,8 +2,7 @@ import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.j
 
 export default function TownSlide({ $selector }) {
   this.$TownSlide = createDOMwithSelector('div', '.town-slide');
-  this.$selector = $selector;
-  this.$selector.appendChild(this.$TownSlide);
+  $selector.appendChild(this.$TownSlide);
 
   this.openTownSlide = (currentlyOpenedSlide) => {
     if (currentlyOpenedSlide !== 'town') {

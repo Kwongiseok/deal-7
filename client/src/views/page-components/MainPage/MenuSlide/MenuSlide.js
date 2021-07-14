@@ -2,8 +2,7 @@ import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.j
 
 export default function MenuSlide({ $selector }) {
   this.$MenuSlide = createDOMwithSelector('div', '.menu-slide');
-  this.$selector = $selector;
-  this.$selector.appendChild(this.$MenuSlide);
+  $selector.appendChild(this.$MenuSlide);
 
   this.openMenuSlide = (currentlyOpenedSlide) => {
     if (currentlyOpenedSlide !== 'menu') {

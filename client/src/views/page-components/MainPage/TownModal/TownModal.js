@@ -2,8 +2,7 @@ import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.j
 
 export default function TownModal({ $selector, setTownModalOpenedState, setCurrentlyOpenedSlide }) {
   this.$TownModal = createDOMwithSelector('aside', '.town-modal');
-  this.$selector = $selector;
-  this.$selector.appendChild(this.$TownModal);
+  $selector.appendChild(this.$TownModal);
 
   this.showTownModal = (isTownModalOpened) => {
     if (!isTownModalOpened) {

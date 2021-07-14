@@ -2,8 +2,7 @@ import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.j
 
 export default function CreateProductSlide({ $selector }) {
   this.$CreateProductSlide = createDOMwithSelector('div', '.create-product-slide');
-  this.$selector = $selector;
-  this.$selector.appendChild(this.$CreateProductSlide);
+  $selector.appendChild(this.$CreateProductSlide);
 
   this.openCreateProductSlide = (currentlyOpenedSlide) => {
     if (currentlyOpenedSlide !== 'create') {

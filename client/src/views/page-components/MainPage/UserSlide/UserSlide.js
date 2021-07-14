@@ -2,8 +2,7 @@ import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.j
 
 export default function UserSlide({ $selector }) {
   this.$UserSlide = createDOMwithSelector('div', '.user-slide');
-  this.$selector = $selector;
-  this.$selector.appendChild(this.$UserSlide);
+  $selector.appendChild(this.$UserSlide);
 
   this.openUserSlide = (currentlyOpenedSlide) => {
     if (currentlyOpenedSlide !== 'user') {

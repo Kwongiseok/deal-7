@@ -2,8 +2,7 @@ import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.j
 
 export default function CategorySlide({ $selector }) {
   this.$CategorySlide = createDOMwithSelector('div', '.category-slide');
-  this.$selector = $selector;
-  this.$selector.appendChild(this.$CategorySlide);
+  $selector.appendChild(this.$CategorySlide);
 
   this.openCategorySlide = (currentlyOpenedSlide) => {
     if (currentlyOpenedSlide !== 'category') {

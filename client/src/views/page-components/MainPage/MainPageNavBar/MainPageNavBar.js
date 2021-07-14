@@ -1,10 +1,8 @@
 import { CATEGORY_ICON, LOCATION_ICON, MENU_ICON, USER_ICON } from '../../../../constants/imagePath.js';
 
 export default function MainPageNavBar({ $selector }) {
-  this.$selector = $selector;
-
   this.render = () => {
-    this.$selector.innerHTML = `
+    $selector.innerHTML = `
         <nav class="nav">
             <img class="category-img" src=${CATEGORY_ICON} data-slide-item="category">
             <img class="user-img" src=${USER_ICON} data-slide-item="user">

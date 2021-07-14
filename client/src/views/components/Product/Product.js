@@ -14,8 +14,7 @@ export default function Product({
   },
 }) {
   this.$Product = createDOMwithSelector('div', '.product');
-  this.$selector = $selector;
-  this.$selector.appendChild(this.$Product);
+  $selector.appendChild(this.$Product);
 
   this.render = () => {
     this.$Product.innerHTML = `
