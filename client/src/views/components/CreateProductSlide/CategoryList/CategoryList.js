@@ -12,7 +12,7 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
   this.$categoryList.className = 'categoryList';
 
   this.onClickHandler = (e) => {
-    const category = e.target.closest('li').dataset.category;
+    const category = e.target.closest('li')?.dataset.category;
     onClickHandler(category);
   };
 
