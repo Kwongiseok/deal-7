@@ -1,0 +1,26 @@
+.imageCardList {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.imageCard {
+  display: flex;
+  position: relative;
+  width: 76px;
+  height: 100%;
+  border-radius: 8px;
+  margin-right: 16px;
+  object-fit: cover;
+}
+.imageCard_delete_button {
+  position: absolute;
+  left: 80%;
+  right: 0%;
+  bottom: 80%;
+  background-color: transparent;
+  border: none;
+}
+
+.imageCard_image {
+  width: 76px;
+  height: 76px;
+}
