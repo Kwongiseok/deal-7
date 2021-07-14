@@ -1,7 +1,13 @@
-.create-product-image-container {
-  margin-top: 56px;
+.create__product__image__container {
+  margin: 56px 20px 0 20px;
   display: inline-flex;
   padding: 24px 0;
   border-bottom: 1px solid var(--line-color);
-  overflow: auto;
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.create__product__image__container::-webkit-scrollbar {
+  display: none;
 }

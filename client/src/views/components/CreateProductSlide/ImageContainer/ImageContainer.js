@@ -6,7 +6,7 @@ export default function ImageContainer({ $target, onImageUploadHandler, onDelete
   this.onImageUploadHandler = onImageUploadHandler;
   this.onDeleteImageHandler = onDeleteImageHandler;
   this.$imageContainer = document.createElement('div');
-  this.$imageContainer.className = 'create-product-image-container';
+  this.$imageContainer.className = 'create__product__image__container';
 
   this.$imageUploader = new ImageUploader({
     $target: this.$imageContainer,

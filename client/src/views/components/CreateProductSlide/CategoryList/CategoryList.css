@@ -3,6 +3,7 @@
   flex-direction: column;
   border-bottom: 1px solid var(--line-color);
   padding-bottom: 3vh;
+  margin: 0 20px;
 }
 
 .categoryList__title {
@@ -47,9 +48,14 @@
 
 .categoryList {
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-
+/* Hide scrollbar for Chrome, Safari and Opera */
+.categoryList::-webkit-scrollbar {
+  display: none;
+}
 .category__clicked {
   color: #fff;
   background-color: var(--button-color-initial);

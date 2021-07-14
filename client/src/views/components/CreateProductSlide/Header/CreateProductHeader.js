@@ -27,9 +27,10 @@ export default function CreateProductHeader({ $target, onSubmit, initialState })
 
   this.render = () => {
     if (Object.values(this.state).every((item) => item)) {
-      this.$checkButton.setAttribute('style', 'fill:#2ac1bc');
+      this.$checkButton.classList.add('checked');
       this.$checkButton.onclick = this.onSubmit;
     } else {
+      this.$checkButton.classList.remove('checked');
       this.$checkButton.onclick = '';
     }
   };

@@ -6,7 +6,7 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
   this.$categoryListContainer.className = 'categoryList__container';
   this.$categoryListTitle = document.createElement('p');
   this.$categoryListTitle.className = 'categoryList__title';
-  this.$categoryListTitle.innerText = '필수)카테고리를 선택해주세요.';
+  this.$categoryListTitle.innerText = '(필수)카테고리를 선택해주세요.';
   this.$categoryList = document.createElement('ul');
   this.$categoryList.className = 'categoryList';
 
@@ -33,33 +33,6 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
     }
   };
 
-  // this.convertToHTML = () => {
-  //   const category_list = [...CATEGORY_LIST];
-  //   if (this.state.title.length > 0) {
-  //     this.$categoryListContainer.style.display = 'flex';
-  //     let templateHtml;
-  //     if (this.state.category) {
-  //       this.$categoryListTitle.display = 'none';
-  //       templateHtml =
-  //         `<li class="categoryList__category category__clicked" data-category=${this.state.category}>
-  //         ${this.state.category}
-  //       </li>` +
-  //         category_list
-  //           .map((category) => {
-  //             if (category !== this.state.category) {
-  //               return `<li class="categoryList__category" data-category=${category}>${category}</li>`;
-  //             }
-  //             return '';
-  //           })
-  //           .join('');
-  //     } else {
-  //       templateHtml = category_list
-  //         .map((category) => `<li class="categoryList__category" data-category=${category}>${category}</li>`)
-  //         .join('');
-  //     }
-  //     this.$categoryList.innerHTML = templateHtml;
-  //   }
-  // };
   this.convertToHTML = () => {
     const category_list = [...CATEGORY_LIST];
     const html = category_list
