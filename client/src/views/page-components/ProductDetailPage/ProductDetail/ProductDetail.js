@@ -7,7 +7,7 @@ import ProductStateSelector from './ProductStateSelector/ProductStateSelector.js
 import SelectModal from './SelectModal/SelectModal.js';
 import SelectStateModal from './SelectStateModal/SelectStateModal.js';
 
-export default function ProductDetail({ $target }) {
+export default function ProductDetail({ $target, onSlideHandler }) {
   this.state = {
     images: [],
     price: '169,000원',
@@ -26,11 +26,21 @@ export default function ProductDetail({ $target }) {
     // isSeller: false,
     isLiked: true,
   };
+  this.onSlideHandler = onSlideHandler;
+
   this.$productDetail = createDOMwithSelector('div', '.productDetail');
 
   $target.appendChild(this.$productDetail);
 
-  const selectOptionModal = new SelectModal({ $target: this.$productDetail });
+  const selectOptionModal = new SelectModal({
+    $target: this.$productDetail,
+    onClickEditHandler: () => {
+      this.onSlideHandler();
+    },
+    onClickDeleteHandler: () => {
+      console.log('삭제 모달');
+    },
+  });
 
   const selectStateModal = new SelectStateModal({
     $target: this.$productDetail,

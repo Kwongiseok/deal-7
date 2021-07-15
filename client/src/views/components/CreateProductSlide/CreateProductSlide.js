@@ -116,8 +116,9 @@ export default function CreateProductSlide({ $target, town }) {
     categoryList.setState({ title: this.state.title, category: this.state.category });
     priceInput.setState({ price: this.state.price });
     contentInput.setState({ content: this.state.content });
-    this.render();
   };
 
-  this.render = () => {};
+  this.slide = () => {
+    this.$createProductSlide.classList.add('slide-trigerred');
+  };
 }

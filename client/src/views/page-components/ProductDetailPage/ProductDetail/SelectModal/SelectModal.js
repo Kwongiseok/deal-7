@@ -1,10 +1,10 @@
 import { createDOMwithSelector } from '../../../../../utils/createDOMwithSelector.js';
 
-export default function SelectModal({ $target, onDeleteHandler, onEditHandler }) {
+export default function SelectModal({ $target, onClickDeleteHandler, onClickEditHandler }) {
   this.$selectModal = createDOMwithSelector('ul', '.selectModal');
 
-  this.onEditHandler = onEditHandler;
-  this.onDeleteHandler = onDeleteHandler;
+  this.onDeleteHandler = onClickDeleteHandler;
+  this.onEditHandler = onClickEditHandler;
 
   this.$selectModal.addEventListener('click', (e) => {
     const state = e.target.closest('li')?.dataset.link;

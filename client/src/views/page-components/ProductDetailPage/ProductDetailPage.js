@@ -5,11 +5,16 @@ function ProductDetailPage() {
   const town = '역삼동';
   this.$ProductDetailPage = document.querySelector('#root');
 
-  // const productDetail = new ProductDetail({ $target: this.$ProductDetailPage });
-
-  new CreateProductSlide({
+  const createProductSlide = new CreateProductSlide({
     $target: this.$ProductDetailPage,
     town,
+  });
+
+  const productDetail = new ProductDetail({
+    $target: this.$ProductDetailPage,
+    onSlideHandler: () => {
+      createProductSlide.slide();
+    },
   });
 }
 
