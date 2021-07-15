@@ -61,7 +61,7 @@ export default function CategorySlide({ $selector, setCategoryFilter }) {
 }
 
 const createCategoriesDOM = ($selector, currentCategory) => {
-  CATEGORY_LIST.map((category) => {
+  CATEGORY_LIST.forEach((category) => {
     new Category({ $selector, infos: { category, isChoiced: currentCategory === category } });
   });
 };
