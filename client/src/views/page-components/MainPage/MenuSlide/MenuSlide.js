@@ -1,4 +1,7 @@
+import { SAMPLE_PRODUCTS_STATE } from '../../../../dummy-file.js';
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
+
+import SaleListScreen from '../SaleListScreen/SaleListScreen.js';
 
 export default function MenuSlide({ $selector }) {
   this.$MenuSlide = createDOMwithSelector('div', '.menu-slide');
@@ -20,6 +23,9 @@ export default function MenuSlide({ $selector }) {
    */
   this.state = {
     currentlyMenuSlideItem: 'saleList',
+    saleList: SAMPLE_PRODUCTS_STATE,
+    chatList: [],
+    likeList: [],
   };
 
   this.setState = (nextState) => {
@@ -52,12 +58,21 @@ export default function MenuSlide({ $selector }) {
   this.render = () => {
     this.$MenuSlide.innerHTML = `
       ${getMenuSlideTitleDOM(this.state.currentlyMenuSlideItem)}
+      <div class="menu-slide-main"></div>
     `;
+
+    this.$MenuSlideMain = document.querySelector('.menu-slide-main');
+
+    if (this.state.currentlyMenuSlideItem === 'saleList') {
+      renderSaleListScreen(this.$MenuSlideMain, this.state.saleList);
+    }
   };
 
   this.render();
   bindEvents();
 }
+
+const renderSaleListScreen = ($selector, saleList) => new SaleListScreen({ $selector, saleList });
 
 const getMenuSlideTitleDOM = (currentlyMenuSlideItem) => {
   const DOM = {
