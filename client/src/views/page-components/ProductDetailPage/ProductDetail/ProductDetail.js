@@ -3,7 +3,9 @@ import Carousel from './Carousel/Carousel.js';
 import ProductDetailBody from './ProductDetailBody/ProductDetailBody.js';
 import ProductDetailFooter from './ProductDetailFooter/ProductDetailFooter.js';
 import ProductDetailHeader from './ProductDetailHeader/ProductDetailHeader.js';
+import ProductStateSelector from './ProductStateSelector/ProductStateSelector.js';
 import SelectModal from './SelectModal/SelectModal.js';
+import SelectStateModal from './SelectStateModal/SelectStateModal.js';
 
 export default function ProductDetail({ $target }) {
   this.state = {
@@ -29,6 +31,17 @@ export default function ProductDetail({ $target }) {
   $target.appendChild(this.$productDetail);
 
   const selectOptionModal = new SelectModal({ $target: this.$productDetail });
+
+  const selectStateModal = new SelectStateModal({
+    $target: this.$productDetail,
+    onChangeStateHandler: (productState) => {
+      this.setState({ ...this.state, state: productState });
+    },
+    initialState: {
+      state: this.state.state,
+    },
+  });
+
   const productDetailHeader = new ProductDetailHeader({
     $target: this.$productDetail,
     onClickOptionHandler: () => {
@@ -38,6 +51,17 @@ export default function ProductDetail({ $target }) {
   });
 
   new Carousel({ $target: this.$productDetail });
+
+  const productStateSelector = new ProductStateSelector({
+    $target: this.$productDetail,
+    onClickSelectorHandler: () => {
+      selectStateModal.showModal();
+    },
+    initialState: {
+      isSeller: this.state.isSeller,
+      state: this.state.state,
+    },
+  });
 
   new ProductDetailBody({ $target: this.$productDetail, initialState: this.state });
 
@@ -61,6 +85,9 @@ export default function ProductDetail({ $target }) {
     if (!e.target.closest('[data-link=more]')) {
       selectOptionModal.hideModal();
     }
+    if (!e.target.closest('.productStateSelector')) {
+      selectStateModal.hideModal();
+    }
   });
 
   this.setState = (nextState) => {
@@ -70,6 +97,10 @@ export default function ProductDetail({ $target }) {
       isLiked: this.state.isLiked,
       isSeller: this.state.isSeller,
       chatCounts: this.state.chatCounts,
+    });
+    productStateSelector.setState({
+      ...productStateSelector.state,
+      state: this.state.state,
     });
   };
 }

@@ -1,16 +1,23 @@
-import { PRODUCT_CHANGE_STATE, PRODUCT_STATE } from '../../../../constants/productState.js';
-import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
+import { PRODUCT_CHANGE_STATE, PRODUCT_STATE } from '../../../../../constants/productState.js';
+import { createDOMwithSelector } from '../../../../../utils/createDOMwithSelector.js';
 
-export default function SelectStateModal({ $target, onDeleteHandler, onEditHandler, currentState }) {
-  this.currentState = currentState;
+export default function SelectStateModal({ $target, onChangeStateHandler, initialState }) {
+  /**
+   * this.state = {
+   *  state : string
+   * }
+   */
+  this.state = initialState;
   this.$selectModal = createDOMwithSelector('ul', '.selectStateModal');
 
-  this.onEditHandler = onEditHandler;
-  this.onDeleteHandler = onDeleteHandler;
+  this.onChangeStateHandler = onChangeStateHandler;
 
   this.$selectModal.addEventListener('click', (e) => {
     const state = e.target.closest('li')?.dataset.state;
-    // if (state === "")
+    if (state) {
+      this.onChangeStateHandler(state);
+      this.hideModal();
+    }
   });
   $target.appendChild(this.$selectModal);
 
@@ -19,7 +26,7 @@ export default function SelectStateModal({ $target, onDeleteHandler, onEditHandl
     this.render();
   };
   this.render = () => {
-    this.$selectModal.innerHTML = this.filterToHtml;
+    this.$selectModal.innerHTML = this.filterToHtml();
   };
 
   this.filterToHtml = () => {
@@ -27,11 +34,19 @@ export default function SelectStateModal({ $target, onDeleteHandler, onEditHandl
     const stateNameList = [...PRODUCT_CHANGE_STATE];
     const filteredHtml = stateNameList
       .map((state, index) => {
-        if (stateList[index] === currentState) return '';
+        if (stateList[index] === this.state.state) return '';
         return `<li class="selectStateModal__state" data-state=${stateList[index]}>${state}</li>`;
       })
       .join('');
     return filteredHtml;
+  };
+
+  this.hideModal = () => {
+    this.$selectModal.classList.remove('opened');
+  };
+
+  this.showModal = () => {
+    this.$selectModal.classList.add('opened');
   };
 
   this.render();

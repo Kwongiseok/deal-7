@@ -4,6 +4,10 @@
   height: 53%;
   margin: 24px 16px 0 16px;
 }
+.productDetailBody.sellerIsTrue {
+  height: 48%;
+  margin: 7px 16px 0 16px;
+}
 
 .productDetailBody__title__container {
   display: flex;
@@ -40,7 +44,7 @@
 }
 
 .productDetailBody__content {
-  height: 35%;
+  height: 45%;
   width: 100%;
   font-size: 1.1rem;
   line-height: 1.6rem;
@@ -107,4 +111,15 @@
 }
 .sellerInfo__town {
   color: var(--sub-info-color);
+}
+
+@media screen and (max-width: 380px) {
+  .productDetailBody__sellerInfo {
+    padding: 12px 24px;
+    font-size: 10px;
+    line-height: 12px;
+  }
+  .productDetailBody__content {
+    height: 35%;
+  }
 }

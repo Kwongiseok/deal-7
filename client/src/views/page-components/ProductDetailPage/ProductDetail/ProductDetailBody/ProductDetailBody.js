@@ -31,6 +31,9 @@ export default function ProductDetailBody({ $target, initialState }) {
           </div>
         </div>
       </div>`;
+    if (this.state.isSeller) {
+      this.$productDetailBody.classList.add('sellerIsTrue');
+    }
   };
 
   this.render();
