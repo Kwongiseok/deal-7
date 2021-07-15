@@ -1,4 +1,5 @@
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
+import SignupScreen from '../SignupScreen/SignupScreen.js';
 
 export default function UserSlide({ $selector }) {
   this.$UserSlide = createDOMwithSelector('div', '.user-slide');
@@ -12,11 +13,83 @@ export default function UserSlide({ $selector }) {
     return this.$UserSlide.classList.add('slide-trigerred');
   };
 
+  //state
+  this.state = {
+    isLoggedIn: false,
+    isLoginScreen: false,
+  };
+
+  this.setState = (nextState) => {
+    this.state = { ...this.state, ...nextState };
+    this.render();
+  };
+
+  //Events
+  const bindEvents = () => {
+    document.addEventListener('click', ({ target }) => changeLoginScreenStatus(target));
+  };
+
+  /**
+   * 로그인을 클릭할 경우, isLoginScreen을 true로 만듭니다.
+   * 회원가입을 클릭할 경우, isLoginScreen을 false로 만듭니다.
+   */
+  const changeLoginScreenStatus = (target) => {
+    if (target.closest('[data-slide-status=login]')) {
+      this.setState({ isLoginScreen: true });
+    }
+
+    if (target.closest('[data-slide-status=signup]')) {
+      this.setState({ isLoginScreen: false });
+    }
+  };
+
+  //render
   this.render = () => {
+    const { isLoggedIn, isLoginScreen } = this.state;
+
     this.$UserSlide.innerHTML = `
-      <h1>USER</h1>
+      ${returnSlideTitleDOM(isLoggedIn, isLoginScreen)}
+      <div class="user-slide__main"></div>
     `;
+
+    if (!isLoggedIn && isLoginScreen) {
+      renderLoginScreen(this.$UserSlideMain);
+    }
+
+    if (!isLoggedIn && !isLoginScreen) {
+      renderSignupScreen(this.$UserSlideMain);
+    }
   };
 
   this.render();
+  bindEvents();
 }
+
+const renderLoginScreen = ($selector) => {
+  $selector = document.querySelector('.user-slide__main');
+  $selector.innerText = 'login';
+};
+
+const renderSignupScreen = ($selector) => {
+  $selector = document.querySelector('.user-slide__main');
+  new SignupScreen({ $selector });
+};
+
+/**
+ * 로그인 되어있을 경우,
+ * Slide Title은 내 계정만 반환합니다.
+ * 그렇지 않으면 로그인, 회원가입을 반환합니다.
+ */
+const returnSlideTitleDOM = (isLoggedIn, isLoginScreen) => {
+  if (isLoggedIn) return `<h2 class="user-slide__title my-account">내 계정</h2>`;
+
+  if (isLoginScreen)
+    return `
+    <h2 class="user-slide__title login" data-slide-status='login'>로그인</h2>
+    <h2 class="user-slide__title signup not-choiced" data-slide-status='signup'>회원가입</h2>
+  `;
+  return `
+    <h2 class="user-slide__title login not-choiced" data-slide-status='login'>로그인</h2>
+    <h2 class="user-slide__title signup" data-slide-status='signup'>회원가입</h2>
+  `;
+};
