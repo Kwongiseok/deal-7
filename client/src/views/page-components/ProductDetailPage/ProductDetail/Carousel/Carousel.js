@@ -1,3 +1,5 @@
+import CarouselCount from './CarouselCount/CarouselCount.js';
+
 export default function Carousel({ $target }) {
   this.images = [
     'https://i.pinimg.com/564x/d7/ec/75/d7ec75c9e68873ee75b734ac4ab09ced.jpg',
@@ -22,6 +24,15 @@ export default function Carousel({ $target }) {
   this.slideArr.forEach((slide) => this.$slides.appendChild(slide));
   this.$carousel.appendChild(this.$slides);
   $target.appendChild(this.$carousel);
+
+  // TODO 권기석 : 이미지 API 연동 후 프로퍼티 name 수정
+  const carouselCounter = new CarouselCount({
+    $target: this.$carousel,
+    initialState: {
+      total: this.images.length,
+      current: 0,
+    },
+  });
 
   this.slide = (wrapper, items) => {
     let posX1 = 0;
@@ -124,6 +135,7 @@ export default function Carousel({ $target }) {
         items.style.left = -(1 * slideSize) + 'px';
         index = 0;
       }
+      carouselCounter.setState({ ...carouselCounter.state, current: index });
 
       allowShift = true;
     }

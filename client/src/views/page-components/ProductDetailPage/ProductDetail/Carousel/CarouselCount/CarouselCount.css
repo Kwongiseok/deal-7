@@ -1,0 +1,15 @@
+.carousel__counter__container {
+  display: flex;
+  top: calc(35vh - 45px);
+  position: absolute;
+  right: 10px;
+  z-index: 1;
+  height: 25px;
+  width: 70px;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #00000080;
+  border-radius: 8px;
+  font-weight: 600;
+}
