@@ -1,0 +1,9 @@
+.category-grid__item-icon{
+    background-color:black;
+    width:60px;
+    height:60px;
+}
+
+.category-grid__item-wrap > span{
+    font-size:20px;
+}
