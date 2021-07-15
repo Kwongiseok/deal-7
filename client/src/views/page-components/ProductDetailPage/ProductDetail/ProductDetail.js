@@ -3,6 +3,7 @@ import Carousel from './Carousel/Carousel.js';
 import ProductDetailBody from './ProductDetailBody/ProductDetailBody.js';
 import ProductDetailFooter from './ProductDetailFooter/ProductDetailFooter.js';
 import ProductDetailHeader from './ProductDetailHeader/ProductDetailHeader.js';
+import SelectModal from './SelectModal/SelectModal.js';
 
 export default function ProductDetail({ $target }) {
   this.state = {
@@ -20,14 +21,21 @@ export default function ProductDetail({ $target }) {
     seller: '권기석',
     town: '역삼동',
     isSeller: true,
-    // isSeller : false,
+    // isSeller: false,
     isLiked: true,
   };
   this.$productDetail = createDOMwithSelector('div', '.productDetail');
 
   $target.appendChild(this.$productDetail);
 
-  const productDetailHeader = new ProductDetailHeader({ $target: this.$productDetail });
+  const selectOptionModal = new SelectModal({ $target: this.$productDetail });
+  const productDetailHeader = new ProductDetailHeader({
+    $target: this.$productDetail,
+    onClickOptionHandler: () => {
+      selectOptionModal.showModal();
+    },
+    initialState: { isSeller: this.state.isSeller },
+  });
 
   new Carousel({ $target: this.$productDetail });
 
@@ -47,6 +55,12 @@ export default function ProductDetail({ $target }) {
     onClickEmptyHeartHandler: (e) => {
       this.setState({ ...this.state, isLiked: !this.state.isLiked });
     },
+  });
+
+  this.$productDetail.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-link=more]')) {
+      selectOptionModal.hideModal();
+    }
   });
 
   this.setState = (nextState) => {

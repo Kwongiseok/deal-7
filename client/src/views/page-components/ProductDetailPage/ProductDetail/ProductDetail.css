@@ -2,6 +2,8 @@
 @import './ProductDetailBody/ProductDetailBody.css';
 @import './ProductDetailFooter/ProductDetailFooter.css';
 @import './ProductDetailHeader/ProductDetailHeader.css';
+@import './SelectModal/SelectModal.css';
+@import './SelectStateModal/SelectStateModal.css';
 
 .productDetail {
   box-sizing: border-box;
