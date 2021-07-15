@@ -1,3 +1,4 @@
+import { createDOMwithSelector } from '../../../../../utils/createDOMwithSelector.js';
 import CarouselCount from './CarouselCount/CarouselCount.js';
 
 export default function Carousel({ $target }) {
@@ -9,15 +10,12 @@ export default function Carousel({ $target }) {
     'https://i.pinimg.com/474x/e8/58/f3/e858f330363c0fb4240ca8cad087f74d.jpg',
     'https://i.pinimg.com/474x/c5/eb/47/c5eb47f58dd27a764f88551151f54893.jpg',
   ];
-  this.$carousel = document.createElement('div');
-  this.$carousel.className = 'carousel__container';
-  this.$slides = document.createElement('div');
-  this.$slides.className = 'carousel__slides';
+  this.$carousel = createDOMwithSelector('div', '.carousel__container');
+  this.$slides = createDOMwithSelector('div', '.carousel__slides');
 
   this.slideArr = this.images.map((src) => {
-    const $slide = document.createElement('img');
+    const $slide = createDOMwithSelector('img', '.carousel__img');
     $slide.src = src;
-    $slide.className = 'carousel__img';
     return $slide;
   });
 

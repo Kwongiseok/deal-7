@@ -1,3 +1,4 @@
+import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 import Carousel from './Carousel/Carousel.js';
 import ProductDetailBody from './ProductDetailBody/ProductDetailBody.js';
 
@@ -16,7 +17,7 @@ export default function ProductDetail({ $target }) {
     seller: '권기석',
     town: '역삼동',
   };
-  this.$productDetail = document.createElement('div');
+  this.$productDetail = createDOMwithSelector('div', '.productDetail');
 
   $target.appendChild(this.$productDetail);
   const carousel = new Carousel({ $target: this.$productDetail });

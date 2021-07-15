@@ -1,3 +1,4 @@
+import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
 import CategoryList from './CategoryList/CategoryList.js';
 import ContentInput from './ContentInput/ContentInput.js';
 import CreateProductFooter from './CreateProductFooter/CreateProductFooter.js';
@@ -17,10 +18,8 @@ export default function CreateProductSlide({ $target, town }) {
     town: town,
   };
 
-  this.$createProductSlide = document.createElement('div');
+  this.$createProductSlide = createDOMwithSelector('div', '.createProductSlide');
   $target.appendChild(this.$createProductSlide);
-
-  this.$createProductSlide.className = 'createProductSlide';
 
   const createProductHeader = new CreateProductHeader({
     $target: this.$createProductSlide,

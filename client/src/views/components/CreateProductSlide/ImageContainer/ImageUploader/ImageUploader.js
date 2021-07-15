@@ -1,21 +1,21 @@
 import { PHOTO_ICON } from '../../../../../constants/imagePath.js';
+import { createDOMwithSelector } from '../../../../../utils/createDOMwithSelector.js';
 
 export default function ImageUploader({ $target, onImageUploadHandler, counts }) {
   this.state = {
     counts,
   };
-  this.$ImageUploader = document.createElement('input');
+  this.$ImageUploader = createDOMwithSelector('input', '.imageUploader');
   this.$ImageUploader.type = 'file';
   this.$ImageUploader.multiple = true;
   this.$ImageUploader.hidden = true; // 숨겨야한다.
   this.$ImageUploader.accept = '.jpg, .jpeg, .png';
 
-  this.$imageUploadButton = document.createElement('button');
-  this.$imageUploadButton.className = 'image_Upload_Button';
-  this.$icon = document.createElement('img');
+  this.$imageUploadButton = createDOMwithSelector('button', '.image_Upload_Button');
+  this.$icon = createDOMwithSelector('img', '.upload__photo__icon');
   this.$icon.src = PHOTO_ICON;
 
-  this.$countBox = document.createElement('span');
+  this.$countBox = createDOMwithSelector('span', '.image__counter');
 
   $target.appendChild(this.$imageUploadButton);
   this.$imageUploadButton.appendChild(this.$icon);

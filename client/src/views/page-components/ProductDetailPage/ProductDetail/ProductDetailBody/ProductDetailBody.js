@@ -1,6 +1,8 @@
+import { createDOMwithSelector } from '../../../../../utils/createDOMwithSelector.js';
+
 export default function ProductDetailBody({ $target, initialState }) {
   this.state = initialState;
-  this.$productDetailBody = document.createElement('div');
+  this.$productDetailBody = createDOMwithSelector('div', '.productDetailBody');
   $target.appendChild(this.$productDetailBody);
 
   this.render = () => {

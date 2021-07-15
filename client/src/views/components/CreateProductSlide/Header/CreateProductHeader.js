@@ -1,18 +1,18 @@
 import { CHECK_ICON, LEFT_ICON } from '../../../../constants/imagePath.js';
+import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
 export default function CreateProductHeader({ $target, onSubmit, initialState }) {
   this.state = initialState;
+  this.onSubmit = onSubmit;
 
-  this.$header = document.createElement('div');
-  this.$header.className = 'CreateProduct__header';
-  this.$header__title = document.createElement('span');
+  this.$header = createDOMwithSelector('div', '.CreateProduct__header');
+  this.$header__title = createDOMwithSelector('span', '.CreateProduct__header__title');
   this.$header__title.innerText = '글쓰기';
-  this.$backButton = document.createElement('img');
+
+  this.$backButton = createDOMwithSelector('img', '.CreateProduct__header__back');
   this.$backButton.src = LEFT_ICON;
 
-  this.onSubmit = onSubmit;
-  this.$checkButton = document.createElement('img');
-  this.$checkButton.className = 'CreateProduct__header__check';
+  this.$checkButton = createDOMwithSelector('img', '.CreateProduct__header__check');
   this.$checkButton.src = CHECK_ICON;
 
   $target.appendChild(this.$header);

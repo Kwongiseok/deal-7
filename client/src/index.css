@@ -2,6 +2,7 @@
 @import './reset.css';
 @import './views/components/components.css';
 @import './views/page-components/MainPage/MainPage.css';
+@import './views/page-components/ProductDetailPage/ProductDetailPage.css';
 
 @font-face {
   font-family: HannaAir;

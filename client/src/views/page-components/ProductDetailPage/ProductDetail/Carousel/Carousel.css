@@ -5,6 +5,7 @@
   position: relative;
   width: 100%;
   max-width: 420px;
+  min-width: 420px;
   height: 35vh;
   background: #222;
   z-index: 1;

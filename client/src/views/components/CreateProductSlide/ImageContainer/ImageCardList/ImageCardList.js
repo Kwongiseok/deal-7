@@ -1,14 +1,15 @@
 import { DELETE_PHOTO_ICON } from '../../../../../constants/imagePath.js';
+import { createDOMwithSelector } from '../../../../../utils/createDOMwithSelector.js';
 
 export default function ImageCardList({ $target, onDeleteImageHandler, imageUrls }) {
   this.state = {
     imageUrls,
   };
-  this.$imageCardList = document.createElement('ul');
-  this.$imageCardList.className = 'imageCardList';
   this.onDeleteImageHandler = onDeleteImageHandler;
+  this.$imageCardList = createDOMwithSelector('ul', '.imageCardList');
 
   $target.appendChild(this.$imageCardList);
+
   this.$imageCardList.addEventListener('click', (e) => {
     const deleteButton = e.target.closest('button');
     deleteButton && onDeleteImageHandler(deleteButton.dataset.index);
