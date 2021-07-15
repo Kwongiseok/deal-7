@@ -6,7 +6,7 @@ export default function ProductsWrap({ $selector, products }) {
   $selector.appendChild(this.$ProductsWrap);
 
   this.render = () => {
-    products.map((productInfo) => {
+    products.forEach((productInfo) => {
       new Product({ $selector: this.$ProductsWrap, infos: productInfo });
     });
   };
