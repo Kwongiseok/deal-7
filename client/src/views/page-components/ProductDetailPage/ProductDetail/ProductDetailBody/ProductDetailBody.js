@@ -14,21 +14,21 @@ export default function ProductDetailBody({ $target, initialState }) {
           <li class="subInfo__title">${this.state.time}</li>
         </ul>
       </div>
-      <div class="productDetailBody__content">
-        ${this.state.content}
-      </div>
-      <ul class="productDetailBody__info">
-        <li class="productDetailBody__info_subtitle">채팅 ${this.state.chatCounts}</li>
-        <li class="productDetailBody__info_subtitle">관심 ${this.state.likeCounts}</li>
-        <li class="productDetailBody__info_subtitle">조회 ${this.state.viewCounts}</li>
-      </ul>
-      <div class="productDetailBody__sellerInfo">
-        <div class="sellerInfo__title__container">
-          <span class="sellerInfo__title">판매자 정보</span>
-        </div>
-        <div class="sellerInfo__name__container">
-          <span class="sellerInfo__name">${this.state.seller}</span>
-          <span class="sellerInfo__town">${this.state.town}</span>
+      <textarea class="productDetailBody__content" readonly>${this.state.content}</textarea>
+      <div class="productDetailBody__info__container">
+        <ul class="productDetailBody__info">
+          <li class="productDetailBody__info_subtitle">채팅 ${this.state.chatCounts}</li>
+          <li class="productDetailBody__info_subtitle">관심 ${this.state.likeCounts}</li>
+          <li class="productDetailBody__info_subtitle">조회 ${this.state.viewCounts}</li>
+        </ul>
+        <div class="productDetailBody__sellerInfo">
+          <div class="sellerInfo__title__container">
+            <span class="sellerInfo__title">판매자 정보</span>
+          </div>
+          <div class="sellerInfo__name__container">
+            <span class="sellerInfo__name">${this.state.seller}</span>
+            <span class="sellerInfo__town">${this.state.town}</span>
+          </div>
         </div>
       </div>`;
   };

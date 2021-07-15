@@ -9,7 +9,7 @@ export default function ProductDetailFooter({
   onClickButtonHandler,
 }) {
   /**
-   * {
+   * this.state = {
    *  price : string,
    *  isLiked : boolean,
    *  isSeller : boolean,
@@ -33,7 +33,7 @@ export default function ProductDetailFooter({
   this.$footerRight.appendChild(this.$price);
   this.$footerRight.appendChild(this.$chatButton);
 
-  this.$price.innerText = this.state.price;
+  this.$price.innerText = this.state.price || '가격미정';
 
   this.setState = (nextState) => {
     this.state = nextState;
@@ -55,10 +55,12 @@ export default function ProductDetailFooter({
     }
   };
   this.renderChatButton = () => {
+    this.$chatButton.disabled = false;
     if (this.state.isSeller) {
       if (this.state.chatCounts > 0) {
         return (this.$chatButton.innerText = `채팅 목록 보기(${this.state.chatCounts})`);
       }
+      this.$chatButton.disabled = true;
       return (this.$chatButton.innerText = `채팅 목록 보기`);
     } else {
       return (this.$chatButton.innerText = `문의하기`);

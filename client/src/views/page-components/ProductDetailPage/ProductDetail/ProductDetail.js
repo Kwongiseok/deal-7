@@ -25,8 +25,11 @@ export default function ProductDetail({ $target }) {
   this.$productDetail = createDOMwithSelector('div', '.productDetail');
 
   $target.appendChild(this.$productDetail);
-  const carousel = new Carousel({ $target: this.$productDetail });
-  const productDetailBody = new ProductDetailBody({ $target: this.$productDetail, initialState: this.state });
+
+  new Carousel({ $target: this.$productDetail });
+
+  new ProductDetailBody({ $target: this.$productDetail, initialState: this.state });
+
   const productDetailFooter = new ProductDetailFooter({
     $target: this.$productDetail,
     initialState: {
