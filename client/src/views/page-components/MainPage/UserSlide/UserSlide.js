@@ -1,4 +1,5 @@
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
+import LoginScreen from '../LoginScreen/LoginScreen.js';
 import SignupScreen from '../SignupScreen/SignupScreen.js';
 
 export default function UserSlide({ $selector }) {
@@ -16,7 +17,7 @@ export default function UserSlide({ $selector }) {
   //state
   this.state = {
     isLoggedIn: false,
-    isLoginScreen: false,
+    isLoginScreen: true,
   };
 
   this.setState = (nextState) => {
@@ -67,12 +68,12 @@ export default function UserSlide({ $selector }) {
 
 const renderLoginScreen = ($selector) => {
   $selector = document.querySelector('.user-slide__main');
-  $selector.innerText = 'login';
+  return new LoginScreen({ $selector });
 };
 
 const renderSignupScreen = ($selector) => {
   $selector = document.querySelector('.user-slide__main');
-  new SignupScreen({ $selector });
+  return new SignupScreen({ $selector });
 };
 
 /**
