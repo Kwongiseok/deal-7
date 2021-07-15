@@ -24,3 +24,4 @@ export const LOGIN_BUTTON = '/client/public/images/createdBaeminStyleImage/login
 export const SIGNUP_BUTTON = '/client/public/images/createdBaeminStyleImage/signup-btn.png';
 export const UNDERLINE_BAEMIN_COLOR = '/client/public/images/createdBaeminStyleImage/underline-baemin-color.png';
 export const UNDERLINE_BLACK_COLOR = '/client/public/images/createdBaeminStyleImage/underline-black-color.png';
+export const LOGIN_LOGO = '/client/public/images/createdBaeminStyleImage/login-logo.png';
