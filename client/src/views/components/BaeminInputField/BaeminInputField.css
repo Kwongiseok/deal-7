@@ -1,0 +1,16 @@
+.baemin-input-field{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height:120px;
+}
+
+.baemin-input-field > .baemin-input-field__label{
+    font-weight:bold;
+    font-size:40px;
+}
+
+.baemin-input-field > .baemin-input-field__error-msg {
+    color:var(--error-color);
+    font-size:12px;
+}
