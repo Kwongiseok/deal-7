@@ -1,13 +1,18 @@
 @import "../MainPage/CreateProductButton/CreateProductButton.css";
-@import "../MainPage/MainPageNavBar/MainPageNavBar.css";
-@import "../MainPage/ProductsWrap/ProductsWrap.css";
-@import "../MainPage/MenuSlide/MenuSlide.css";
+@import "../MainPage/CreateProductSlide/CreateProductSlide.css";
 @import "../MainPage/Category/Category.css";
 @import "../MainPage/CategorySlide/CategorySlide.css";
-@import "../MainPage/UserSlide/UserSlide.css";
-@import "../MainPage/CreateProductSlide/CreateProductSlide.css";
+@import "../MainPage/LoginFieldset/LoginFieldset.css";
+@import "../MainPage/LoginScreen/LoginScreen.css";
+@import "../MainPage/LogoutScreen/LogoutScreen.css";
+@import "../MainPage/MainPageNavBar/MainPageNavBar.css";
+@import "../MainPage/MenuSlide/MenuSlide.css";
+@import "../MainPage/ProductsWrap/ProductsWrap.css";
+@import "../MainPage/SignupFieldset/SignupFieldset.css";
+@import "../MainPage/SignupScreen/SignupScreen.css";
 @import "../MainPage/TownModal/TownModal.css";
 @import "../MainPage/TownSlide/TownSlide.css";
+@import "../MainPage/UserSlide/UserSlide.css";
 
 #root{
     overflow:hidden;
