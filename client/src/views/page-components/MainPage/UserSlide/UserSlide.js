@@ -55,6 +55,8 @@ export default function UserSlide({ $selector }) {
       <div class="user-slide__main"></div>
     `;
 
+    this.$UserSlideMain = document.querySelector('.user-slide__main');
+
     if (!isLoggedIn && isLoginScreen) {
       renderLoginScreen(this.$UserSlideMain);
     }
@@ -72,20 +74,9 @@ export default function UserSlide({ $selector }) {
   bindEvents();
 }
 
-const renderLoginScreen = ($selector) => {
-  $selector = document.querySelector('.user-slide__main');
-  return new LoginScreen({ $selector });
-};
-
-const renderSignupScreen = ($selector) => {
-  $selector = document.querySelector('.user-slide__main');
-  return new SignupScreen({ $selector });
-};
-
-const renderUserScreen = ($selector, username) => {
-  $selector = document.querySelector('.user-slide__main');
-  return new LogoutScreen({ $selector, username });
-};
+const renderLoginScreen = ($selector) => new LoginScreen({ $selector });
+const renderSignupScreen = ($selector) => new SignupScreen({ $selector });
+const renderUserScreen = ($selector, username) => new LogoutScreen({ $selector, username });
 
 /**
  * 로그인 되어있을 경우,
