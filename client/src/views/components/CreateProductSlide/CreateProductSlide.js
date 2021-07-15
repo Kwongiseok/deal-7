@@ -7,15 +7,19 @@ import ImageContainer from './ImageContainer/ImageContainer.js';
 import PriceInput from './PriceInput/PriceInput.js';
 import TitleInput from './TitleInput/TitleInput.js';
 
-export default function CreateProductSlide({ $target, town }) {
+export default function CreateProductSlide({ $target, initialState }) {
+  // this.state = {
+  //   imageFiles: [],
+  //   imageUrls: [],
+  //   title: '',
+  //   category: '',
+  //   price: '',
+  //   content: '',
+  //   town: town,
+  // };
   this.state = {
+    ...initialState,
     imageFiles: [],
-    imageUrls: [],
-    title: '',
-    category: '',
-    price: '',
-    content: '',
-    town: town,
   };
 
   this.$createProductSlide = createDOMwithSelector('div', '.createProductSlide');
@@ -25,10 +29,8 @@ export default function CreateProductSlide({ $target, town }) {
     $target: this.$createProductSlide,
     onSubmit: () => {
       const formData = new FormData();
-      const uploadFiles = { ...this.state.imageFiles };
-
-      Object.keys(this.state.imageFiles).forEach((key) => {
-        const file = uploadFiles[key][Object.keys(uploadFiles[key])[0]];
+      const uploadFiles = this.state.imageFiles;
+      uploadFiles.forEach((file) => {
         formData.append('files', file);
       });
       formData.append('title', this.state.title);
@@ -45,8 +47,8 @@ export default function CreateProductSlide({ $target, town }) {
     onImageUploadHandler: (addUrls, addFiles) => {
       this.setState({
         ...this.state,
-        imageUrls: [...this.state.imageUrls, addUrls],
-        imageFiles: [...this.state.imageFiles, addFiles],
+        imageUrls: [...this.state.imageUrls, ...addUrls],
+        imageFiles: [...this.state.imageFiles, ...addFiles],
       });
     },
     onDeleteImageHandler: (index) => {
@@ -55,8 +57,8 @@ export default function CreateProductSlide({ $target, town }) {
       this.setState({ ...this.state, imageFiles: updatedFiles, imageUrls: updatedUrls });
     },
     initialState: {
-      counts: this.state.imageUrls.length,
       imageUrls: this.state.imageUrls,
+      counts: this.state.imageUrls.length,
     },
   });
 

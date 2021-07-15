@@ -26,12 +26,12 @@ export default function ImageUploader({ $target, onImageUploadHandler, counts })
   });
 
   this.$ImageUploader.addEventListener('change', (e) => {
-    const addFiles = {};
-    const addUrls = {};
+    const addFiles = [];
+    const addUrls = [];
     Array.prototype.forEach.call(e.target.files, (f) => {
       const imageUrl = URL.createObjectURL(f);
-      addFiles[f.name] = f;
-      addUrls[f.name] = imageUrl;
+      addFiles.push(f);
+      addUrls.push(imageUrl);
     }); //
     onImageUploadHandler(addUrls, addFiles);
   });

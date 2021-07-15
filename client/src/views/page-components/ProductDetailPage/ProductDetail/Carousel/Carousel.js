@@ -1,15 +1,17 @@
 import { createDOMwithSelector } from '../../../../../utils/createDOMwithSelector.js';
 import CarouselCount from './CarouselCount/CarouselCount.js';
 
-export default function Carousel({ $target }) {
-  this.images = [
-    'https://i.pinimg.com/564x/d7/ec/75/d7ec75c9e68873ee75b734ac4ab09ced.jpg',
-    'https://i.pinimg.com/474x/30/5a/21/305a216481dfaaec10fd59cf1f667652.jpg',
-    'https://i.pinimg.com/474x/5f/a2/8e/5fa28eae2bdebd6ab2d30690304927b9.jpg',
-    'https://i.pinimg.com/474x/a6/56/70/a65670944d4bf492a3a71c4a95bb3910.jpg',
-    'https://i.pinimg.com/474x/e8/58/f3/e858f330363c0fb4240ca8cad087f74d.jpg',
-    'https://i.pinimg.com/474x/c5/eb/47/c5eb47f58dd27a764f88551151f54893.jpg',
-  ];
+export default function Carousel({ $target, imageUrls }) {
+  // this.images = [
+  //   'https://i.pinimg.com/564x/d7/ec/75/d7ec75c9e68873ee75b734ac4ab09ced.jpg',
+  //   'https://i.pinimg.com/474x/30/5a/21/305a216481dfaaec10fd59cf1f667652.jpg',
+  //   'https://i.pinimg.com/474x/5f/a2/8e/5fa28eae2bdebd6ab2d30690304927b9.jpg',
+  //   'https://i.pinimg.com/474x/a6/56/70/a65670944d4bf492a3a71c4a95bb3910.jpg',
+  //   'https://i.pinimg.com/474x/e8/58/f3/e858f330363c0fb4240ca8cad087f74d.jpg',
+  //   'https://i.pinimg.com/474x/c5/eb/47/c5eb47f58dd27a764f88551151f54893.jpg',
+  // ];
+  this.images = imageUrls;
+
   this.$carousel = createDOMwithSelector('div', '.carousel__container');
   this.$slides = createDOMwithSelector('div', '.carousel__slides');
 
