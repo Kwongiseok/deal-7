@@ -1,0 +1,36 @@
+.product-modify-modal{
+    will-change:opacity;
+    transition:opacity .2s ease-in-out;
+    opacity:0;
+
+    position:absolute;
+    top:60px;
+    right:20px;
+    height:fit-content;
+    border-radius:20px;
+    box-shadow:#ddd 2px 2px 20px;
+    width:150px;
+    background-color:var(--sub-bg-color);
+    box-shadow: 0px 0px 28px 2px rgba(0,0,0,0.2);
+}
+
+.product-modify-modal.opened{
+    opacity:1;
+}
+
+.product-modify-modal__item{
+    box-sizing: border-box;
+    display:flex;
+    justify-content: flex-start;
+    align-items:center;
+    height:40px;
+    width:100%;
+    padding:17px;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.product-modify-modal__item.delete > span {
+    color:var(--error-color);
+}
