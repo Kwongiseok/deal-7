@@ -1,5 +1,6 @@
 import { SAMPLE_PRODUCTS_STATE } from '../../../../dummy-file.js';
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
+import ChatListScreen from '../ChatListScreen/ChatListScreen.js';
 import LikeListScreen from '../LikeListScreen/LikeListScreen.js';
 
 import SaleListScreen from '../SaleListScreen/SaleListScreen.js';
@@ -23,11 +24,10 @@ export default function MenuSlide({ $selector }) {
    * - 들어 올 수 있는 값은 'saleList' | 'chatList' | 'likeList' 입니다.
    */
   this.state = {
-    currentlyMenuSlideItem: 'likeList',
+    currentlyMenuSlideItem: 'saleList',
     saleList: SAMPLE_PRODUCTS_STATE,
     chatList: [],
     likeList: SAMPLE_PRODUCTS_STATE.filter(({ isLiked }) => isLiked),
-    // likeList: [],
   };
 
   this.setState = (nextState) => {
@@ -69,6 +69,10 @@ export default function MenuSlide({ $selector }) {
       renderSaleListScreen(this.$MenuSlideMain, this.state.saleList);
     }
 
+    if (this.state.currentlyMenuSlideItem === 'chatList') {
+      renderChatListScreen(this.$MenuSlideMain, this.state.chatList);
+    }
+
     if (this.state.currentlyMenuSlideItem === 'likeList') {
       renderLikeListScreen(this.$MenuSlideMain, this.state.likeList);
     }
@@ -79,6 +83,7 @@ export default function MenuSlide({ $selector }) {
 }
 
 const renderSaleListScreen = ($selector, saleList) => new SaleListScreen({ $selector, saleList });
+const renderChatListScreen = ($selector, chatList) => new ChatListScreen({ $selector, chatList });
 const renderLikeListScreen = ($selector, likeList) => new LikeListScreen({ $selector, likeList });
 
 const getMenuSlideTitleDOM = (currentlyMenuSlideItem) => {
