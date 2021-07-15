@@ -4,6 +4,7 @@
 @import './ProductDetailHeader/ProductDetailHeader.css';
 @import './SelectModal/SelectModal.css';
 @import './SelectStateModal/SelectStateModal.css';
+@import './DeleteConfirmModal/DeleteConfirmModal.css';
 @import './ProductStateSelector/ProductStateSelector.css';
 
 .productDetail {

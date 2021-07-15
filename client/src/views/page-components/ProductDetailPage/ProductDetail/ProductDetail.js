@@ -1,5 +1,6 @@
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 import Carousel from './Carousel/Carousel.js';
+import DeleteConfirmModal from './DeleteConfirmModal/DeleteConfirmModal.js';
 import ProductDetailBody from './ProductDetailBody/ProductDetailBody.js';
 import ProductDetailFooter from './ProductDetailFooter/ProductDetailFooter.js';
 import ProductDetailHeader from './ProductDetailHeader/ProductDetailHeader.js';
@@ -35,13 +36,20 @@ export default function ProductDetail({ $target, onSlideHandler, initialState })
 
   $target.appendChild(this.$productDetail);
 
+  const deleteConfirmModal = new DeleteConfirmModal({
+    $target,
+    onDeleteHandler: () => {
+      console.log('삭제 API 연결');
+    },
+  });
+
   const selectOptionModal = new SelectModal({
     $target: this.$productDetail,
     onClickEditHandler: () => {
       this.onSlideHandler();
     },
     onClickDeleteHandler: () => {
-      console.log('삭제 모달');
+      deleteConfirmModal.showModal();
     },
   });
 

@@ -27,6 +27,7 @@
   height: 50%;
   align-items: center;
   padding: 1rem;
+  cursor: pointer;
 }
 .selectModal__edit {
   border-bottom: 1px solid var(--line-color);

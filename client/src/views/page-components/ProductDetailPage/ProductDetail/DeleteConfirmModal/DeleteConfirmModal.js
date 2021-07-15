@@ -6,11 +6,16 @@ export default function DeleteConfirmModal({ $target, onDeleteHandler }) {
 
   this.$deleteConfirmModal.addEventListener('click', (e) => {
     const link = e.target.dataset?.link;
+    if (!e.target.closest('.deleteConfirmModal__wrapper')) {
+      this.hideModal();
+    }
+
     if (link) {
       if (link === 'close') {
         this.hideModal();
       } else if (link === 'delete') {
         this.onDeleteHandler();
+        this.hideModal();
       }
     }
   });
@@ -21,7 +26,7 @@ export default function DeleteConfirmModal({ $target, onDeleteHandler }) {
       <div class="deleteConfirmModal__wrapper">
         <div class="deleteConfirmModal__content">
           <span class="deleteConfirmModal__span">정말 지우시겠습니까?</span>
-          <div>
+          <div class="deleteConfirmModal__button__container">
             <button class="deleteConfirmModal__close" data-link="close">
               취소
             </button>
