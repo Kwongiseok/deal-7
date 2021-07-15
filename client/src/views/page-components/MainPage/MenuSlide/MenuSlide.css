@@ -1,14 +1,14 @@
-.user-slide{
+.menu-slide{
     will-change: transform;
     position:absolute;
     top:0;
     width:100%;
     height:100%;
-    background-color:palegreen;
+    background-color:blueviolet;
     transform:translateX(100%);
     transition: transform 0.3s ease-in-out;
 }
 
-.user-slide.slide-trigerred {
+.menu-slide.slide-trigerred {
     transform:translateX(10%);
 }
