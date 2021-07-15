@@ -2,6 +2,7 @@ import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.j
 import Carousel from './Carousel/Carousel.js';
 import ProductDetailBody from './ProductDetailBody/ProductDetailBody.js';
 import ProductDetailFooter from './ProductDetailFooter/ProductDetailFooter.js';
+import ProductDetailHeader from './ProductDetailHeader/ProductDetailHeader.js';
 
 export default function ProductDetail({ $target }) {
   this.state = {
@@ -26,6 +27,8 @@ export default function ProductDetail({ $target }) {
 
   $target.appendChild(this.$productDetail);
 
+  const productDetailHeader = new ProductDetailHeader({ $target: this.$productDetail });
+
   new Carousel({ $target: this.$productDetail });
 
   new ProductDetailBody({ $target: this.$productDetail, initialState: this.state });
@@ -39,7 +42,20 @@ export default function ProductDetail({ $target }) {
       chatCounts: this.state.chatCounts,
     },
     onClickFullHeartHandler: (e) => {
-      console.log('hi');
+      this.setState({ ...this.state, isLiked: !this.state.isLiked });
+    },
+    onClickEmptyHeartHandler: (e) => {
+      this.setState({ ...this.state, isLiked: !this.state.isLiked });
     },
   });
+
+  this.setState = (nextState) => {
+    this.state = nextState;
+    productDetailFooter.setState({
+      price: this.state.price,
+      isLiked: this.state.isLiked,
+      isSeller: this.state.isSeller,
+      chatCounts: this.state.chatCounts,
+    });
+  };
 }
