@@ -32,7 +32,7 @@ export default function ImageUploader({ $target, onImageUploadHandler, counts })
       const imageUrl = URL.createObjectURL(f);
       addFiles.push(f);
       addUrls.push(imageUrl);
-    }); //
+    });
     onImageUploadHandler(addUrls, addFiles);
   });
 

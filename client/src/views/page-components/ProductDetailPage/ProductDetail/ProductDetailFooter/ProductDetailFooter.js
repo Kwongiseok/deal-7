@@ -10,10 +10,10 @@ export default function ProductDetailFooter({
 }) {
   /**
    * this.state = {
-   *  price : string,
-   *  isLiked : boolean,
-   *  isSeller : boolean,
-   *  chatCounts : number,
+   *  price : 상품의 가격,
+   *  isLiked : 좋아요 여부,
+   *  isSeller : 판매자인지 구분,
+   *  chatCounts : 열려있는 채팅방 수,
    * }
    */
   this.state = initialState;

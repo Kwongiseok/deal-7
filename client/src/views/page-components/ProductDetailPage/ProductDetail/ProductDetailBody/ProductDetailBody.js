@@ -32,7 +32,7 @@ export default function ProductDetailBody({ $target, initialState }) {
         </div>
       </div>`;
     if (this.state.isSeller) {
-      this.$productDetailBody.classList.add('sellerIsTrue');
+      this.$productDetailBody.classList.add('only-shown-seller');
     }
   };
 

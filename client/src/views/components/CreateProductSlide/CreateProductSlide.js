@@ -8,15 +8,6 @@ import PriceInput from './PriceInput/PriceInput.js';
 import TitleInput from './TitleInput/TitleInput.js';
 
 export default function CreateProductSlide({ $target, initialState }) {
-  // this.state = {
-  //   imageFiles: [],
-  //   imageUrls: [],
-  //   title: '',
-  //   category: '',
-  //   price: '',
-  //   content: '',
-  //   town: town,
-  // };
   this.state = {
     ...initialState,
     imageFiles: [],
