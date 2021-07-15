@@ -8,6 +8,8 @@
 @import "../MainPage/CreateProductSlide/CreateProductSlide.css";
 @import "../MainPage/TownModal/TownModal.css";
 @import "../MainPage/TownSlide/TownSlide.css";
+@import "../MainPage/SignupFieldset/SignupFieldset.css";
+@import "../MainPage/SignupScreen/SignupScreen.css";
 
 #root{
     overflow:hidden;
