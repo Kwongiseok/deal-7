@@ -1,5 +1,6 @@
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 import LoginScreen from '../LoginScreen/LoginScreen.js';
+import LogoutScreen from '../LogoutScreen/LogoutScreen.js';
 import SignupScreen from '../SignupScreen/SignupScreen.js';
 
 export default function UserSlide({ $selector }) {
@@ -16,8 +17,9 @@ export default function UserSlide({ $selector }) {
 
   //state
   this.state = {
-    isLoggedIn: false,
-    isLoginScreen: true,
+    username: 'jong951005@gmail.com',
+    isLoggedIn: true,
+    isLoginScreen: false,
   };
 
   this.setState = (nextState) => {
@@ -60,6 +62,10 @@ export default function UserSlide({ $selector }) {
     if (!isLoggedIn && !isLoginScreen) {
       renderSignupScreen(this.$UserSlideMain);
     }
+
+    if (isLoggedIn) {
+      renderUserScreen(this.$UserSlideMain, this.state.username);
+    }
   };
 
   this.render();
@@ -74,6 +80,11 @@ const renderLoginScreen = ($selector) => {
 const renderSignupScreen = ($selector) => {
   $selector = document.querySelector('.user-slide__main');
   return new SignupScreen({ $selector });
+};
+
+const renderUserScreen = ($selector, username) => {
+  $selector = document.querySelector('.user-slide__main');
+  return new LogoutScreen({ $selector, username });
 };
 
 /**
