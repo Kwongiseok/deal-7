@@ -22,11 +22,7 @@ export default function CategorySlide({ $selector, setCategoryFilter }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    this.checkCurrentCategory(this.state.currentCategory);
-  };
-
-  this.checkCurrentCategory = (currentCategory) => {
-    this.render(currentCategory);
+    this.render(this.state.currentCategory);
   };
 
   // event
