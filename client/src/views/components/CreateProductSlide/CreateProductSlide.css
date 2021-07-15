@@ -25,7 +25,7 @@
 .createProductSlide.slide-trigerred {
   transform: translateY(0%);
 }
-
-.button_icon {
-  width: 18px;
+.CreateProduct__header__back,
+.CreateProduct__header__check {
+  cursor: pointer;
 }

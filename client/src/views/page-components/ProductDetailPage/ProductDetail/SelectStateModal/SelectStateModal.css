@@ -2,6 +2,7 @@
   will-change: opacity;
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
+  pointer-events: none;
 
   display: flex;
   flex-direction: column;
@@ -31,4 +32,5 @@
 .selectStateModal.opened {
   opacity: 1;
   cursor: pointer;
+  pointer-events: auto;
 }

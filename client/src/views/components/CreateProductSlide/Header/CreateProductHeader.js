@@ -1,7 +1,7 @@
 import { CHECK_ICON, LEFT_ICON } from '../../../../constants/imagePath.js';
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
-export default function CreateProductHeader({ $target, onSubmit, initialState }) {
+export default function CreateProductHeader({ $target, onSubmit, onClose, initialState }) {
   this.state = initialState;
   this.onSubmit = onSubmit;
 
@@ -11,6 +11,7 @@ export default function CreateProductHeader({ $target, onSubmit, initialState })
 
   this.$backButton = createDOMwithSelector('img', '.CreateProduct__header__back');
   this.$backButton.src = LEFT_ICON;
+  this.$backButton.onclick = onClose;
 
   this.$checkButton = createDOMwithSelector('img', '.CreateProduct__header__check');
   this.$checkButton.src = CHECK_ICON;

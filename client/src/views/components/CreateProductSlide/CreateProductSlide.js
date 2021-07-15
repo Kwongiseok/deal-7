@@ -30,6 +30,9 @@ export default function CreateProductSlide({ $target, initialState }) {
       formData.append('content', this.state.content);
       formData.append('town', this.state.town);
     },
+    onClose: () => {
+      this.unslide();
+    },
     initialState: { title: this.state.title, category: this.state.category, content: this.state.content },
   });
 
@@ -113,5 +116,9 @@ export default function CreateProductSlide({ $target, initialState }) {
 
   this.slide = () => {
     this.$createProductSlide.classList.add('slide-trigerred');
+  };
+
+  this.unslide = () => {
+    this.$createProductSlide.classList.remove('slide-trigerred');
   };
 }
