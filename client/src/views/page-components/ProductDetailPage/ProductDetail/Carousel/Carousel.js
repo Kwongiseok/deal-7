@@ -43,8 +43,10 @@ export default function Carousel({ $target }) {
 
     // Touch events
     items.addEventListener('touchstart', dragStart);
-    items.addEventListener('touchend', dragEnd);
     items.addEventListener('touchmove', dragAction);
+    items.addEventListener('touchend', dragEnd);
+
+    items.onmousedown = dragStart;
 
     // Transition events
     items.addEventListener('transitionend', checkIndex);

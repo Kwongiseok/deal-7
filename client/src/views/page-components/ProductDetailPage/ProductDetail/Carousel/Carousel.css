@@ -1,7 +1,8 @@
 .carousel__container {
   overflow: hidden;
   position: relative;
-  width: 100vw;
+  width: 100%;
+  max-width: 420px;
   height: 35vh;
   background: #222;
   z-index: 1;
@@ -11,14 +12,16 @@
   display: flex;
   position: relative;
   top: 0;
-  left: -100%;
+  left: -420px;
   width: 10000px;
+  height: 100%;
 }
 .carousel__slides.shifting {
   transition: left 0.2s ease-out;
 }
 .carousel__img {
-  width: 100vw;
+  max-width: 420px;
+  min-width: 420px;
   height: 100%;
   object-fit: cover;
   cursor: pointer;
@@ -27,6 +30,4 @@
   justify-content: center;
   transition: all 1s;
   position: relative;
-  background: #ffcf47;
-  border-radius: 2px;
 }
