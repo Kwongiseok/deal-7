@@ -18,8 +18,8 @@ export default function UserSlide({ $selector }) {
   //state
   this.state = {
     username: 'jong951005@gmail.com',
-    isLoggedIn: true,
-    isLoginScreen: false,
+    isLoggedIn: false,
+    isLoginScreen: true,
   };
 
   this.setState = (nextState) => {
