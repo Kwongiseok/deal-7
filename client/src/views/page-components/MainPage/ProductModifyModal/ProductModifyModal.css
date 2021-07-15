@@ -12,10 +12,12 @@
     width:150px;
     background-color:var(--sub-bg-color);
     box-shadow: 0px 0px 28px 2px rgba(0,0,0,0.2);
+    cursor:default;
 }
 
 .product-modify-modal.opened{
     opacity:1;
+    cursor:pointer;
 }
 
 .product-modify-modal__item{
@@ -28,7 +30,6 @@
     padding:17px;
     font-weight:bold;
     font-size:16px;
-    cursor:pointer;
 }
 
 .product-modify-modal__item.delete > span {

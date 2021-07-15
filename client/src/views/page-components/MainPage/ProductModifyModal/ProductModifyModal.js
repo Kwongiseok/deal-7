@@ -7,11 +7,12 @@ export default function ProductModifyModal({ $selector, idx }) {
 
   const bindEvents = () => {
     this.$ProductModifymodal.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (e.target.closest("[data-attribute='modify']")) {
+      if (e.target.closest(".opened [data-attribute='modify']")) {
+        e.stopPropagation();
         //TODO: Add Modify Event
       }
-      if (e.target.closest("[data-attribute='delete']")) {
+      if (e.target.closest(".opened [data-attribute='delete']")) {
+        e.stopPropagation();
         //TODO: Add Delete Event
       }
     });
