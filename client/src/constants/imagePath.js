@@ -17,11 +17,13 @@ export const SEND_ICON = '/client/public/images/icons/send.svg';
 export const USER_ICON = '/client/public/images/icons/user.svg';
 export const DELETE_PHOTO_ICON = '/client/public/images/icons/deletePhoto.svg';
 
-// baedal2
+// Custom BaeminStyleImage
 export const JOIN_WITH_ME = '/client/public/images/createdBaeminStyleImage/lets-with-me.png';
 export const JOIN_WITH_ME_2 = '/client/public/images/createdBaeminStyleImage/lets-with-me-2.png';
 export const LOGIN_BUTTON = '/client/public/images/createdBaeminStyleImage/login-btn.png';
+export const LOGOUT_BUTTON = '/client/public/images/createdBaeminStyleImage/logout-btn.png';
 export const SIGNUP_BUTTON = '/client/public/images/createdBaeminStyleImage/signup-btn.png';
 export const UNDERLINE_BAEMIN_COLOR = '/client/public/images/createdBaeminStyleImage/underline-baemin-color.png';
 export const UNDERLINE_BLACK_COLOR = '/client/public/images/createdBaeminStyleImage/underline-black-color.png';
 export const LOGIN_LOGO = '/client/public/images/createdBaeminStyleImage/login-logo.png';
+export const THIS_USER_MY_TEAM = '/client/public/images/createdBaeminStyleImage/we-are-the-world.png';
