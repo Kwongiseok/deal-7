@@ -1,10 +1,12 @@
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 import Carousel from './Carousel/Carousel.js';
 import ProductDetailBody from './ProductDetailBody/ProductDetailBody.js';
+import ProductDetailFooter from './ProductDetailFooter/ProductDetailFooter.js';
 
 export default function ProductDetail({ $target }) {
   this.state = {
     images: [],
+    price: '169,000원',
     state: '판매중',
     title: '빈티지 롤러 스케이트',
     category: '기타 중고물품',
@@ -16,10 +18,25 @@ export default function ProductDetail({ $target }) {
     viewCounts: '4',
     seller: '권기석',
     town: '역삼동',
+    isSeller: true,
+    // isSeller : false,
+    isLiked: true,
   };
   this.$productDetail = createDOMwithSelector('div', '.productDetail');
 
   $target.appendChild(this.$productDetail);
   const carousel = new Carousel({ $target: this.$productDetail });
   const productDetailBody = new ProductDetailBody({ $target: this.$productDetail, initialState: this.state });
+  const productDetailFooter = new ProductDetailFooter({
+    $target: this.$productDetail,
+    initialState: {
+      price: this.state.price,
+      isLiked: this.state.isLiked,
+      isSeller: this.state.isSeller,
+      chatCounts: this.state.chatCounts,
+    },
+    onClickFullHeartHandler: (e) => {
+      console.log('hi');
+    },
+  });
 }

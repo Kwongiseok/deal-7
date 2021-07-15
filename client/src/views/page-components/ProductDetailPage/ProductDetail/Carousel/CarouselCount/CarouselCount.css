@@ -1,6 +1,6 @@
 .carousel__counter__container {
   display: flex;
-  top: calc(35vh - 45px);
+  top: 85%;
   position: absolute;
   right: 10px;
   z-index: 1;
