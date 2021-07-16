@@ -1,3 +1,4 @@
+import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
 import CategoryList from './CategoryList/CategoryList.js';
 import ContentInput from './ContentInput/ContentInput.js';
 import CreateProductFooter from './CreateProductFooter/CreateProductFooter.js';
@@ -6,30 +7,21 @@ import ImageContainer from './ImageContainer/ImageContainer.js';
 import PriceInput from './PriceInput/PriceInput.js';
 import TitleInput from './TitleInput/TitleInput.js';
 
-export default function CreateProductSlide({ $target, town }) {
+export default function CreateProductSlide({ $target, initialState }) {
   this.state = {
+    ...initialState,
     imageFiles: [],
-    imageUrls: [],
-    title: '',
-    category: '',
-    price: '',
-    content: '',
-    town: town,
   };
 
-  this.$createProductSlide = document.createElement('div');
+  this.$createProductSlide = createDOMwithSelector('div', '.createProductSlide');
   $target.appendChild(this.$createProductSlide);
-
-  this.$createProductSlide.className = 'createProductSlide';
 
   const createProductHeader = new CreateProductHeader({
     $target: this.$createProductSlide,
     onSubmit: () => {
       const formData = new FormData();
-      const uploadFiles = { ...this.state.imageFiles };
-
-      Object.keys(this.state.imageFiles).forEach((key) => {
-        const file = uploadFiles[key][Object.keys(uploadFiles[key])[0]];
+      const uploadFiles = this.state.imageFiles;
+      uploadFiles.forEach((file) => {
         formData.append('files', file);
       });
       formData.append('title', this.state.title);
@@ -37,6 +29,9 @@ export default function CreateProductSlide({ $target, town }) {
       formData.append('price', this.state.price);
       formData.append('content', this.state.content);
       formData.append('town', this.state.town);
+    },
+    onClose: () => {
+      this.unslide();
     },
     initialState: { title: this.state.title, category: this.state.category, content: this.state.content },
   });
@@ -46,8 +41,8 @@ export default function CreateProductSlide({ $target, town }) {
     onImageUploadHandler: (addUrls, addFiles) => {
       this.setState({
         ...this.state,
-        imageUrls: [...this.state.imageUrls, addUrls],
-        imageFiles: [...this.state.imageFiles, addFiles],
+        imageUrls: [...this.state.imageUrls, ...addUrls],
+        imageFiles: [...this.state.imageFiles, ...addFiles],
       });
     },
     onDeleteImageHandler: (index) => {
@@ -56,8 +51,8 @@ export default function CreateProductSlide({ $target, town }) {
       this.setState({ ...this.state, imageFiles: updatedFiles, imageUrls: updatedUrls });
     },
     initialState: {
-      counts: this.state.imageUrls.length,
       imageUrls: this.state.imageUrls,
+      counts: this.state.imageUrls.length,
     },
   });
 
@@ -117,8 +112,13 @@ export default function CreateProductSlide({ $target, town }) {
     categoryList.setState({ title: this.state.title, category: this.state.category });
     priceInput.setState({ price: this.state.price });
     contentInput.setState({ content: this.state.content });
-    this.render();
   };
 
-  this.render = () => {};
+  this.slide = () => {
+    this.$createProductSlide.classList.add('slide-trigerred');
+  };
+
+  this.unslide = () => {
+    this.$createProductSlide.classList.remove('slide-trigerred');
+  };
 }

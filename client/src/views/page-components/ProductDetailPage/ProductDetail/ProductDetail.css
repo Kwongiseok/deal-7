@@ -1,0 +1,14 @@
+@import './Carousel/Carousel.css';
+@import './ProductDetailBody/ProductDetailBody.css';
+@import './ProductDetailFooter/ProductDetailFooter.css';
+@import './ProductDetailHeader/ProductDetailHeader.css';
+@import './SelectModal/SelectModal.css';
+@import './SelectStateModal/SelectStateModal.css';
+@import './DeleteConfirmModal/DeleteConfirmModal.css';
+@import './ProductStateSelector/ProductStateSelector.css';
+
+.productDetail {
+  box-sizing: border-box;
+  position: relative;
+  height: 100%;
+}

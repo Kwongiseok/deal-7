@@ -1,11 +1,12 @@
+import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
+
 export default function TitleInput({ $target, onInputHandler, initialState }) {
   this.state = initialState;
+  this.onInputHandler = onInputHandler;
 
-  this.$titleInput = document.createElement('input');
-  this.$titleInput.className = 'CreateProduct__title';
+  this.$titleInput = createDOMwithSelector('input', '.CreateProduct__title');
   this.$titleInput.required = true;
   this.$titleInput.placeholder = '글 제목';
-  this.onInputHandler = onInputHandler;
 
   $target.appendChild(this.$titleInput);
 
