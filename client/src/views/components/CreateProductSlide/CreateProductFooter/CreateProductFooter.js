@@ -1,8 +1,8 @@
 import { LOCATION_ICON } from '../../../../constants/imagePath.js';
+import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
 export default function CreateProductFooter({ $target, town }) {
-  this.$CreateFooter = document.createElement('div');
-  this.$CreateFooter.className = 'CreateProduct__footer';
+  this.$CreateFooter = createDOMwithSelector('div', '.CreateProduct__footer');
   $target.appendChild(this.$CreateFooter);
 
   this.render = () => {

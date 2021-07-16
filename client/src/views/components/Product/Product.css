@@ -6,15 +6,20 @@
     padding: 20px;
 }
 
+.product__thumbnail{
+    display:flex;
+    align-items: center;
+    width:40%;
+}
+
 .product__thumbnail-img{
-    width:150px;
-    height:150px;
+    width:100%;
     border-radius:20px;
 }
 
 .product__content{
-    margin-left:30px;
-    width:140px;
+    margin-left:20px;
+    width:40%;
     line-height:1.7;
     text-overflow: ellipsis;
     overflow:hidden;
@@ -53,6 +58,14 @@
     top:20px;
     right:20px;
     width:30px;
+}
+
+.product__dropdown-icon{
+    position:absolute;
+    top:23px;
+    right:20px;
+    width:30px;
+    cursor:pointer;
 }
 
 .product__reaction-wrap{

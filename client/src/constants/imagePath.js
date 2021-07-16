@@ -27,3 +27,7 @@ export const UNDERLINE_BAEMIN_COLOR = '/client/public/images/createdBaeminStyleI
 export const UNDERLINE_BLACK_COLOR = '/client/public/images/createdBaeminStyleImage/underline-black-color.png';
 export const LOGIN_LOGO = '/client/public/images/createdBaeminStyleImage/login-logo.png';
 export const THIS_USER_MY_TEAM = '/client/public/images/createdBaeminStyleImage/we-are-the-world.png';
+export const THUNG = '/client/public/images/createdBaeminStyleImage/thung.png';
+export const DISTRICT_NOTIFICATION = '/client/public/images/createdBaeminStyleImage/district-notification.png';
+export const CLOSE_BUTTON = '/client/public/images/createdBaeminStyleImage/close.png';
+export const OK_BUTTON = '/client/public/images/createdBaeminStyleImage/ok.png';

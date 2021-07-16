@@ -25,6 +25,9 @@ function MainPage() {
       town: '역삼동',
       category: null,
     },
+    user: {
+      town: ['역삼동', '신부동'],
+    },
   };
 
   this.setState = (nextState) => {
@@ -40,6 +43,18 @@ function MainPage() {
   this.setTownModalOpenedState = (state = 'open') => {
     const willModalOpen = state === 'open' ? true : false;
     this.setState({ ...this.state, isTownModalOpened: willModalOpen });
+  };
+
+  this.changeTownFilterValue = ({ town }) => {
+    this.setState({ ...this.state, productFilter: { ...this.state.productFilter, town } });
+    $MainPageNavBar.setState({ currentTown: this.state.productFilter.town, userTowns: this.state.user.town });
+    $TownSlide.setState({ currentTown: this.state.productFilter.town, towns: this.state.user.town });
+  };
+
+  this.changeUserTownState = ({ town }) => {
+    this.setState({ ...this.state, user: { ...this.state.user, town } });
+    $TownModal.setState({ userTowns: this.state.user.town });
+    $TownSlide.setState({ currentTown: this.state.productFilter.town, towns: this.state.user.town });
   };
 
   this.setCategoryFilter = (category) => {
@@ -76,7 +91,10 @@ function MainPage() {
   this.$MainScreen.appendChild(this.$header);
   this.$MainScreen.appendChild(this.$main);
 
-  new MainPageNavBar({ $selector: this.$header });
+  const $MainPageNavBar = new MainPageNavBar({
+    $selector: this.$header,
+    currentTown: this.state.productFilter.town,
+  });
   new ProductsWrap({ $selector: this.$main, products: this.state.products });
   new CreateProductButton({ $selector: this.$MainScreen });
   const $CategorySlide = new CategorySlide({
@@ -87,11 +105,20 @@ function MainPage() {
   const $UserSlide = new UserSlide({ $selector: body });
   const $MenuSlide = new MenuSlide({ $selector: body });
   const $CreateProductSlide = new CreateProductSlide({ $selector: body });
-  const $TownSlide = new TownSlide({ $selector: body });
+  const $TownSlide = new TownSlide({
+    $selector: body,
+    currentTown: this.state.productFilter.town,
+    towns: this.state.user.town,
+    setTownFilter: this.changeTownFilterValue,
+    setUserTown: this.changeUserTownState,
+  });
+
   const $TownModal = new TownModal({
     $selector: body,
+    userTowns: this.state.user.town,
     setTownModalOpenedState: this.setTownModalOpenedState,
     setCurrentlyOpenedSlide: this.setCurrentlyOpenedSlide,
+    setTown: this.changeTownFilterValue,
   });
 
   this.render = () => {

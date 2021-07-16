@@ -1,0 +1,47 @@
+.productDetailFooter {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(12% - 24px);
+  display: flex;
+  align-items: center;
+  border-top: 1px solid var(--line-color);
+}
+
+.productDetailFooter__heart {
+  width: 20%;
+  height: 40px;
+  border-right: 1px solid var(--line-color);
+  cursor: pointer;
+}
+
+.productDetailFooter__right__container {
+  box-sizing: border-box;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.productDetailFooter__price {
+  font-size: 18px;
+  line-height: 16px;
+}
+
+.productDetailFooter__chatButton {
+  border: none;
+  width: 50%;
+  height: 65%;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: var(--button-color-initial);
+  color: #fff;
+  text-align: center;
+  font-family:HannaAir;
+  font-size: 1rem;
+}
+
+.productDetailFooter__chatButton:disabled {
+  background-color: var(--button-color-disabled);
+}

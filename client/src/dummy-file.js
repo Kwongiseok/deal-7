@@ -43,7 +43,7 @@ export const SAMPLE_PRODUCTS_STATE = [
       like: 0,
       message: 1,
     },
-    isLiked: true,
+    isLiked: false,
   },
   {
     title: '빈티지 밀크 글래스테스',

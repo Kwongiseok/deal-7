@@ -1,0 +1,30 @@
+.productStateSelector {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 30%;
+  margin-top: 16px;
+  margin-left: 16px;
+  border-radius: 6px;
+  height: 5%;
+  padding: 0.9rem;
+  border: 1px solid var(--line-color);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.productStateSelector > span {
+  font-family: HannaAir;
+  font-size:0.8rem;
+}
+
+.productStateSelector__icon {
+  width: 1rem;
+}
+
+@media screen and (max-width: 370px) {
+  .productStateSelector {
+    width: 27%;
+  }
+}
