@@ -3,5 +3,5 @@ export default function formatPrice(price) {
   if (!number) return '';
 
   const convertPrice = number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  return `${convertPrice}`;
+  return `₩ ${convertPrice}`;
 }

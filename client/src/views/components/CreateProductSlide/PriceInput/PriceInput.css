@@ -3,7 +3,7 @@
   border: none;
   border-bottom: 1px solid var(--line-color);
   margin: 0 20px;
-  font-family:HannaAir;
+  font-family:NotoSans;
   font-size: 1rem;
   font-weight: 400;
   line-height: 22px;
@@ -11,4 +11,8 @@
 
 .CreateProduct__price:focus {
   outline: none;
+}
+
+.CreateProduct__price::placeholder{
+  font-family: HannaAir;
 }
