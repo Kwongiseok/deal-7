@@ -1,6 +1,7 @@
 .chatDetailPageHeader {
+  box-sizing: border-box;
   display: flex;
-  height: 7%;
+  height: 9%;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
