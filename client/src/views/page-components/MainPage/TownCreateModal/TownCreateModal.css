@@ -1,0 +1,50 @@
+.town-create-modal {
+    display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    width:90%;
+    height:100%;
+    
+    background-color:rgba(0, 0, 0, 0.154);
+}
+
+.town-create-modal.visible{
+    display:block;
+}
+
+.town-create-modal__screen{
+    box-sizing: border-box;
+    position:absolute;
+    top:calc(50% - 150px);
+    left:calc(50% - 175px);
+    height:300px;
+    width:350px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding:30px;
+    border-radius:30px;
+    background-color:#fff;
+}
+
+.town-create-modal__input-field > .baemin-input-field{
+    height:170px;
+}
+
+.town-create-modal__interact-buttons{
+    display:flex;
+    justify-content: space-between;
+}
+
+.town-create-modal__interact-buttons > img{
+    cursor:pointer;
+}
+
+.town-create-modal__interact-buttons--close{
+    width:30px;
+}
+
+.town-create-modal__interact-buttons--submit {
+    width:35px;
+}
