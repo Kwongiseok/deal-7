@@ -1,0 +1,28 @@
+.chatDetailPageHeader {
+  display: flex;
+  height: 7%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.chatDetailPageHeader__back__container {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.chatDetailPageHeader__title {
+}
+
+.chatDetailPageHeader__out__container {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  z-index: 1;
+  cursor: pointer;
+  filter: invert(44%) sepia(96%) saturate(1720%) hue-rotate(330deg) brightness(95%) contrast(101%);
+}

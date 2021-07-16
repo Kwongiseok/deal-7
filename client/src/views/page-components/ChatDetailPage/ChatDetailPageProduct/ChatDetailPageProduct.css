@@ -1,0 +1,18 @@
+.chatDetailPageProduct {
+  box-sizing: border-box;
+  height: 8%;
+  display: flex;
+  padding: 1.1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.chatDetail__product__container {
+  display: flex;
+}
+.chatDetail__product__info {
+  display: flex;
+  flex-direction: column;
+}
+.chatDetail__image {
+  width: 15%;
+}
