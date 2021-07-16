@@ -13,7 +13,9 @@
 @import "../MainPage/SignupFieldset/SignupFieldset.css";
 @import "../MainPage/SignupScreen/SignupScreen.css";
 @import "../MainPage/TownModal/TownModal.css";
+@import "../MainPage/TownPlusButton/TownPlusButton.css";
 @import "../MainPage/TownSlide/TownSlide.css";
+@import "../MainPage/TownSlideButton/TownSlideButton.css";
 @import "../MainPage/UserSlide/UserSlide.css";
 
 #root{
