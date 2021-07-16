@@ -1,0 +1,18 @@
+.chatListHeader {
+  display: flex;
+  height: 7%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.chatListPageHeader__back__container {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.chatListPageHeader__icon.invisible {
+  visibility: hidden;
+}
