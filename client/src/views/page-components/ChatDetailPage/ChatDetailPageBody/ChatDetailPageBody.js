@@ -4,7 +4,7 @@ export default function ChatDetailPageBody({ $target, initialState }) {
   this.state = [
     {
       isMine: true,
-      text: '안녕하세요! 궁금한게 있는데요!',
+      text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
     },
     {
       isMine: false,
@@ -37,14 +37,14 @@ export default function ChatDetailPageBody({ $target, initialState }) {
       return `
       <div class="my__chat__container">
         <div class="my__chat__wrapper">
-          <span class="my__chat">${text}</span>
+          <div class="my__chat">${text}</div>
         </div>
       </div>`;
     } else {
       return `
       <div class="opponent__chat__container">
         <div class="opponent__chat__wrapper">
-          <span class="opponent__chat">${text}</span>
+          <div class="opponent__chat">${text}</div>
         </div>
       </div>
       `;

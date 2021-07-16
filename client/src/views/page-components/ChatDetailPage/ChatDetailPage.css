@@ -1,5 +1,6 @@
 @import './ChatDetaiPageHeader/ChatDetailPageHeader.css';
 @import './ChatDetailPageProduct/ChatDetailPageProduct.css';
+@import './ChatDetailPageBody/ChatDetailPageBody.css';
 
 #root {
   overflow: hidden;
