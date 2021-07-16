@@ -8,51 +8,51 @@ export default function ChatDetailPage() {
   this.state = {
     chats: [
       {
-        isMine: true,
+        isMine: false,
         text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
       },
       {
-        isMine: false,
+        isMine: true,
         text: '네 안녕하세요!',
       },
       {
-        isMine: true,
+        isMine: false,
         text: '혹시',
       },
       {
-        isMine: true,
+        isMine: false,
         text: '실제로 신어볼 수 있는건가요??',
       },
       {
-        isMine: true,
+        isMine: false,
         text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
       },
       {
-        isMine: false,
+        isMine: true,
         text: '네 안녕하세요!',
       },
       {
-        isMine: true,
+        isMine: false,
         text: '혹시',
       },
       {
-        isMine: true,
+        isMine: false,
         text: '실제로 신어볼 수 있는건가요??',
       },
       {
-        isMine: true,
+        isMine: false,
         text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
       },
       {
-        isMine: false,
+        isMine: true,
         text: '네 안녕하세요!',
       },
       {
-        isMine: true,
+        isMine: false,
         text: '혹시',
       },
       {
-        isMine: true,
+        isMine: false,
         text: '실제로 신어볼 수 있는건가요??',
       },
     ],

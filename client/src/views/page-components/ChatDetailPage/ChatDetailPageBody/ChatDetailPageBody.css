@@ -22,21 +22,21 @@
   align-items: center;
   border-radius: 6px;
 }
-.my__chat__container {
+.opponent__chat__container {
   align-items: flex-start;
 }
-.opponent__chat__container {
+.my__chat__container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
-.my__chat__wrapper {
+.opponent__chat__wrapper {
   border: 1px solid var(--button-color-initial);
   border-radius: 0px 8px 8px 8px;
   max-width: 72%;
 }
 
-.opponent__chat__wrapper {
+.my__chat__wrapper {
   border: none;
   border-radius: 8px 0px 8px 8px;
   max-width: 72%;
@@ -50,6 +50,6 @@
   padding: 0.6rem;
   line-height: 1.2rem;
 }
-.opponent__chat {
+.my__chat {
   color: #fff;
 }
