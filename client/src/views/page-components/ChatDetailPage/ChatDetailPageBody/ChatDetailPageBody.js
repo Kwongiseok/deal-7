@@ -1,62 +1,17 @@
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
 export default function ChatDetailPageBody({ $target, initialState }) {
-  this.state = [
-    {
-      isMine: true,
-      text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
-    },
-    {
-      isMine: false,
-      text: '네 안녕하세요!',
-    },
-    {
-      isMine: true,
-      text: '혹시',
-    },
-    {
-      isMine: true,
-      text: '실제로 신어볼 수 있는건가요??',
-    },
-    {
-      isMine: true,
-      text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
-    },
-    {
-      isMine: false,
-      text: '네 안녕하세요!',
-    },
-    {
-      isMine: true,
-      text: '혹시',
-    },
-    {
-      isMine: true,
-      text: '실제로 신어볼 수 있는건가요??',
-    },
-    {
-      isMine: true,
-      text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
-    },
-    {
-      isMine: false,
-      text: '네 안녕하세요!',
-    },
-    {
-      isMine: true,
-      text: '혹시',
-    },
-    {
-      isMine: true,
-      text: '실제로 신어볼 수 있는건가요??',
-    },
-  ];
-  // this.state = initialState;
+  this.state = initialState;
   this.$body = createDOMwithSelector('div', '.chatDetailPageBody');
   $target.appendChild(this.$body);
 
+  this.setState = (nextState) => {
+    this.state = nextState;
+    this.render();
+  };
+
   this.render = () => {
-    const convertedHtml = this.state
+    const convertedHtml = this.state.chats
       .map((chat) => {
         return this.checkWhoseChat(chat.isMine, chat.text);
       })

@@ -5,7 +5,58 @@ import ChatDetailPageProduct from './ChatDetailPageProduct/ChatDetailPageProduct
 import ChatDetailPageHeader from './ChatDetaiPageHeader/ChatDetailPageHeader.js';
 
 export default function ChatDetailPage() {
-  this.state = {};
+  this.state = {
+    chats: [
+      {
+        isMine: true,
+        text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
+      },
+      {
+        isMine: false,
+        text: '네 안녕하세요!',
+      },
+      {
+        isMine: true,
+        text: '혹시',
+      },
+      {
+        isMine: true,
+        text: '실제로 신어볼 수 있는건가요??',
+      },
+      {
+        isMine: true,
+        text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
+      },
+      {
+        isMine: false,
+        text: '네 안녕하세요!',
+      },
+      {
+        isMine: true,
+        text: '혹시',
+      },
+      {
+        isMine: true,
+        text: '실제로 신어볼 수 있는건가요??',
+      },
+      {
+        isMine: true,
+        text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
+      },
+      {
+        isMine: false,
+        text: '네 안녕하세요!',
+      },
+      {
+        isMine: true,
+        text: '혹시',
+      },
+      {
+        isMine: true,
+        text: '실제로 신어볼 수 있는건가요??',
+      },
+    ],
+  };
   const $target = document.querySelector('#root');
 
   this.$chatDetailPage = createDOMwithSelector('div', '.chatDetailPage');
@@ -15,9 +66,20 @@ export default function ChatDetailPage() {
 
   new ChatDetailPageProduct({ $target: this.$chatDetailPage });
 
-  new ChatDetailPageBody({ $target: this.$chatDetailPage });
+  const chatBody = new ChatDetailPageBody({ $target: this.$chatDetailPage, initialState: { chats: this.state.chats } });
 
-  new ChatDetailPageFooter({ $target: this.$chatDetailPage });
+  new ChatDetailPageFooter({
+    $target: this.$chatDetailPage,
+    onSendChatHandler: (chat) => {
+      // TODO : API 요청
+      this.setState({ ...this.state, chats: [...this.state.chats, { isMine: true, text: chat }] });
+    },
+  });
+
+  this.setState = (nextState) => {
+    this.state = nextState;
+    chatBody.setState({ ...chatBody.state, chats: this.state.chats });
+  };
 }
 
 new ChatDetailPage();

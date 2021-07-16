@@ -1,9 +1,9 @@
 import { SEND_ICON } from '../../../../constants/imagePath.js';
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
-export default function ChatDetailPageFooter({ $target }) {
+export default function ChatDetailPageFooter({ $target, onSendChatHandler }) {
   this.state = {
-    text: '2',
+    text: '',
   };
   this.$footer = createDOMwithSelector('div', '.chatDetailPageFooter');
 
@@ -27,7 +27,12 @@ export default function ChatDetailPageFooter({ $target }) {
     const $input = document.querySelector('.chatDetailPageFooter__input');
     const $button = document.querySelector('.chatDetailPageFooter__button');
     $input.addEventListener('keypress', (e) => {
-      console.log(e.target);
+      if (e.key === 'Enter') {
+        onSendChatHandler(e.target.value);
+        e.target.value = '';
+      } else {
+        this.state.text = e.target.value;
+      }
     });
   };
   this.bindEvent();
