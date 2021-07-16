@@ -1,0 +1,125 @@
+.productDetailBody {
+  box-sizing: border-box;
+  position: relative;
+  height: 53%;
+  margin: 24px 16px 0 16px;
+}
+.productDetailBody.only-shown-seller {
+  height: 48%;
+  margin: 7px 16px 0 16px;
+}
+
+.productDetailBody__title__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 20%;
+}
+.productDetailBody__title {
+  font-size: 24px;
+  line-height: 24px;
+  margin-bottom: 8px;
+}
+.productDetailBdoy__subInfo {
+  display: flex;
+  position: relative;
+  color: var(--sub-info-color);
+  font-size: 1rem;
+  line-height: 16px;
+}
+.subInfo__title:not(:last-child) {
+  position: relative;
+  padding-right: 8px;
+}
+.subInfo__title:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 2px;
+  width: 1px;
+  height: 1px;
+  border: 2px solid rgb(221, 221, 221);
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.productDetailBody__content {
+  height: 45%;
+  width: 100%;
+  font-size: 1.1rem;
+  line-height: 1.6rem;
+  margin-bottom: 24px;
+  resize: none;
+  border: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.productDetailBody__content::-webkit-scrollbar {
+  display: none;
+}
+.productDetailBody__content:focus {
+  outline: none;
+}
+
+.productDetailBody__info__container {
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+}
+
+.productDetailBody__info {
+  display: flex;
+  color: var(--sub-info-color);
+  font-size: 14px;
+  line-height: 16px;
+  margin-bottom: 1rem;
+}
+
+.productDetailBody__info_subtitle:not(:last-child) {
+  position: relative;
+  padding-right: 8px;
+}
+
+.productDetailBody__info_subtitle:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 2px;
+  width: 1px;
+  height: 1px;
+  border: 2px solid rgb(221, 221, 221);
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.productDetailBody__sellerInfo {
+  display: flex;
+  box-sizing: border-box;
+  padding: 16px 32px;
+  background-color: var(--sub-bg-color);
+  height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+}
+.sellerInfo__title,
+.sellerInfo__name {
+  font-size: 20px;
+}
+.sellerInfo__name {
+  padding-right: 12px;
+}
+.sellerInfo__town {
+  color: var(--sub-info-color);
+}
+
+@media screen and (max-width: 380px) {
+  .productDetailBody__sellerInfo {
+    padding: 12px 24px;
+    font-size: 10px;
+    line-height: 12px;
+  }
+  .productDetailBody__content {
+    height: 35%;
+  }
+}

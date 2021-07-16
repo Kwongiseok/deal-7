@@ -10,12 +10,22 @@
 
 .createProductSlide {
   display: flex;
+  flex-direction: column;
+  will-change: transform;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 100%;
-  flex-direction: column;
-  position: relative;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 4;
 }
 
-.button_icon {
-  width: 18px;
+.createProductSlide.slide-trigerred {
+  transform: translateY(0%);
+}
+.CreateProduct__header__back,
+.CreateProduct__header__check {
+  cursor: pointer;
 }

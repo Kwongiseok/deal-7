@@ -1,0 +1,56 @@
+.deleteConfirmModal {
+  position: absolute;
+  z-index: 1004;
+  text-align: center;
+  background-color: #00000080;
+  top: 0;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.deleteConfirmModal.opened {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.deleteConfirmModal__wrapper {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 15%;
+  margin: auto;
+  background-color: var(--sub-bg-color);
+  border-radius: 6px;
+}
+
+.deleteConfirmModal__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  width: 70%;
+}
+
+.deleteConfirmModal__button__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteConfirmModal__button__container > button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.deleteConfirmModal__delete {
+  color: var(--error-color);
+}
