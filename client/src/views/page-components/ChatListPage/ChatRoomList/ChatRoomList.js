@@ -21,7 +21,9 @@ export default function ChatRoomList({ $target }) {
   $target.appendChild(this.$chatRoomList);
 
   this.render = () => {
-    this.$chatRoomList.innerHTML = `
+    this.$chatRoomList.innerHTML = [0, 1, 2, 3]
+      .map(
+        (item) => `
     <li class="chatRoomList__chatRoom">
       <div class="chatroom__chat__container">  
         <div class="chatRoom__info">
@@ -33,8 +35,12 @@ export default function ChatRoomList({ $target }) {
             ${getUnreadChats()}
         </div>
       </div>
-      <img class="chatRoom__thumbnail" src="${this.state.thumbnail}"/>
-    </li>`;
+      <div class="chatRoom__thumbnail__container">
+        <img class="chatRoom__thumbnail" src="${this.state.thumbnail}"/>
+      </div>
+    </li>`
+      )
+      .join('');
   };
 
   const getUnreadChats = () => {
