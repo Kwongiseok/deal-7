@@ -9,7 +9,6 @@ export default function Thung({ $selector, message }) {
     `;
 
   this.render = () => {
-    console.log(this.$Thung);
     $selector.appendChild(this.$Thung);
   };
 

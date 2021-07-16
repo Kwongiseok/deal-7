@@ -11,7 +11,7 @@ export default function LikeListScreen({ $selector, likeList }) {
       });
     }
 
-    return likeList.map((saleListInfo) => {
+    likeList.forEach((saleListInfo) => {
       new Product({
         $selector,
         infos: saleListInfo,
