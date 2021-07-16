@@ -32,7 +32,6 @@ function MainPage() {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    console.log(this.state);
     this.render();
   };
 
