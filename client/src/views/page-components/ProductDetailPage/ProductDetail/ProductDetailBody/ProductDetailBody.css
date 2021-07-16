@@ -46,14 +46,16 @@
 .productDetailBody__content {
   height: 45%;
   width: 100%;
-  font-size: 1.1rem;
   line-height: 1.6rem;
   margin-bottom: 24px;
   resize: none;
   border: none;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  font-family:HannaAir;
+  font-size:0.9rem;
 }
+
 .productDetailBody__content::-webkit-scrollbar {
   display: none;
 }
