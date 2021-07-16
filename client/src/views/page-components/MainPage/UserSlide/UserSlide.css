@@ -39,6 +39,11 @@
     transition: all 0.3s ease-in-out;
 }
 
+.user-slide__title.not-choiced:hover{
+    background-color:#fff;
+    color:var(--font-color);
+}
+
 .user-slide__title.signup{
     top:175px;
 }
