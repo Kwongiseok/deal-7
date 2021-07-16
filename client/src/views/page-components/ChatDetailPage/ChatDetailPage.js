@@ -1,4 +1,5 @@
 import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
+import ChatDetailPageBody from './ChatDetailPageBody/ChatDetailPageBody.js';
 import ChatDetailPageProduct from './ChatDetailPageProduct/ChatDetailPageProduct.js';
 import ChatDetailPageHeader from './ChatDetaiPageHeader/ChatDetailPageHeader.js';
 
@@ -12,6 +13,8 @@ export default function ChatDetailPage() {
   new ChatDetailPageHeader({ $target: this.$chatDetailPage });
 
   new ChatDetailPageProduct({ $target: this.$chatDetailPage });
+
+  new ChatDetailPageBody({ $target: this.$chatDetailPage });
 }
 
 new ChatDetailPage();
