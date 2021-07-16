@@ -13,6 +13,10 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
 
   this.onClickHandler = (e) => {
     const category = e.target.closest('li')?.dataset.category;
+    if (category === '기타') {
+      // data-속성 공백이 제거 되는 부분, 예외처리
+      onClickHandler('기타 중고물품');
+    }
     onClickHandler(category);
   };
 
@@ -27,19 +31,20 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
   };
 
   this.render = () => {
-    this.convertToHTML();
+    const html = this.convertToHTML();
+    this.$categoryList.innerHTML = html;
   };
 
   this.convertToHTML = () => {
     const html = this.category_list
       .map((category) => {
-        if (category === this.state.category) {
+        if (category.includes(this.state.category)) {
           return `<li class="categoryList__category category__clicked" data-category=${category}>${category}</li>`;
         }
         return `<li class="categoryList__category" data-category=${category}>${category}</li>`;
       })
       .join('');
-    this.$categoryList.innerHTML = html;
+    return html;
   };
 
   this.render();
