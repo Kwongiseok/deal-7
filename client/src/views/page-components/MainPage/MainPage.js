@@ -19,7 +19,7 @@ function MainPage() {
    */
   this.state = {
     products: SAMPLE_PRODUCTS_STATE,
-    currentlyOpenedSlide: 'town',
+    currentlyOpenedSlide: null,
     isTownModalOpened: false,
     productFilter: {
       town: '역삼동',
