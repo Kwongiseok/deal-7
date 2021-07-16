@@ -7,7 +7,7 @@ export default function PriceInput({ $target, onInputHandler, initialState }) {
   this.$priceInput = createDOMwithSelector('input', '.CreateProduct__price');
   $target.appendChild(this.$priceInput);
 
-  this.$priceInput.placeholder = '₩ 가격(선택사항)';
+  this.$priceInput.placeholder = '가격(선택사항)';
 
   this.$priceInput.addEventListener('input', this.onInputHandler);
 

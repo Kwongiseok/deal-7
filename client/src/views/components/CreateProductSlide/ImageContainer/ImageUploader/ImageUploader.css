@@ -10,3 +10,9 @@
   border: 1px solid #d7d7d7;
   margin-right: 16px;
 }
+
+.image_Upload_Button > span {
+  font-family:HannaAir;
+  margin-top:5px;
+  font-size:0.65rem;
+}

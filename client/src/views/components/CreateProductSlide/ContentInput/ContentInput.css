@@ -1,11 +1,12 @@
 .CreateProduct__content {
   border: none;
   height: 25vh;
-  font-size: 16px;
-  font-weight: 400;
   line-height: 22px;
   padding: 48px 0;
   margin: 0 20px;
+  font-family:HannaAir;
+  font-size:0.9rem;
+  font-weight: 400;
   resize: none;
 }
 .CreateProduct__content:focus {
