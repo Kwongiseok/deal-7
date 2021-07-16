@@ -3,6 +3,7 @@
 @import './views/components/components.css';
 @import './views/page-components/MainPage/MainPage.css';
 @import './views/page-components/ChatListPage/ChatListPage.css';
+@import './views/page-components/ChatDetailPage/ChatDetailPage.css';
 
 @font-face {
   font-family: HannaAir;
