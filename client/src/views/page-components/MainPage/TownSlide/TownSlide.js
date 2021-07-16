@@ -2,6 +2,7 @@ import { DISTRICT_NOTIFICATION } from '../../../../constants/imagePath.js';
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 import TownSlideButton from '../TownSlideButton/TownSlideButton.js';
 import TownPlusButton from '../TownPlusButton/TownPlusButton.js';
+import TownCreateModal from '../TownCreateModal/TownCreateModal.js';
 
 export default function TownSlide({ $selector, currentTown, towns, setTownFilter, setUserTown }) {
   this.$TownSlide = createDOMwithSelector('div', '.town-slide');
@@ -13,6 +14,11 @@ export default function TownSlide({ $selector, currentTown, towns, setTownFilter
     }
 
     return this.$TownSlide.classList.add('slide-trigerred');
+  };
+
+  this.addUserTownState = (newUserTown) => {
+    if (this.state.towns.length === 2) return;
+    setUserTown({ town: [...this.state.towns, newUserTown] });
   };
 
   //state
@@ -33,10 +39,22 @@ export default function TownSlide({ $selector, currentTown, towns, setTownFilter
       if (target.classList.contains('town-slide-button')) {
         setTownFilter({ town: target.innerText.trim() });
       }
+
       if (target.dataset.eraseItem) {
-        const eraseItem = target.dataset.eraseItem.split('-')[1];
-        const erasedTowns = this.state.towns.filter((elem) => elem !== eraseItem);
-        setUserTown({ town: erasedTowns, currentTownFilter: erasedTowns[0] });
+        if (target.parentNode.dataset.isChoiced) return alert('메인 동네는 삭제할 수 없습니다.');
+
+        if (confirm('정말 삭제하실거예요?')) {
+          const eraseItem = target.dataset.eraseItem.split('-')[1];
+          const erasedTowns = this.state.towns.filter((elem) => elem !== eraseItem);
+          setUserTown({ town: erasedTowns, currentTownFilter: erasedTowns[0] });
+        }
+      }
+
+      const $TownCreateModal = document.querySelector('.town-create-modal');
+      if (target.closest('.town-plus-button')) {
+        $TownCreateModal.classList.add('visible');
+      } else {
+        $TownCreateModal.classList.remove('visible');
       }
     });
   };
@@ -58,6 +76,8 @@ export default function TownSlide({ $selector, currentTown, towns, setTownFilter
     if (this.state.towns.length < 2) {
       new TownPlusButton({ $selector: $TownScreen });
     }
+
+    new TownCreateModal({ $selector: this.$TownSlide, addUserTownState: this.addUserTownState });
   };
 
   this.render();
