@@ -1,37 +1,43 @@
-@import "./constants/imagePath.js";
-@import "./reset.css";
-@import "./views/components/components.css";
-@import "./views/page-components/MainPage/MainPage.css";
+@import './constants/imagePath.js';
+@import './reset.css';
+@import './views/components/components.css';
+@import './views/page-components/MainPage/MainPage.css';
+@import './views/page-components/ProductDetailPage/ProductDetailPage.css';
+@import './views/page-components/ChatListPage/ChatListPage.css';
 
-@font-face{
-    font-family:HannaAir;
-    src:url("../public/font/BMHANNAAir.otf")
+
+@font-face {
+  font-family: HannaAir;
+  src: url('../public/font/BMHANNAAir.otf');
 }
 
-@font-face{
-    font-family:HannaPro;
-    src:url("../public/font/BMHANNAPro.otf")
+@font-face {
+  font-family: HannaPro;
+  src: url('../public/font/BMHANNAPro.otf');
 }
 
-:root{
-    --button-color-initial: #2ac1bc;
-    --button-color-hovered:#219a95;
-    --button-color-focused:#2ac1bc;
-    --button-color-disabled:#a0e1e0;
-    
-    --font-color:#222;
-    --sub-font-color:#5d5c5c;
-    
-    --error-color:#f45452;
-    --sub-bg-color:#f6f6f6;
-    --line-color:#d7d7d7;
-    --placeholder-color:#bbbbbb;
-    --title-link-color:#222;
-    
-    --mobile-default-width: 500px;
+:root {
+  --button-color-initial: #2ac1bc;
+  --button-color-hovered: #219a95;
+  --button-color-focused: #2ac1bc;
+  --button-color-disabled: #a0e1e0;
+
+  --font-color: #222;
+  --sub-font-color: #5d5c5c;
+
+  --error-color: #f45452;
+  --sub-bg-color: #f6f6f6;
+  --line-color: #d7d7d7;
+  --placeholder-color: #bbbbbb;
+  --title-link-color: #222;
+  --sub-info-color: #888888;
+
+
+  --mobile-default-width: 500px;
 }
 
-html, body {
-    width:100vw;
-    height:100vh;
+html,
+body {
+  width: 100vw;
+  height: 100vh;
 }

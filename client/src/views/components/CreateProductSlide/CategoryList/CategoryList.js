@@ -1,15 +1,15 @@
 import { CATEGORY_LIST } from '../../../../constants/categoryList.js';
+import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
 export default function CategoryList({ $target, onClickHandler, initialState }) {
   this.state = initialState; // {title: '', category : '' }
   this.category_list = [...CATEGORY_LIST].sort(() => Math.random() - Math.random());
-  this.$categoryListContainer = document.createElement('div');
-  this.$categoryListContainer.className = 'categoryList__container';
-  this.$categoryListTitle = document.createElement('p');
-  this.$categoryListTitle.className = 'categoryList__title';
+
+  this.$categoryListContainer = createDOMwithSelector('div', '.categoryList__container');
+  this.$categoryListTitle = createDOMwithSelector('p', '.categoryList__title');
   this.$categoryListTitle.innerText = '(필수)카테고리를 선택해주세요.';
-  this.$categoryList = document.createElement('ul');
-  this.$categoryList.className = 'categoryList';
+
+  this.$categoryList = createDOMwithSelector('ul', '.categoryList');
 
   this.onClickHandler = (e) => {
     const category = e.target.closest('li')?.dataset.category;
