@@ -9,7 +9,7 @@ export default function TownSlideButton({ $selector, townName, isChoiced }) {
   this.render = () => {
     this.$TownSlideButton.innerHTML = `
         <span>${townName}</span>
-        <img src=${CLOSE_BUTTON} data-erase-item=erase-${townName}>
+        <img src=${CLOSE_BUTTON} class=erase-town data-erase-item=erase-${townName}>
     `;
   };
 

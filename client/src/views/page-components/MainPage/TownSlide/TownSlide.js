@@ -40,22 +40,26 @@ export default function TownSlide({ $selector, currentTown, towns, setTownFilter
         setTownFilter({ town: target.innerText.trim() });
       }
 
-      if (target.dataset.eraseItem) {
-        if (target.parentNode.dataset.isChoiced) return alert('메인 동네는 삭제할 수 없습니다.');
-
-        if (confirm('정말 삭제하실거예요?')) {
-          const eraseItem = target.dataset.eraseItem.split('-')[1];
-          const erasedTowns = this.state.towns.filter((elem) => elem !== eraseItem);
-          setUserTown({ town: erasedTowns, currentTownFilter: erasedTowns[0] });
-        }
-      }
-
       const $TownCreateModal = document.querySelector('.town-create-modal');
       if (target.closest('.town-plus-button')) {
         $TownCreateModal.classList.add('visible');
       } else {
         $TownCreateModal.classList.remove('visible');
       }
+    });
+
+    document.querySelectorAll('.erase-town').forEach((eraseTownButton) => {
+      eraseTownButton.addEventListener('click', ({ target }) => {
+        if (target.dataset.eraseItem) {
+          if (target.parentNode.dataset.isChoiced === 'true') return alert('메인 동네는 삭제할 수 없습니다.');
+
+          if (confirm('정말 삭제하실거예요?')) {
+            const eraseItem = target.dataset.eraseItem.split('-')[1];
+            const erasedTowns = this.state.towns.filter((elem) => elem !== eraseItem);
+            setUserTown({ town: erasedTowns, currentTownFilter: erasedTowns[0] });
+          }
+        }
+      });
     });
   };
 
