@@ -1,6 +1,7 @@
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
 export default function ChatRoomList({ $target }) {
+  // TODO 권기석 : 더미데이터, API 연동 후 수정할 예정입니다.
   this.state = {
     username: 'UserE',
     lastChat: '실제로 신어볼 수 있는건가요??',
