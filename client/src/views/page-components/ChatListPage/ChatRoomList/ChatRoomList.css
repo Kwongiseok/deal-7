@@ -3,7 +3,14 @@
   position: relative;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   font-size: 1.1rem;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.chatRoomList::-webkit-scrollbar {
+  display: none;
 }
 
 .chatRoomList__chatRoom {

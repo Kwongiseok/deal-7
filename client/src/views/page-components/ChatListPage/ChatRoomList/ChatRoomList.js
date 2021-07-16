@@ -22,7 +22,7 @@ export default function ChatRoomList({ $target }) {
   $target.appendChild(this.$chatRoomList);
 
   this.render = () => {
-    this.$chatRoomList.innerHTML = [0, 1, 2, 3]
+    this.$chatRoomList.innerHTML = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5]
       .map(
         (item) => `
     <li class="chatRoomList__chatRoom">
