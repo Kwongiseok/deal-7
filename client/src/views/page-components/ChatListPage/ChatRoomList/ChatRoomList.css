@@ -42,6 +42,11 @@
 .chatRoom__chat {
   color: var(--sub-font-color);
   font-size: 0.9rem;
+  max-width: 88%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: start;
 }
 
 .chatRoom__thumbnail__container {
