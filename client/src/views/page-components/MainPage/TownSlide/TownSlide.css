@@ -1,14 +1,53 @@
 .town-slide{
+    --menu-slide-margin-value: 10%;
     will-change: transform;
     position:absolute;
     top:0;
     width:100%;
     height:100%;
-    background-color:darkkhaki;
-    transform:translateX(100%);
+    background-color:#fff;
+    transform:translateX(calc(100% + var(--menu-slide-margin-value)));
     transition: transform 0.3s ease-in-out;
+    border-left:1px solid var(--placeholder-color);
+    z-index:9997;
 }
 
 .town-slide.slide-trigerred {
-    transform:translateX(10%);
+    transform:translateX(var(--menu-slide-margin-value));
+}
+
+.town-slide__title{
+    position:absolute;
+    top:200px;
+    left:-41px;
+    padding: 10px;
+    font-size:24px;
+    width:20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border:1px solid var(--placeholder-color);
+    border-right:none;
+    background-color: #fff;
+    color:var(--font-color);
+    cursor:pointer;
+}
+
+.town-screen{
+    box-sizing: border-box;
+    width:90%;
+    padding:0 20px;
+    height:100%;
+}
+
+.town-screen > img{
+    margin-top:100px;
+    width:100%;
+}
+
+.town-screen__buttons{
+    margin-top:60px;
+}
+
+.town-screen__buttons > button:not(:last-child){
+    margin-bottom:50px;
 }
