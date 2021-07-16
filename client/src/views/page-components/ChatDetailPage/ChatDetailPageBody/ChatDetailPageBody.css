@@ -5,8 +5,13 @@
   height: 70%;
   border-bottom: 1px solid var(--line-color);
   padding: 0 1.4rem;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-
+.chatDetailPageBody::-webkit-scrollbar {
+  display: none;
+}
 .my__chat__container,
 .opponent__chat__container {
   box-sizing: border-box;

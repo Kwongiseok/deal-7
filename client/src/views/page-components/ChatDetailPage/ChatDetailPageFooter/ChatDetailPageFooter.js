@@ -26,8 +26,8 @@ export default function ChatDetailPageFooter({ $target }) {
   this.bindEvent = () => {
     const $input = document.querySelector('.chatDetailPageFooter__input');
     const $button = document.querySelector('.chatDetailPageFooter__button');
-    $input.addEventListener('input', (e) => {
-      console.log(e);
+    $input.addEventListener('keypress', (e) => {
+      console.log(e.target);
     });
   };
   this.bindEvent();

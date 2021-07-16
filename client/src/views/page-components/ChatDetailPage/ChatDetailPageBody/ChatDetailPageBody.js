@@ -18,6 +18,38 @@ export default function ChatDetailPageBody({ $target, initialState }) {
       isMine: true,
       text: '실제로 신어볼 수 있는건가요??',
     },
+    {
+      isMine: true,
+      text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
+    },
+    {
+      isMine: false,
+      text: '네 안녕하세요!',
+    },
+    {
+      isMine: true,
+      text: '혹시',
+    },
+    {
+      isMine: true,
+      text: '실제로 신어볼 수 있는건가요??',
+    },
+    {
+      isMine: true,
+      text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
+    },
+    {
+      isMine: false,
+      text: '네 안녕하세요!',
+    },
+    {
+      isMine: true,
+      text: '혹시',
+    },
+    {
+      isMine: true,
+      text: '실제로 신어볼 수 있는건가요??',
+    },
   ];
   // this.state = initialState;
   this.$body = createDOMwithSelector('div', '.chatDetailPageBody');
@@ -30,6 +62,8 @@ export default function ChatDetailPageBody({ $target, initialState }) {
       })
       .join('');
     this.$body.innerHTML = convertedHtml;
+
+    this.$body.scrollTop = this.$body.scrollHeight;
   };
 
   this.checkWhoseChat = (isMine, text) => {
