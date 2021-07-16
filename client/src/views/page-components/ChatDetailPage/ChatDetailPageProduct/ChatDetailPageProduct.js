@@ -13,7 +13,7 @@ export default function ChatDetailPageProduct({ $target }) {
         <div class="chatDetail__product__container">
           <div class="chatDetail__image__container">
             <img
-              class="chatDetail__image"
+              class="chatDetail__product__image"
               src="https://i.pinimg.com/564x/d7/ec/75/d7ec75c9e68873ee75b734ac4ab09ced.jpg"
             />
           </div>
