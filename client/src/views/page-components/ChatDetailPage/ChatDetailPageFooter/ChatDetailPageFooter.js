@@ -14,26 +14,34 @@ export default function ChatDetailPageFooter({ $target, onSendChatHandler }) {
         <img class="chatDetailPageFooter__icon" src="${SEND_ICON}"/>
       </button>
     `;
+
+  this.$sendButton = document.querySelector('.chatDetailPageFooter__button');
+
+  this.setState = (nextState) => {
+    this.state = nextState;
+    this.render();
+  };
   this.render = () => {
-    const $sendButton = document.querySelector('.chatDetailPageFooter__button');
     if (this.state.text.length > 0) {
-      $sendButton.disabled = false;
+      this.$sendButton.disabled = false;
     } else {
-      $sendButton.disabled = true;
+      this.$sendButton.disabled = true;
     }
   };
 
   this.bindEvent = () => {
+    // $input 이벤트를 두 개로 나눈 이유 : 서로 반응하는 타이밍이 각기 달라서 문제가 생김.
     const $input = document.querySelector('.chatDetailPageFooter__input');
-    const $button = document.querySelector('.chatDetailPageFooter__button');
-    $input.addEventListener('keypress', (e) => {
+    $input.addEventListener('input', (e) => {
+      this.setState({ text: e.target.value });
+    });
+    $input.onkeypress = (e) => {
       if (e.key === 'Enter') {
         onSendChatHandler(e.target.value);
         e.target.value = '';
-      } else {
-        this.state.text = e.target.value;
+        this.setState({ text: e.target.value });
       }
-    });
+    };
   };
   this.bindEvent();
 
