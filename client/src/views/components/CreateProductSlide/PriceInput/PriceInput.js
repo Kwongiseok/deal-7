@@ -17,7 +17,7 @@ export default function PriceInput({ $target, onInputHandler, initialState }) {
   };
 
   this.render = () => {
-    if (this.$priceInput.value) {
+    if (this.state.price) {
       this.$priceInput.value = formatPrice(this.state.price);
     }
   };

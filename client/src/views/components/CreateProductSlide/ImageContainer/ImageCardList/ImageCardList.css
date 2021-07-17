@@ -34,4 +34,7 @@
 
 .button_icon {
   width: 18px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
 }

@@ -1,0 +1,42 @@
+.chatDetailPageFooter {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  background-color: var(--sub-bg-color);
+  height: 10%;
+  padding: 0 1rem;
+}
+
+.chatDetailPageFooter__input {
+  box-sizing: border-box;
+  height: 50%;
+  width: 83%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  font-family: HannaAir;
+}
+.chatDetailPageFooter__input:focus {
+  outline-color: var(--button-color-focused);
+}
+.chatDetailPageFooter__input::placeholder {
+  font-family: HannaAir;
+}
+
+.chatDetailPageFooter__button {
+  background-color: transparent;
+  border: none;
+  width: calc(17% - 1rem);
+  cursor: pointer;
+}
+
+.chatDetailPageFooter__icon {
+  filter: invert(88%) sepia(98%) saturate(6702%) hue-rotate(124deg) brightness(80%) contrast(84%);
+  height: 2em;
+}
+.chatDetailPageFooter__button:disabled > img {
+  filter: invert(58%) sepia(3%) saturate(0%) hue-rotate(121deg) brightness(96%) contrast(88%);
+}
