@@ -85,7 +85,7 @@ export default function ChatDetailPage() {
   new ChatDetailPageFooter({
     $target: this.$chatDetailPage,
     onSendChatHandler: (chat) => {
-      // TODO : API 요청
+      // TODO: API 요청
       this.setState({ ...this.state, chats: [...this.state.chats, { isMine: true, text: chat }] });
     },
   });

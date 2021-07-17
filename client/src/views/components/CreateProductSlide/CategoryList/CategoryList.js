@@ -36,7 +36,7 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
   };
 
   this.convertToHTML = () => {
-    const html = this.category_list
+    return this.category_list
       .map((category) => {
         if (category.includes(this.state.category)) {
           return `<li class="categoryList__category category__clicked" data-category=${category}>${category}</li>`;
@@ -44,7 +44,6 @@ export default function CategoryList({ $target, onClickHandler, initialState }) 
         return `<li class="categoryList__category" data-category=${category}>${category}</li>`;
       })
       .join('');
-    return html;
   };
 
   this.render();

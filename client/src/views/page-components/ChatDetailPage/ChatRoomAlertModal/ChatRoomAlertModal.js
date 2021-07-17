@@ -8,13 +8,13 @@ export default function ChatRoomAlertModal({ $target, onOutHandler }) {
     if (!e.target.closest('.chatRoomAlertModal__wrapper')) {
       this.hideModal();
     }
-    if (link) {
-      if (link === 'close') {
-        this.hideModal();
-      } else if (link === 'out') {
-        this.onOutHandler();
-        this.hideModal();
-      }
+    if (!link) return;
+
+    if (link === 'close') {
+      this.hideModal();
+    } else if (link === 'out') {
+      this.onOutHandler();
+      this.hideModal();
     }
   });
 

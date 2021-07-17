@@ -22,11 +22,7 @@ export default function ChatDetailPageFooter({ $target, onSendChatHandler }) {
     this.render();
   };
   this.render = () => {
-    if (this.state.text.length > 0) {
-      this.$sendButton.disabled = false;
-    } else {
-      this.$sendButton.disabled = true;
-    }
+    this.$sendButton.disabled = !(this.state.text.length > 0);
   };
 
   this.bindEvent = () => {

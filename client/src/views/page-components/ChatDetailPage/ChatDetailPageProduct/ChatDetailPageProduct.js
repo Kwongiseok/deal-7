@@ -3,7 +3,7 @@ import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.j
 export default function ChatDetailPageProduct({ $target }) {
   this.$product = createDOMwithSelector('div', '.chatDetailPageProduct');
 
-  this.$product.addEventListener('click', (e) => {
+  this.$product.addEventListener('click', () => {
     location.href('/');
   });
   $target.appendChild(this.$product);
