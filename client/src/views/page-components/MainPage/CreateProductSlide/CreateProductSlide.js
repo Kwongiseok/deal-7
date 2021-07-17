@@ -25,14 +25,21 @@ export default function CreateProductSlide({ $selector, setCurrentlyOpenedSlide 
   this.setState = (nextState) => {
     this.state = { ...this.state, ...nextState };
 
-    const { title, category, content, imageUrls, price } = this.state;
+    const { title, category, content, price } = this.state;
 
     $CreateProductHeader.setState({ title, category, content });
-    $ImageContainer.setState({ counts: imageUrls.length, imageUrls });
+
     $TitleInput.setState({ title });
     $CategoryList.setState({ title, category });
     $PriceInput.setState({ price });
     $ContentInput.setState({ content });
+  };
+
+  this.setImageState = (nextState) => {
+    this.state = { ...this.state, ...nextState };
+
+    const { imageUrls } = this.state;
+    $ImageContainer.setState({ counts: imageUrls.length, imageUrls });
   };
 
   //event
@@ -57,7 +64,7 @@ export default function CreateProductSlide({ $selector, setCurrentlyOpenedSlide 
   };
 
   this.setImageInfoOnState = (addedUrls, addedFiles) => {
-    this.setState({
+    this.setImageState({
       imageUrls: [...this.state.imageUrls, ...addedUrls],
       imageFiles: [...this.state.imageFiles, ...addedFiles],
     });
@@ -66,7 +73,7 @@ export default function CreateProductSlide({ $selector, setCurrentlyOpenedSlide 
   this.deleteImageInfoOnState = (idx) => {
     const updatedUrls = this.state.imageUrls.filter((item, i) => i !== parseInt(idx));
     const updatedFiles = this.state.imageFiles.filter((item, i) => i !== parseInt(idx));
-    this.setState({ imageFiles: updatedFiles, imageUrls: updatedUrls });
+    this.setImageState({ imageFiles: updatedFiles, imageUrls: updatedUrls });
   };
 
   this.setTitleState = (title) => this.setState({ title });
