@@ -2,6 +2,7 @@
 @import './ChatDetailPageProduct/ChatDetailPageProduct.css';
 @import './ChatDetailPageBody/ChatDetailPageBody.css';
 @import './ChatDetailPageFooter/ChatDetailPageFooter.css';
+@import './ChatRoomAlertModal/ChatRoomAlertModal.css';
 
 #root {
   overflow: hidden;

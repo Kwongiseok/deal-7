@@ -1,16 +1,16 @@
 import { LEFT_ICON, LOGOUT_ICON } from '../../../../constants/imagePath.js';
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
-export default function ChatDetailPageHeader({ $target, onOutChatRoom }) {
+export default function ChatDetailPageHeader({ $target, onClickOutHandler }) {
   this.$header = createDOMwithSelector('div', '.chatDetailPageHeader');
-  this.onOutChatRoom = onOutChatRoom;
+  this.onClickOutHandler = onClickOutHandler;
   this.$header.addEventListener('click', (e) => {
     const link = e.target.closest('button')?.dataset.link;
     if (!link) return;
     if (link === 'back') {
       history.back();
     } else if (link === 'out') {
-      this.onOutChatRoom();
+      this.onClickOutHandler();
     }
   });
   $target.appendChild(this.$header);
