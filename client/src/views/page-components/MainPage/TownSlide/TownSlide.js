@@ -36,7 +36,7 @@ export default function TownSlide({ $selector, currentTown, towns, setTownFilter
   //events
   const bindEvents = () => {
     this.$TownSlide.addEventListener('click', ({ target }) => {
-      if (target.classList.contains('town-slide-button')) {
+      if (['town-slide-button', 'town-slide-button__name'].includes(target.className)) {
         setTownFilter({ town: target.innerText.trim() });
       }
 
