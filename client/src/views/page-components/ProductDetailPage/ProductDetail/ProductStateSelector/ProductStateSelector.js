@@ -28,7 +28,7 @@ export default function ProductStateSelector({ $target, onClickSelectorHandler, 
         <img class="productStateSelector__icon" src=${DOWN_ICON}></img>
       `;
     } else {
-      this.$productStateSelector.display = 'none';
+      this.$productStateSelector.style.display = 'none';
     }
   };
 

@@ -39,7 +39,7 @@ export default function CreateProductSlide({ $target, initialState }) {
   const imageContainer = new ImageContainer({
     $target: this.$createProductSlide,
     onImageUploadHandler: (addUrls, addFiles) => {
-      this.setState({
+      this.setImageState({
         ...this.state,
         imageUrls: [...this.state.imageUrls, ...addUrls],
         imageFiles: [...this.state.imageFiles, ...addFiles],
@@ -48,7 +48,7 @@ export default function CreateProductSlide({ $target, initialState }) {
     onDeleteImageHandler: (index) => {
       const updatedFiles = [...this.state.imageFiles].filter((item, i) => index != i);
       const updatedUrls = [...this.state.imageUrls].filter((item, i) => index != i);
-      this.setState({ ...this.state, imageFiles: updatedFiles, imageUrls: updatedUrls });
+      this.setImageState({ ...this.state, imageFiles: updatedFiles, imageUrls: updatedUrls });
     },
     initialState: {
       imageUrls: this.state.imageUrls,
@@ -107,11 +107,15 @@ export default function CreateProductSlide({ $target, initialState }) {
       category: this.state.category,
       content: this.state.content,
     });
-    imageContainer.setState({ counts: this.state.imageUrls.length, imageUrls: this.state.imageUrls });
     titleInput.setState({ title: this.state.title });
     categoryList.setState({ title: this.state.title, category: this.state.category });
     priceInput.setState({ price: this.state.price });
     contentInput.setState({ content: this.state.content });
+  };
+
+  this.setImageState = (nextState) => {
+    this.state = nextState;
+    imageContainer.setState({ counts: this.state.imageUrls.length, imageUrls: this.state.imageUrls });
   };
 
   this.slide = () => {

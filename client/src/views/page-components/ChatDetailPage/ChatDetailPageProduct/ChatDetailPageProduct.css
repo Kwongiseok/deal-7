@@ -1,0 +1,58 @@
+.chatDetailPageProduct {
+  box-sizing: border-box;
+  height: 11%;
+  display: flex;
+  padding: 1.1rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line-color);
+  cursor: pointer;
+}
+.chatDetail__product__container {
+  display: flex;
+  position: relative;
+  width: 75%;
+}
+.chatDetail__product__info {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0 0.5rem 1rem;
+  justify-content: space-between;
+}
+.chatDetail__image__container {
+  position: relative;
+  width: 18%;
+}
+.chatDetail__image__container::before {
+  content: '';
+  display: block;
+  padding-top: 100%; /* 정사각형일 경우 */
+}
+.chatDetail__product__image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.chatDetail__product__price {
+  font-size: 0.9rem;
+  color: var(--sub-font-color);
+}
+
+.chatDetail__state {
+  width: 22%;
+  height: 100%;
+  font-size: 1.05rem;
+  background-color: transparent;
+  border: 1px solid var(--line-color);
+  font-family: HannaAir;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+}
