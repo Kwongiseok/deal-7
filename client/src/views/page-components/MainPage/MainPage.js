@@ -104,7 +104,10 @@ function MainPage() {
   });
   const $UserSlide = new UserSlide({ $selector: body });
   const $MenuSlide = new MenuSlide({ $selector: body });
-  const $CreateProductSlide = new CreateProductSlide({ $selector: body });
+  const $CreateProductSlide = new CreateProductSlide({
+    $selector: body,
+    setCurrentlyOpenedSlide: this.setCurrentlyOpenedSlide,
+  });
   const $TownSlide = new TownSlide({
     $selector: body,
     currentTown: this.state.productFilter.town,

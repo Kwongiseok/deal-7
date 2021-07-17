@@ -31,3 +31,4 @@ export const THUNG = '/client/public/images/createdBaeminStyleImage/thung.png';
 export const DISTRICT_NOTIFICATION = '/client/public/images/createdBaeminStyleImage/district-notification.png';
 export const CLOSE_BUTTON = '/client/public/images/createdBaeminStyleImage/close.png';
 export const OK_BUTTON = '/client/public/images/createdBaeminStyleImage/ok.png';
+export const ADD_PRODUCT_BUTTON = '/client/public/images/createdBaeminStyleImage/add-product-btn.png';

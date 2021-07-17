@@ -1,4 +1,4 @@
-import { ADD_ICON } from '../../../../constants/imagePath.js';
+import { ADD_PRODUCT_BUTTON } from '../../../../constants/imagePath.js';
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
 export default function CreateProductButton({ $selector }) {
@@ -8,7 +8,7 @@ export default function CreateProductButton({ $selector }) {
 
   this.render = () => {
     this.$AddProductBtn.innerHTML = `
-      <img class="add-img" src=${ADD_ICON} data-slide-item="create">
+      <img class="add-img" src=${ADD_PRODUCT_BUTTON} data-slide-item="create">
     `;
   };
 
