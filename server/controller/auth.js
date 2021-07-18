@@ -18,7 +18,7 @@ const handleLogin = async (req, res) => {
     const [userData] = await pool.query(FIND_USER_QUERY, [requestedName]);
     if (userData.length === 0) throw { message: errorMessages.RECEIVE_NOT_EXIST_ID };
 
-    const { id, name } = userData;
+    const [{ id, name }] = userData;
     const accessToken = jwt.sign({ id, name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
     const refreshToken = jwt.sign({ id, name }, JWTKey.secret, { expiresIn: REFRESH_TOKEN_EXPIRED_PERIOD });
 
@@ -71,8 +71,8 @@ const handleSignup = async (req, res) => {
 const handleAuthTest = async (req, res) => {
   try {
     const accessToken = req.header('authorization').split(' ')[1];
-    const { name } = jwt.decode(accessToken);
-    const updatedAccessToken = jwt.sign({ name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
+    const { id, name } = jwt.decode(accessToken);
+    const updatedAccessToken = jwt.sign({ id, name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
 
     res.status(200).json({ status: 'success', token: { accessToken: updatedAccessToken } });
   } catch (error) {
@@ -87,10 +87,10 @@ const handleAuthTest = async (req, res) => {
 const handleRefresh = async (req, res) => {
   try {
     const refreshToken = req.header('authorization').split(' ')[1];
-    const { name } = jwt.decode(refreshToken);
+    const { id, name } = jwt.decode(accessToken);
 
-    const updatedAccessToken = jwt.sign({ name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
-    const updatedRefreshToken = jwt.sign({ name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
+    const updatedAccessToken = jwt.sign({ id, name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
+    const updatedRefreshToken = jwt.sign({ id, name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
 
     res
       .status(200)
