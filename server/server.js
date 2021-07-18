@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const { pool } = require('./db.js');
 const authRouter = require('./router/auth.js');
+const townRouter = require('./router/town.js');
 const productRouter = require('./router/product.js');
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/auth', authRouter);
+app.use('/town', townRouter);
 app.use('/product', productRouter);
 
 server.listen(PORT, () => {
