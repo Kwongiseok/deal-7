@@ -18,6 +18,7 @@ const CREATE_PRODUCT_TABLE_QUERY = `
         chatroomCounts INT NOT NULL,
         likeCounts INT NOT NULL,
         views INT NOT NULL,
+        thumbnail VARCHAR(100),
         seller VARCHAR(100) NOT NULL,
         town VARCHAR(100) NOT NULL,
         price VARCHAR(100) NULL,

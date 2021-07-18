@@ -8,10 +8,20 @@ async function getReciveChatRoomInfo(chatroomid) {
 
 async function getReciveChatsFromRoom(chatroomid) {
   return pool
-    .execute(`SELECT text,author from CHATROOM JOIN CHAT ON CHATROOM.id = CHAT.chatroomid Where CHATROOM.id=?`, [
+    .execute(`SELECT text,author FROM CHATROOM JOIN CHAT ON CHATROOM.id = CHAT.chatroomid Where CHATROOM.id=?`, [
       chatroomid,
     ])
     .then((result) => result);
+}
+
+async function getReciveChatRoomsFromProduct(productid) {
+  console.log(productid);
+  return pool
+    .execute(
+      `SELECT buyer,lastchat,lastchattime, sellerunread, thumbnail FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id WHERE PRODUCT.id=?`,
+      [productid]
+    )
+    .then((res) => res[0]);
 }
 
 async function plusSellerUnreadCount(chatroomid) {
@@ -51,6 +61,7 @@ async function createChat(text, author, chatroomid) {
 module.exports = {
   getReciveChatsFromRoom,
   getReciveChatRoomInfo,
+  getReciveChatRoomsFromProduct,
   plusBuyerUnreadCount,
   plusSellerUnreadCount,
   resetBuyerUnreadCount,

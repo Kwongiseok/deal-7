@@ -21,10 +21,10 @@ class Socket {
         const parsedUrl = info.req.url.split('/');
         const [productId, buyerId, sellerId] = [parsedUrl[2], parsedUrl[3], parsedUrl[4]];
         const roomId = parseInt(String(productId) + String(buyerId));
-        info.req.user = Math.random() * 10; // JWT 인증했던 것,
+        info.req.user = sellerId;
         info.req.room = roomId;
         const roomInfo = await getReciveChatRoomInfo(roomId);
-        if (roomInfo.buyer == buyerId || roomInfo.seller == info.req.user) {
+        if (roomInfo.buyer == buyerId || roomInfo.seller == sellerId) {
           info.req.isBuyer = roomInfo.buyer == buyerId;
         }
         info.req.isBuyer = roomInfo.buyer == buyerId;
