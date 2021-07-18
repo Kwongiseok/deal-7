@@ -15,6 +15,7 @@ class Socket {
         const [productId, buyerId, sellerId] = [parsedUrl[2], parsedUrl[3], parsedUrl[4]];
         const roomId = parseInt(String(productId) + String(buyerId));
         info.req.user = Math.random() * 10; // JWT 인증했던 것,
+        info.req.room = roomId;
         const roomInfo = await getReciveChatRoomInfo(roomId);
         if (!roomInfo) {
           createChatRoom(parseInt(roomId), parseInt(productId), parseInt(sellerId), parseInt(buyerId));
