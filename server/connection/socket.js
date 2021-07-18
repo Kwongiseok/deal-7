@@ -6,34 +6,19 @@ const { createChat, getReciveChatRoomInfo, createChatRoom } = require('../data/c
 
 const rooms = new Map();
 
-let chats = [
-  {
-    author: 'seller',
-    text: '안녕하세요',
-  },
-  {
-    author: 'buyer',
-    text: '안녕하세용',
-  },
-];
-
-let roomnumber = 1;
 class Socket {
   constructor(server) {
     this.wss = new Websocket.Server({
       server,
       verifyClient: async (info, cb) => {
         const parsedUrl = info.req.url.split('/');
-        const [productId, buyerId, sellerId] = [parsedUrl[1], parsedUrl[2], parsedUrl[3]];
+        const [productId, buyerId, sellerId] = [parsedUrl[2], parsedUrl[3], parsedUrl[4]];
         const roomId = parseInt(String(productId) + String(buyerId));
-
-        // const roomInfo = await getReciveChatRoomInfo(roomId);
-        const roomInfo = await getReciveChatRoomInfo(roomId);
         info.req.user = Math.random() * 10; // JWT 인증했던 것,
-        if (roomInfo.buyerId == buyerId || roomInfo.sellerId == info.req.user) {
-          cb(true);
-        } else if (roomInfo[0].length === 0) {
+        const roomInfo = await getReciveChatRoomInfo(roomId);
+        if (!roomInfo) {
           createChatRoom(parseInt(roomId), parseInt(productId), parseInt(sellerId), parseInt(buyerId));
+        } else if (roomInfo.buyer == buyerId || roomInfo.seller == info.req.user) {
         }
         cb(true);
       },

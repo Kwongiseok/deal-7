@@ -34,9 +34,9 @@ const CREATE_CHATROOM_TABLE_QUERY = `
     buyer INT NOT NULL,
     lastchat LONGTEXT,
     lastchattime DATETIME,
-    PRIMARY KEY (id),
-    FOREIGN KEY (productid) REFERENCES deal.product(id) ON DELETE CASCADE);
+    PRIMARY KEY (id));
 `;
+// FOREIGN KEY (productid) REFERENCES deal.product(id) ON DELETE CASCADE);
 // unreadCounts INT,
 
 const CREATE_CHAT_TABLE_QUERY = `
