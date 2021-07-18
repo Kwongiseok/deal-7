@@ -15,20 +15,19 @@ const handleLogin = async (req, res) => {
   const { name: requestedName } = req.body;
 
   try {
-    const [userData] = await pool.query(FIND_USER_QUERY, [requestedName]);
-    if (userData.length === 0) throw { message: errorMessages.RECEIVE_NOT_EXIST_ID };
+    const [userDataRows] = await pool.query(FIND_USER_QUERY, [requestedName]);
+    if (userDataRows.length === 0) throw { message: errorMessages.RECEIVE_NOT_EXIST_ID };
 
+    const userData = { ...userDataRows[0] };
     const accessToken = jwt.sign(userData, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
     const refreshToken = jwt.sign(userData, JWTKey.secret, { expiresIn: REFRESH_TOKEN_EXPIRED_PERIOD });
 
-    res.status(200).json({ status: 'success', userData, token: { accessToken, refreshToken } });
+    res.status(200).json({ status: 'success', userDataRows, token: { accessToken, refreshToken } });
   } catch (error) {
-    const { RECEIVE_NOT_EXIST_ID } = error;
-
-    if (error.message === RECEIVE_NOT_EXIST_ID) {
-      return res.status(404).json({ status: 'error', message: RECEIVE_NOT_EXIST_ID });
+    if (error.message === errorMessages.RECEIVE_NOT_EXIST_ID) {
+      return res.status(404).json({ status: 'error', message: error.message });
     }
-
+    console.log(error);
     res.status(500).json({ status: 'error', message: errorMessages.UNDEFINED_SERVER_ERROR });
   }
 };
@@ -44,8 +43,8 @@ const handleSignup = async (req, res) => {
   try {
     if (!ID_REGEX.test(name)) throw { message: errorMessages.RECEIVE_INVALID_ID };
 
-    const [userData] = await pool.query(FIND_USER_QUERY, [name]);
-    if (userData.length !== 0) throw { message: errorMessages.RECEIVE_EXISTED_ID };
+    const [userDataRows] = await pool.query(FIND_USER_QUERY, [name]);
+    if (userDataRows.length !== 0) throw { message: errorMessages.RECEIVE_EXISTED_ID };
 
     await pool.query(CREATE_USER_DATA_QUERY, [name, town, '']);
     res.status(201).json({ status: 'success', info: { name, town, likes: '[]' } });
@@ -56,7 +55,6 @@ const handleSignup = async (req, res) => {
     if ([RECEIVE_INVALID_ID, RECEIVE_EXISTED_ID].includes(message)) {
       return res.status(400).json({ status: 'error', message });
     }
-    console.log(error);
 
     res.status(500).json({ status: 'error', message: errorMessages.UNDEFINED_SERVER_ERROR });
   }
@@ -70,11 +68,12 @@ const handleSignup = async (req, res) => {
 const handleAuthTest = async (req, res) => {
   try {
     const accessToken = req.header('authorization').split(' ')[1];
-    const userData = jwt.decode(accessToken);
-    const updatedAccessToken = jwt.sign(userData, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
+    const { iat, exp, ...userData } = jwt.decode(accessToken);
 
+    const updatedAccessToken = jwt.sign(userData, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
     res.status(200).json({ status: 'success', token: { accessToken: updatedAccessToken } });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ status: 'error', message: errorMessages.UNDEFINED_SERVER_ERROR });
   }
 };
@@ -86,7 +85,7 @@ const handleAuthTest = async (req, res) => {
 const handleRefresh = async (req, res) => {
   try {
     const refreshToken = req.header('authorization').split(' ')[1];
-    const userData = jwt.decode(refreshToken);
+    const { iat, exp, ...userData } = jwt.decode(refreshToken);
 
     const updatedAccessToken = jwt.sign(userData, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
     const updatedRefreshToken = jwt.sign(userData, JWTKey.secret, { expiresIn: REFRESH_TOKEN_EXPIRED_PERIOD });
