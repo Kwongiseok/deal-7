@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
 
 const { pool } = require('./db.js');
 const authRouter = require('./router/auth.js');
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
+app.use(morgan('dev'));
 
 app.use('/auth', authRouter);
 app.use('/town', townRouter);
