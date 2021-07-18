@@ -6,7 +6,7 @@ const {
   CREATE_USER_TABLE_QUERY,
 } = require('./query/createTableQuery');
 
-require('dotenv').config({ path: path.join(__dirname, '/.env') });
+require('dotenv').config({ path: path.join(__dirname, '/config/.env') });
 
 const createdPool = createPool({
   host: process.env.DB_HOST,
