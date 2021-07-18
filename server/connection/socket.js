@@ -1,20 +1,10 @@
 // const { Server } = require('socket.io');
 const Websocket = require('ws');
-const { createChat } = require('../data/chat');
+const { createChat, getReciveChatRoomInfo, createChatRoom } = require('../data/chat');
 
 // id(PK), product_id, seller, buyer, lastChat, lastChatTime, chats
 
 const rooms = new Map();
-
-let chatRoom = {
-  id: 1,
-  product_id: 1234,
-  seller: 154,
-  buyer: 123,
-  lastChat: '1번입니다',
-  lastChatTime: new Date(),
-  unreadChatcounts: 0,
-};
 
 let chats = [
   {
@@ -32,12 +22,19 @@ class Socket {
   constructor(server) {
     this.wss = new Websocket.Server({
       server,
-      verifyClient: (info, cb) => {
+      verifyClient: async (info, cb) => {
         const parsedUrl = info.req.url.split('/');
-        const [productId, buyerId] = [parsedUrl[1], parsedUrl[3]];
+        const [productId, buyerId, sellerId] = [parsedUrl[1], parsedUrl[2], parsedUrl[3]];
         const roomId = parseInt(String(productId) + String(buyerId));
+
+        // const roomInfo = await getReciveChatRoomInfo(roomId);
+        const roomInfo = await getReciveChatRoomInfo(roomId);
         info.req.user = Math.random() * 10; // JWT 인증했던 것,
-        info.req.room = roomId;
+        if (roomInfo.buyerId == buyerId || roomInfo.sellerId == info.req.user) {
+          cb(true);
+        } else if (roomInfo[0].length === 0) {
+          createChatRoom(parseInt(roomId), parseInt(productId), parseInt(sellerId), parseInt(buyerId));
+        }
         cb(true);
       },
     });
@@ -49,13 +46,8 @@ class Socket {
       const room = req.room;
       rooms.set(user, { user, room, ws });
       ws.on('message', (data) => {
-        createChat(data, '기석', 1);
+        createChat(data, req.user, room);
         msgSender(rooms.get(user), data);
-        // this.wss.clients.forEach(function each(client) {
-        //   if (client !== ws && client.readyState === Websocket.OPEN) {
-        //     client.send(`${data}`);
-        //   }
-        // });
       });
     });
   }
