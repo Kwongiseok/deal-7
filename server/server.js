@@ -2,14 +2,12 @@ const http = require('http');
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const { promisePool: DB } = require('./db.js');
 const { initSocket } = require('./connection/socket.js');
 const chatRouter = require('./router/chatRouter.js');
 const authRouter = require('./router/auth.js');
 const productRouter = require('./router/product.js');
 
 dotenv.config();
-const cors = require('cors');
 
 const { pool } = require('./db.js');
 

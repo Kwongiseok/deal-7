@@ -1,6 +1,12 @@
 // const { Server } = require('socket.io');
 const Websocket = require('ws');
-const { createChat, getReciveChatRoomInfo, createChatRoom } = require('../data/chat');
+const {
+  createChat,
+  getReciveChatRoomInfo,
+  createChatRoom,
+  plusSellerUnreadCount,
+  resetBuyerUnreadCount,
+} = require('../data/chat');
 
 // id(PK), product_id, seller, buyer, lastChat, lastChatTime, chats
 
@@ -17,9 +23,7 @@ class Socket {
         info.req.user = Math.random() * 10; // JWT 인증했던 것,
         info.req.room = roomId;
         const roomInfo = await getReciveChatRoomInfo(roomId);
-        if (!roomInfo) {
-          createChatRoom(parseInt(roomId), parseInt(productId), parseInt(sellerId), parseInt(buyerId));
-        } else if (roomInfo.buyer == buyerId || roomInfo.seller == info.req.user) {
+        if (roomInfo.buyer == buyerId || roomInfo.seller == info.req.user) {
         }
         cb(true);
       },
@@ -31,9 +35,14 @@ class Socket {
       const user = req.user;
       const room = req.room;
       rooms.set(user, { user, room, ws });
+      console.log(rooms.get(user).room);
       ws.on('message', (data) => {
-        createChat(data, req.user, room);
+        createChat(data, user, room);
+        plusSellerUnreadCount(room);
         msgSender(rooms.get(user), data);
+      });
+      ws.on('close', (res) => {
+        rooms.delete(user);
       });
     });
   }

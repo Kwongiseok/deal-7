@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const { ID_REGEX } = require('../constants/regex');
-const JWTKey = require('../config/jwt');
+const JWTKey = require('../config/jwt.js');
 const errorMessages = require('../constants/errorMessages');
 const { ACCESS_TOKEN_EXPIRED_PERIOD, REFRESH_TOKEN_EXPIRED_PERIOD } = require('../constants/tokenExpiredPeriod');
 const { pool } = require('../db');

@@ -14,6 +14,22 @@ async function getReciveChatsFromRoom(chatroomid) {
     .then((result) => result);
 }
 
+async function plusSellerUnreadCount(chatroomid) {
+  return pool.execute(`UPDATE CHATROOM SET sellerunread = sellerunread+1 WHERE id =?`, [chatroomid]);
+}
+
+async function plusBuyerUnreadCount(chatroomid) {
+  return pool.execute(`UPDATE CHATROOM SET sellerunread = buyerunread + 1 WHERE id =?`, [chatroomid]);
+}
+
+async function resetSellerUnreadCount(chatroomid) {
+  return pool.execute(`UPDATE CHATROOM SET sellerunread = 0 WHERE id =?`, [chatroomid]);
+}
+
+async function resetBuyerUnreadCount(chatroomid) {
+  return pool.execute(`UPDATE CHATROOM SET sellerunread = 0 WHERE id =?`, [chatroomid]);
+}
+
 async function createChatRoom(chatroomid, productId, seller, buyer) {
   return pool.execute(`INSERT INTO CHATROOM (id, productId, seller, buyer) VALUES(?,?,?,?)`, [
     chatroomid,
@@ -35,6 +51,10 @@ async function createChat(text, author, chatroomid) {
 module.exports = {
   getReciveChatsFromRoom,
   getReciveChatRoomInfo,
+  plusBuyerUnreadCount,
+  plusSellerUnreadCount,
+  resetBuyerUnreadCount,
+  resetSellerUnreadCount,
   createChat,
   createChatRoom,
 };
