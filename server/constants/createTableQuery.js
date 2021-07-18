@@ -25,16 +25,34 @@ const CREATE_PRODUCT_TABLE_QUERY = `
         PRIMARY KEY (id));
 `;
 
+//  id(PK), product_id, seller, buyer, lastChat, lastChatTime, chats
+const CREATE_CHATROOM_TABLE_QUERY = `
+  CREATE TABLE IF NOT EXISTS deal.ChatRoom (
+    id INT NOT NULL AUTO_INCREMENT,
+    productid INT NOT NULL,
+    seller INT NOT NULL,
+    buyer INT NOT NULL,
+    lastchat LONGTEXT NOT NULL,
+    lastchattime DATETIME,
+    PRIMARY KEY (id),
+    FOREIGN KEY (productid) REFERENCES deal.product(id) ON DELETE CASCADE);
+`;
+// unreadCounts INT,
 const CREATE_CHAT_TABLE_QUERY = `
   CREATE TABLE IF NOT EXISTS deal.Chat (
   id INT NOT NULL AUTO_INCREMENT,
   author VARCHAR(200) NOT NULL,
-  content LONGTEXT NOT NULL,
-  time INT NOT NULL,
-  PRIMARY KEY (id));
+  text LONGTEXT NOT NULL,
+  time INT,
+  chatroomid INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (chatroomid) REFERENCES deal.ChatRoom(id) ON DELETE CASCADE);
 `;
 
+// CREATEDAT DATE NOT NULL,
+
 module.exports = {
+  CREATE_CHATROOM_TABLE_QUERY,
   CREATE_CHAT_TABLE_QUERY,
   CREATE_PRODUCT_TABLE_QUERY,
   CREATE_USER_TABLE_QUERY,
