@@ -1,13 +1,13 @@
-const { promisePool } = require('../db.js');
+const { pool } = require('../db.js');
 
 // ('SELECT tw.id, tw.text, tw.createdAt, tw.userId, us.username, us.name, us.url FROM tweets as tw JOIN users as us ON tw.userId=us.id');
 
 async function getReciveChatRoomInfo(chatroomid) {
-  return promisePool.execute(`SELECT * from CHATROOM WHERE id=?`, [chatroomid]).then((result) => result[0][0]);
+  return pool.execute(`SELECT * from CHATROOM WHERE id=?`, [chatroomid]).then((result) => result[0][0]);
 }
 
 async function getReciveChatsFromRoom(chatroomid) {
-  return promisePool
+  return pool
     .execute(`SELECT text,author from CHATROOM JOIN CHAT ON CHATROOM.id = CHAT.chatroomid Where CHATROOM.id=?`, [
       chatroomid,
     ])
@@ -15,7 +15,7 @@ async function getReciveChatsFromRoom(chatroomid) {
 }
 
 async function createChatRoom(chatroomid, productId, seller, buyer) {
-  return promisePool.execute(`INSERT INTO CHATROOM (id, productId, seller, buyer) VALUES(?,?,?,?)`, [
+  return pool.execute(`INSERT INTO CHATROOM (id, productId, seller, buyer) VALUES(?,?,?,?)`, [
     chatroomid,
     productId,
     seller,
@@ -24,7 +24,7 @@ async function createChatRoom(chatroomid, productId, seller, buyer) {
 }
 
 async function createChat(text, author, chatroomid) {
-  return promisePool.execute(`INSERT INTO CHAT (text, author, createdat, chatroomid) VALUES (?,?,?,?)`, [
+  return pool.execute(`INSERT INTO CHAT (text, author, createdat, chatroomid) VALUES (?,?,?,?)`, [
     text,
     author,
     new Date(),
