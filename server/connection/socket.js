@@ -6,6 +6,7 @@ const {
   createChatRoom,
   plusSellerUnreadCount,
   resetBuyerUnreadCount,
+  plusBuyerUnreadCount,
 } = require('../data/chat');
 
 // id(PK), product_id, seller, buyer, lastChat, lastChatTime, chats
@@ -24,7 +25,9 @@ class Socket {
         info.req.room = roomId;
         const roomInfo = await getReciveChatRoomInfo(roomId);
         if (roomInfo.buyer == buyerId || roomInfo.seller == info.req.user) {
+          info.req.isBuyer = roomInfo.buyer == buyerId;
         }
+        info.req.isBuyer = roomInfo.buyer == buyerId;
         cb(true);
       },
     });
@@ -34,12 +37,12 @@ class Socket {
       console.log('socket client connected');
       const user = req.user;
       const room = req.room;
+      const isBuyer = req.isBuyer;
       rooms.set(user, { user, room, ws });
-      console.log(rooms.get(user).room);
+
       ws.on('message', (data) => {
         createChat(data, user, room);
-        plusSellerUnreadCount(room);
-        msgSender(rooms.get(user), data);
+        msgSender(rooms.get(user), isBuyer, data);
       });
       ws.on('close', (res) => {
         rooms.delete(user);
@@ -62,15 +65,26 @@ function getSocketWS() {
   return socket.ws;
 }
 
-function msgSender(identify, message) {
+function msgSender(identify, isBuyer, message) {
   return new Promise((resolve, reject) => {
+    let count = 0;
     for (let target of rooms.entries()) {
       //방 목록 객체를 반복문을 활용해 발송
       if (identify.room == target[1].room) {
         //같은방에 있는 사람이면 전송
         if (identify.ws !== target[1].ws) {
+          count += 1;
           target[1].ws.send(message);
         }
+      }
+    }
+    if (count === 0) {
+      if (isBuyer) {
+        console.log(isBuyer);
+        // buyer가 보냄
+        plusSellerUnreadCount(identify.room);
+      } else {
+        plusBuyerUnreadCount(identify.room);
       }
     }
     resolve('succ');
