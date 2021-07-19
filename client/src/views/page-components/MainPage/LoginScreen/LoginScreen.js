@@ -12,7 +12,7 @@ export default function LoginScreen({ $selector, setUserState }) {
   // state
   this.state = {
     name: '',
-    isNameValid: true,
+    isNameValid: false,
   };
 
   this.setNameState = ({ name }) => {
