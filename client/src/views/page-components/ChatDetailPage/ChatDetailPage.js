@@ -1,3 +1,4 @@
+import { getChats } from '../../../apis/chatAPI.js';
 import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
 import ChatDetailPageBody from './ChatDetailPageBody/ChatDetailPageBody.js';
 import ChatDetailPageFooter from './ChatDetailPageFooter/ChatDetailPageFooter.js';
@@ -7,58 +8,18 @@ import ChatRoomAlertModal from './ChatRoomAlertModal/ChatRoomAlertModal.js';
 
 export default function ChatDetailPage() {
   this.state = {
-    chats: [
-      {
-        isMine: false,
-        text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
-      },
-      {
-        isMine: true,
-        text: '네 안녕하세요!',
-      },
-      {
-        isMine: false,
-        text: '혹시',
-      },
-      {
-        isMine: false,
-        text: '실제로 신어볼 수 있는건가요??',
-      },
-      {
-        isMine: false,
-        text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
-      },
-      {
-        isMine: true,
-        text: '네 안녕하세요!',
-      },
-      {
-        isMine: false,
-        text: '혹시',
-      },
-      {
-        isMine: false,
-        text: '실제로 신어볼 수 있는건가요??',
-      },
-      {
-        isMine: false,
-        text: '안녕하세요! 궁금한게ㅁㄴㅇㅁㅈㅁㅈㅁ 있는데요!dㅁㄴㅇㅇㅇㅁㄴㅇㅁㅈㄷㄱㅂㅁㄴㅇㅋㅌㅇㄴㅇ',
-      },
-      {
-        isMine: true,
-        text: '네 안녕하세요!',
-      },
-      {
-        isMine: false,
-        text: '혹시',
-      },
-      {
-        isMine: false,
-        text: '실제로 신어볼 수 있는건가요??',
-      },
-    ],
+    chats: [],
   };
+  const PRODUCT_ID = 114;
+  const BUYER_ID = 1244;
+  const SELLER_ID = 144;
   const $target = document.querySelector('#root');
+
+  this.webSocket = new WebSocket(`ws://localhost:8080/chat/${PRODUCT_ID}/${BUYER_ID}/${SELLER_ID}`);
+
+  this.webSocket.onmessage = (message) => {
+    this.setState({ ...this.state, chats: [...this.state.chats, { text: message.data, isMine: false }] });
+  };
 
   this.$chatDetailPage = createDOMwithSelector('div', '.chatDetailPage');
 
@@ -85,6 +46,7 @@ export default function ChatDetailPage() {
   new ChatDetailPageFooter({
     $target: this.$chatDetailPage,
     onSendChatHandler: (chat) => {
+      this.webSocket.send(chat);
       // TODO: API 요청
       this.setState({ ...this.state, chats: [...this.state.chats, { isMine: true, text: chat }] });
     },
@@ -94,6 +56,11 @@ export default function ChatDetailPage() {
     this.state = nextState;
     chatBody.setState({ ...chatBody.state, chats: this.state.chats });
   };
+
+  window.onload = () =>
+    getChats(`/chat/${PRODUCT_ID}/${BUYER_ID}/${SELLER_ID}`).then((res) =>
+      this.setState({ ...this.state, chats: [...this.state.chats, ...res] })
+    );
 }
 
 new ChatDetailPage();

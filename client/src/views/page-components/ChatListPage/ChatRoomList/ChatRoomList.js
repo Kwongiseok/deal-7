@@ -1,15 +1,8 @@
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
 
-export default function ChatRoomList({ $target }) {
+export default function ChatRoomList({ $target, initialState }) {
   // TODO 권기석 : 더미데이터, API 연동 후 수정할 예정입니다.
-  this.state = {
-    username: 'UserE',
-    lastChat: '실제로 신어볼 수 있는건가요??ㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇㄴㅁㄴㅇㅁㄴㅇㅇㄴㅁㅇ',
-    unreadChats: 2,
-    time: '1분 전',
-    thumbnail: 'https://i.pinimg.com/564x/d7/ec/75/d7ec75c9e68873ee75b734ac4ab09ced.jpg',
-  };
-
+  this.state = initialState;
   this.$chatRoomList = createDOMwithSelector('ul', '.chatRoomList');
 
   this.$chatRoomList.addEventListener('click', (e) => {
@@ -21,35 +14,42 @@ export default function ChatRoomList({ $target }) {
 
   $target.appendChild(this.$chatRoomList);
 
+  this.setState = (nextState) => {
+    this.state = nextState;
+    this.render();
+  };
+
   this.render = () => {
-    this.$chatRoomList.innerHTML = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5]
+    console.log(this.state);
+    this.$chatRoomList.innerHTML = this.state
       .map(
         (item) => `
     <li class="chatRoomList__chatRoom">
       <div class="chatroom__chat__container">  
         <div class="chatRoom__info">
-          <span class="chatRoom__name">${this.state.username}</span>
-          <span class="chatRoom__lastTime">${this.state.time}</span>
+          <span class="chatRoom__name">${item.username || '임시네임'}</span>
+          <span class="chatRoom__lastTime">${item.lastchattime}</span>
         </div>
         <div class="chatRoom__chat__container">
-          <span class="chatRoom__chat">${this.state.lastChat}</span>
-            ${getUnreadChats()}
+          <span class="chatRoom__chat">${item.lastchat}</span>
+            ${getUnreadChats(item)}
         </div>
       </div>
       <div class="chatRoom__thumbnail__container">
-        <img class="chatRoom__thumbnail" src="${this.state.thumbnail}"/>
+        <img class="chatRoom__thumbnail" src="${item.thumbnail}"/>
       </div>
     </li>`
       )
       .join('');
   };
 
-  const getUnreadChats = () => {
-    if (this.state.unreadChats) {
+  const getUnreadChats = (item) => {
+    if (item.unreadChats) {
       return `<div class="chatRoom__unreadChats">
-        <span class="chatRoom__unreadChats__count">${this.state.unreadChats}</span>
+        <span class="chatRoom__unreadChats__count">${item.unreadChats}</span>
       </div>`;
     }
+    return '';
   };
 
   this.render();
