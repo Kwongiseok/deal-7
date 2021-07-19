@@ -8,11 +8,11 @@ const {
 
 async function getReceiveChats(req, res) {
   const { productId, buyerId, sellerId } = req.params;
+  const user = req.user;
   // userId를 토큰 해석을 통해서 가져온다. -> userId와 seller, buyer 비교 후 reset
   // if (req.user !== productId || req.user !== sellerId) {
   //   res.sendStatus(403);
   // }
-  const user = req.user;
   const roomId = parseInt(req.params.productId + req.params.buyerId);
   const roomInfo = await getReciveChatRoomInfo(roomId);
 

@@ -15,6 +15,7 @@ class Socket {
       server,
       verifyClient: async (info, cb) => {
         const parsedUrl = info.req.url.split('/');
+        // console.log(req.url);
         const [productId, buyerId, sellerId] = [parsedUrl[2], parsedUrl[3], parsedUrl[4]];
         const roomId = parseInt(String(productId) + String(buyerId));
         // info.req.user = sellerId;
