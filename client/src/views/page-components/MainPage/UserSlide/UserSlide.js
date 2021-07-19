@@ -24,7 +24,6 @@ export default function UserSlide({ $selector, isLoggedIn, user, setUserState })
 
   this.setState = (nextState) => {
     this.state = { ...this.state, ...nextState };
-    console.log(this.state);
     this.render();
   };
 

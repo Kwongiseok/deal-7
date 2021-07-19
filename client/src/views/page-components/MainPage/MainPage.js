@@ -1,4 +1,6 @@
+import AuthAPI from '../../../apis/authAPI.js';
 import { SAMPLE_PRODUCTS_STATE } from '../../../dummy-file.js';
+import { checkUserLoginStatus } from '../../../utils/checkUserLoginStatus.js';
 import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
 import CategorySlide from './CategorySlide/CategorySlide.js';
 import CreateProductButton from './CreateProductButton/CreateProductButton.js';
@@ -11,6 +13,19 @@ import TownSlide from './TownSlide/TownSlide.js';
 import UserSlide from './UserSlide/UserSlide.js';
 
 function MainPage() {
+  checkUserLoginStatus.then(({ isLoggedIn, res }) => {
+    if (!isLoggedIn) return;
+
+    this.setUserState({
+      isLoggedIn: true,
+      user: {
+        accessToken: res.token.accessToken,
+        name: res.userDataRows[0].name,
+        town: JSON.parse(res.userDataRows[0].town),
+      },
+    });
+  });
+
   /**
    * State
    * currentlyOpenedSlide
@@ -28,7 +43,7 @@ function MainPage() {
     isLoggedIn: false,
     user: {
       accessToken: null,
-      username: '',
+      name: '',
       town: [],
     },
   };
@@ -40,7 +55,6 @@ function MainPage() {
 
   this.setUserState = (userState) => {
     this.setState({ ...this.state, ...userState });
-    console.log(this.state);
     this.renderComponenetRelatedUserState();
   };
 
