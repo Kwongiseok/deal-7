@@ -63,6 +63,7 @@ router.get('/api/:productId', async (req, res) => {
 router.post('/api/out/:roomId', async (req, res) => {
   const { roomId } = req.params;
   req.user = 1244;
+  console.log('hi');
   const roomInfo = await getReciveChatRoomInfo(roomId);
   if (!roomInfo) {
     res.sendStatus(404);
