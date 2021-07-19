@@ -67,7 +67,7 @@ export default function UserSlide({ $selector, isLoggedIn, user, setUserState })
     }
 
     if (isLoggedIn) {
-      renderUserScreen(this.$UserSlideMain, this.state.user.name);
+      renderUserScreen(this.$UserSlideMain, this.state.user.name, setUserState);
     }
   };
 
@@ -77,7 +77,7 @@ export default function UserSlide({ $selector, isLoggedIn, user, setUserState })
 
 const renderLoginScreen = ($selector, setUserState) => new LoginScreen({ $selector, setUserState });
 const renderSignupScreen = ($selector) => new SignupScreen({ $selector });
-const renderUserScreen = ($selector, username) => new LogoutScreen({ $selector, username });
+const renderUserScreen = ($selector, username, setUserState) => new LogoutScreen({ $selector, username, setUserState });
 
 /**
  * 로그인 되어있을 경우,

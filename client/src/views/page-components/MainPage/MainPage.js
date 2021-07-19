@@ -27,9 +27,9 @@ function MainPage() {
     },
     isLoggedIn: false,
     user: {
-      accessToken: '',
-      town: [],
+      accessToken: null,
       username: '',
+      town: [],
     },
   };
 
