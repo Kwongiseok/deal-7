@@ -22,14 +22,15 @@ router.get('/:productId/:buyerId/:sellerId', async (req, res) => {
   // if (req.user !== productId || req.user !== sellerId) {
   //   res.sendStatus(403);
   // }
+  const user = req.user;
   const roomId = parseInt(req.params.productId + req.params.buyerId);
   const roomInfo = await getReciveChatRoomInfo(roomId);
 
   if (!roomInfo) {
     createChatRoom(parseInt(roomId), parseInt(productId), parseInt(sellerId), parseInt(buyerId));
-  } else if (roomInfo.seller === sellerId) {
+  } else if (roomInfo.seller === user) {
     resetSellerUnreadCount(roomId);
-  } else if (roomInfo.buyerId === buyerId) {
+  } else if (roomInfo.buyerId === user) {
     resetBuyerUnreadCount(roomId);
   }
   const data = await getReciveChatsFromRoom(roomId);

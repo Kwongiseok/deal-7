@@ -1,15 +1,11 @@
-// const { Server } = require('socket.io');
 const Websocket = require('ws');
 const {
   createChat,
   getReciveChatRoomInfo,
-  createChatRoom,
   plusSellerUnreadCount,
-  resetBuyerUnreadCount,
   plusBuyerUnreadCount,
+  updateLastChat,
 } = require('../data/chat');
-
-// id(PK), product_id, seller, buyer, lastChat, lastChatTime, chats
 
 const rooms = new Map();
 
@@ -21,7 +17,8 @@ class Socket {
         const parsedUrl = info.req.url.split('/');
         const [productId, buyerId, sellerId] = [parsedUrl[2], parsedUrl[3], parsedUrl[4]];
         const roomId = parseInt(String(productId) + String(buyerId));
-        info.req.user = sellerId;
+        // info.req.user = sellerId;
+        info.req.user = Math.random() * 100;
         info.req.room = roomId;
         const roomInfo = await getReciveChatRoomInfo(roomId);
         if (roomInfo.buyer == buyerId || roomInfo.seller == sellerId) {
@@ -39,10 +36,10 @@ class Socket {
       const room = req.room;
       const isBuyer = req.isBuyer;
       rooms.set(user, { user, room, ws });
-
       ws.on('message', (data) => {
         createChat(data, user, room);
         msgSender(rooms.get(user), isBuyer, data);
+        updateLastChat(room, data);
       });
       ws.on('close', (res) => {
         rooms.delete(user);
@@ -75,12 +72,12 @@ function msgSender(identify, isBuyer, message) {
         if (identify.ws !== target[1].ws) {
           count += 1;
           target[1].ws.send(message);
+          break;
         }
       }
     }
     if (count === 0) {
       if (isBuyer) {
-        console.log(isBuyer);
         // buyer가 보냄
         plusSellerUnreadCount(identify.room);
       } else {
