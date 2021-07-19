@@ -1,8 +1,7 @@
 .baemin-input-field{
     display:flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-height:120px;
+    height:110px;
 }
 
 .baemin-input-field > .baemin-input-field__label{
@@ -13,4 +12,9 @@
 .baemin-input-field > .baemin-input-field__error-msg {
     color:var(--error-color);
     font-size:12px;
+    margin:20px 0 0 2px;
+}
+
+.baemin-input-field__error-msg.hide{
+    display:none;
 }
