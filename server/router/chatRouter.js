@@ -42,9 +42,8 @@ router.get('/api/All', checkToken(), async (req, res) => {
 });
 
 // 해당 상품의 chatting 목록을 보여준다.
-router.get('/api/:productId', async (req, res) => {
+router.get('/api/:productId', checkToken(), async (req, res) => {
   const { productId } = req.params;
-  req.user = 144;
   const productSeller = await getProductSeller(productId);
   if (!productSeller) {
     res.sendStatus(404);
@@ -54,7 +53,6 @@ router.get('/api/:productId', async (req, res) => {
     res.sendStatus(403);
   } else {
     const data = await getReciveChatRoomsFromProduct(productId);
-    console.log(data);
     res.status(200).send(data);
   }
 });
