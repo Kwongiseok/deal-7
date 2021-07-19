@@ -33,5 +33,20 @@ export function getMyAllChatRooms() {
     },
   })
     .then((res) => res.json())
-    .then((res) => res);
+    .then((res) => res)
+    .catch((error) => console.log(error));
+}
+
+export function outChatRooms(roomId) {
+  return fetch(`http://localhost:8080/chat/api/out/12341244`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res)
+    .then((res) => res)
+    .catch((error) => {
+      console.log(error);
+    });
 }

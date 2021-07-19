@@ -7,6 +7,7 @@ const {
   getReciveChatRoomInfo,
   outSellerFromRoom,
   outBuyerFromRoom,
+  deleteRoom,
 } = require('../data/chat');
 const { getProductSeller } = require('../data/product');
 const { checkToken } = require('../middleware/checkToken');
@@ -61,20 +62,25 @@ router.get('/api/:productId', async (req, res) => {
 
 router.post('/api/out/:roomId', async (req, res) => {
   const { roomId } = req.params;
-  req.user = 144;
+  req.user = 1244;
   const roomInfo = await getReciveChatRoomInfo(roomId);
   if (!roomInfo) {
     res.sendStatus(404);
   }
+  if (roomInfo.seller !== req.user && roomInfo.buyer !== req.user) {
+    res.sendStatus(403);
+  }
   if (roomInfo.seller === req.user) {
     if (!roomInfo.buyerin) {
       // buyer가 채팅방에 없을 때, 삭제
+      await deleteRoom(roomId);
     } else {
       await outSellerFromRoom(roomId);
     }
   } else {
     if (!roomInfo.sellerin) {
       // seller가 채팅방에 없을 때, 삭제
+      await deleteRoom(roomId);
     } else {
       await outBuyerFromRoom(roomId);
     }

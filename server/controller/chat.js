@@ -61,6 +61,7 @@ async function getReceiveChats(req, res) {
       }
     });
     res.send({
+      roomId,
       name,
       chats: item,
     });

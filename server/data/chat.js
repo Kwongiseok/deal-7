@@ -47,6 +47,10 @@ async function outBuyerFromRoom(roomid) {
   return pool.execute(`UPDATE CHATROOM SET buyerin=0 WHERE id=?`, [roomid]);
 }
 
+async function deleteRoom(roomid) {
+  return pool.execute(`DELETE FROM CHATROOM WHERE id=?`, [roomid]);
+}
+
 async function updateLastChat(roomid, text) {
   return pool.execute(`UPDATE CHATROOM SET lastchat=?, lastchattime=?, SELLERIN=1, BUYERIN=1 WHERE id=?`, [
     text,
@@ -99,6 +103,7 @@ module.exports = {
   getMyBuyingChatRooms,
   outSellerFromRoom,
   outBuyerFromRoom,
+  deleteRoom,
   plusBuyerUnreadCount,
   plusSellerUnreadCount,
   resetBuyerUnreadCount,

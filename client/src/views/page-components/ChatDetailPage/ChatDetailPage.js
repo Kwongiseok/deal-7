@@ -1,4 +1,4 @@
-import { getChats } from '../../../apis/chatAPI.js';
+import { getChats, outChatRooms } from '../../../apis/chatAPI.js';
 import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
 import ChatDetailPageBody from './ChatDetailPageBody/ChatDetailPageBody.js';
 import ChatDetailPageFooter from './ChatDetailPageFooter/ChatDetailPageFooter.js';
@@ -8,6 +8,7 @@ import ChatRoomAlertModal from './ChatRoomAlertModal/ChatRoomAlertModal.js';
 
 export default function ChatDetailPage() {
   this.state = {
+    roomId: '',
     name: '',
     chats: [],
   };
@@ -30,7 +31,7 @@ export default function ChatDetailPage() {
   const chatAlertModal = new ChatRoomAlertModal({
     $target,
     onOutHandler: () => {
-      // TODO : 나가기 API 호출
+      outChatRooms(this.state.roomId);
     },
   });
 
