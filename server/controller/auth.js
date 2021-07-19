@@ -5,7 +5,7 @@ const { ID_REGEX } = require('../constants/regex');
 const errorMessages = require('../constants/errorMessages');
 const { ACCESS_TOKEN_EXPIRED_PERIOD, REFRESH_TOKEN_EXPIRED_PERIOD } = require('../constants/tokenExpiredPeriod');
 const { pool } = require('../db');
-const { CREATE_USER_DATA_QUERY, FIND_USER_QUERY } = require('../query/authQuery');
+const { CREATE_USER_DATA_QUERY, FIND_USER_BY_NAME_QUERY, FIND_USER_BY_ID_QUERY } = require('../query/authQuery');
 
 /**
  * 로그인 요청을 핸들링합니다.
@@ -15,7 +15,7 @@ const handleLogin = async (req, res) => {
   const { name: requestedName } = req.body;
 
   try {
-    const [userDataRows] = await pool.query(FIND_USER_QUERY, [requestedName]);
+    const [userDataRows] = await pool.query(FIND_USER_BY_NAME_QUERY, [requestedName]);
     if (userDataRows.length === 0) throw { message: errorMessages.RECEIVE_NOT_EXIST_ID };
 
     const [{ id }] = userDataRows;
@@ -43,7 +43,7 @@ const handleSignup = async (req, res) => {
   try {
     if (!ID_REGEX.test(name)) throw { message: errorMessages.RECEIVE_INVALID_ID };
     if (receivedTown === '') throw { message: errorMessages.RECEIVE_EMPTY_TOWN };
-    const [userDataRows] = await pool.query(FIND_USER_QUERY, [name]);
+    const [userDataRows] = await pool.query(FIND_USER_BY_NAME_QUERY, [name]);
     if (userDataRows.length !== 0) throw { message: errorMessages.RECEIVE_EXISTED_ID };
 
     const town = JSON.stringify([receivedTown]);
@@ -87,13 +87,10 @@ const handleRefresh = async (req, res) => {
   try {
     const refreshToken = req.header('authorization').split(' ')[1];
     const { id } = jwt.decode(refreshToken);
-
     const updatedAccessToken = jwt.sign({ id }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
-    const updatedRefreshToken = jwt.sign({ id }, JWTKey.secret, { expiresIn: REFRESH_TOKEN_EXPIRED_PERIOD });
 
-    res
-      .status(200)
-      .json({ status: 'success', token: { accessToken: updatedAccessToken, refreshToken: updatedRefreshToken } });
+    const [userDataRows] = await pool.query(FIND_USER_BY_ID_QUERY, [id]);
+    res.status(200).json({ status: 'success', userDataRows, token: { accessToken: updatedAccessToken } });
   } catch (error) {
     res.status(500).json({ status: 'error', message: errorMessages.UNDEFINED_SERVER_ERROR });
   }
