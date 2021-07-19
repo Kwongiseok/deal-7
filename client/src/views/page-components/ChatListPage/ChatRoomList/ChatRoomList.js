@@ -1,4 +1,5 @@
 import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
+import formatDate from '../../../../utils/formatDate.js';
 
 export default function ChatRoomList({ $target, initialState }) {
   // TODO 권기석 : 더미데이터, API 연동 후 수정할 예정입니다.
@@ -6,9 +7,9 @@ export default function ChatRoomList({ $target, initialState }) {
   this.$chatRoomList = createDOMwithSelector('ul', '.chatRoomList');
 
   this.$chatRoomList.addEventListener('click', (e) => {
-    const link = e.target.closest('li')?.dataset.link;
-    if (link) {
-      console.log(`id= ${link}로 이동!`);
+    const url = e.target.closest('li')?.dataset.url;
+    if (url) {
+      location.href = url;
     }
   });
 
@@ -20,15 +21,14 @@ export default function ChatRoomList({ $target, initialState }) {
   };
 
   this.render = () => {
-    console.log(this.state);
     this.$chatRoomList.innerHTML = this.state
       .map(
         (item) => `
-    <li class="chatRoomList__chatRoom">
+    <li class="chatRoomList__chatRoom" data-url=${item.url}>
       <div class="chatroom__chat__container">  
         <div class="chatRoom__info">
           <span class="chatRoom__name">${item.username || '임시네임'}</span>
-          <span class="chatRoom__lastTime">${item.lastchattime}</span>
+          <span class="chatRoom__lastTime">${formatDate(item.lastchattime)}</span>
         </div>
         <div class="chatRoom__chat__container">
           <span class="chatRoom__chat">${item.lastchat}</span>

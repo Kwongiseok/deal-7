@@ -1,4 +1,4 @@
-import { getChatRooms } from '../../../apis/chatAPI.js';
+import { getChatRoomsAboutProduct } from '../../../apis/chatAPI.js';
 import ChatListPageHeader from './ChatListPageHeader/ChatListPageHeader.js';
 import ChatRoomList from './ChatRoomList/ChatRoomList.js';
 
@@ -16,7 +16,7 @@ export default function ChatListPage() {
   };
 
   window.onload = () => {
-    getChatRooms(1234).then((data) => this.setState(data));
+    getChatRoomsAboutProduct(1234).then((data) => this.setState(data));
   };
 }
 

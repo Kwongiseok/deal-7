@@ -10,8 +10,8 @@ export default function ChatDetailPage() {
   this.state = {
     chats: [],
   };
-  const PRODUCT_ID = 114;
-  const BUYER_ID = 1244;
+  const PRODUCT_ID = 1234;
+  const BUYER_ID = 123;
   const SELLER_ID = 144;
   const $target = document.querySelector('#root');
 
