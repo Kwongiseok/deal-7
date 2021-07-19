@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
+const JWTKey = require('../config/jwt');
 
 const { ID_REGEX } = require('../constants/regex');
-const JWTKey = require('../config/jwt.js');
 const errorMessages = require('../constants/errorMessages');
 const { ACCESS_TOKEN_EXPIRED_PERIOD, REFRESH_TOKEN_EXPIRED_PERIOD } = require('../constants/tokenExpiredPeriod');
 const { pool } = require('../db');
@@ -15,21 +15,19 @@ const handleLogin = async (req, res) => {
   const { name: requestedName } = req.body;
 
   try {
-    const [userData] = await pool.query(FIND_USER_QUERY, [requestedName]);
-    if (userData.length === 0) throw { message: errorMessages.RECEIVE_NOT_EXIST_ID };
+    const [userDataRows] = await pool.query(FIND_USER_QUERY, [requestedName]);
+    if (userDataRows.length === 0) throw { message: errorMessages.RECEIVE_NOT_EXIST_ID };
 
-    const { id, name } = userData;
-    const accessToken = jwt.sign({ id, name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
-    const refreshToken = jwt.sign({ id, name }, JWTKey.secret, { expiresIn: REFRESH_TOKEN_EXPIRED_PERIOD });
+    const [{ id }] = userDataRows;
+    const accessToken = jwt.sign({ id }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
+    const refreshToken = jwt.sign({ id }, JWTKey.secret, { expiresIn: REFRESH_TOKEN_EXPIRED_PERIOD });
 
-    res.status(200).json({ status: 'success', userData, token: { accessToken, refreshToken } });
+    res.status(200).json({ status: 'success', userDataRows, token: { accessToken, refreshToken } });
   } catch (error) {
-    const { RECEIVE_NOT_EXIST_ID } = error;
-
-    if (error.message === RECEIVE_NOT_EXIST_ID) {
-      return res.status(404).json({ status: 'error', message: RECEIVE_NOT_EXIST_ID });
+    if (error.message === errorMessages.RECEIVE_NOT_EXIST_ID) {
+      return res.status(404).json({ status: 'error', message: error.message });
     }
-
+    console.log(error);
     res.status(500).json({ status: 'error', message: errorMessages.UNDEFINED_SERVER_ERROR });
   }
 };
@@ -45,8 +43,8 @@ const handleSignup = async (req, res) => {
   try {
     if (!ID_REGEX.test(name)) throw { message: errorMessages.RECEIVE_INVALID_ID };
 
-    const [userData] = await pool.query(FIND_USER_QUERY, [name]);
-    if (userData.length !== 0) throw { message: errorMessages.RECEIVE_EXISTED_ID };
+    const [userDataRows] = await pool.query(FIND_USER_QUERY, [name]);
+    if (userDataRows.length !== 0) throw { message: errorMessages.RECEIVE_EXISTED_ID };
 
     await pool.query(CREATE_USER_DATA_QUERY, [name, town, '']);
     res.status(201).json({ status: 'success', info: { name, town, likes: '[]' } });
@@ -57,7 +55,6 @@ const handleSignup = async (req, res) => {
     if ([RECEIVE_INVALID_ID, RECEIVE_EXISTED_ID].includes(message)) {
       return res.status(400).json({ status: 'error', message });
     }
-    console.log(error);
 
     res.status(500).json({ status: 'error', message: errorMessages.UNDEFINED_SERVER_ERROR });
   }
@@ -71,11 +68,12 @@ const handleSignup = async (req, res) => {
 const handleAuthTest = async (req, res) => {
   try {
     const accessToken = req.header('authorization').split(' ')[1];
-    const { name } = jwt.decode(accessToken);
-    const updatedAccessToken = jwt.sign({ name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
+    const { id } = jwt.decode(accessToken);
 
+    const updatedAccessToken = jwt.sign({ id }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
     res.status(200).json({ status: 'success', token: { accessToken: updatedAccessToken } });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ status: 'error', message: errorMessages.UNDEFINED_SERVER_ERROR });
   }
 };
@@ -87,10 +85,10 @@ const handleAuthTest = async (req, res) => {
 const handleRefresh = async (req, res) => {
   try {
     const refreshToken = req.header('authorization').split(' ')[1];
-    const { name } = jwt.decode(refreshToken);
+    const { id } = jwt.decode(refreshToken);
 
-    const updatedAccessToken = jwt.sign({ name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
-    const updatedRefreshToken = jwt.sign({ name }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
+    const updatedAccessToken = jwt.sign({ id }, JWTKey.secret, { expiresIn: ACCESS_TOKEN_EXPIRED_PERIOD });
+    const updatedRefreshToken = jwt.sign({ id }, JWTKey.secret, { expiresIn: REFRESH_TOKEN_EXPIRED_PERIOD });
 
     res
       .status(200)

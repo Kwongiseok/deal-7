@@ -1,6 +1,4 @@
-const express = require('express');
-const router = express.Router();
-
+const router = require('express').Router();
 const { handleLogin, handleSignup, handleAuthTest, handleRefresh } = require('../controller/auth');
 const { checkToken } = require('../middleware/checkToken');
 
