@@ -11,7 +11,6 @@ const router = express.Router();
 
 router.get('/:productId', async (req, res) => {
   const { productId } = req.params;
-  console.log(productId);
   const data = await getReciveChatRoomsFromProduct(productId);
   res.send(data);
 });

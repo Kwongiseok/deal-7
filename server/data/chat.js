@@ -1,7 +1,5 @@
 const { pool } = require('../db.js');
 
-// ('SELECT tw.id, tw.text, tw.createdAt, tw.userId, us.username, us.name, us.url FROM tweets as tw JOIN users as us ON tw.userId=us.id');
-
 async function getReciveChatRoomInfo(chatroomid) {
   return pool.execute(`SELECT * from CHATROOM WHERE id=?`, [chatroomid]).then((result) => result[0][0]);
 }
@@ -15,7 +13,6 @@ async function getReciveChatsFromRoom(chatroomid) {
 }
 
 async function getReciveChatRoomsFromProduct(productid) {
-  console.log(productid);
   return pool
     .execute(
       `SELECT buyer,lastchat,lastchattime, sellerunread as unreadChats, thumbnail FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id WHERE PRODUCT.id=?`,
