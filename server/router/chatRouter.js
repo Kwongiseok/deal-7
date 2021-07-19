@@ -30,14 +30,13 @@ router.get('/:productId', async (req, res) => {
 });
 
 // 나의 채팅 목록을 전부 가져온다.
-router.get('/api/All', async (req, res) => {
+router.get('/api/All', checkToken(), async (req, res) => {
   // Token 검증 후 req.user에 id 삽입됨
-  req.user = '144';
   const sellChats = await getMySellingChatRooms(req.user);
   const buyChats = await getMyBuyingChatRooms(req.user);
   const data = [...sellChats, ...buyChats];
   data.sort((item1, item2) => {
-    // return item1.lastchattime.getTime() - item2.lastchattime.getTime();
+    return item1.lastchattime.getTime() - item2.lastchattime.getTime();
   });
   res.status(200).send(data);
 });
