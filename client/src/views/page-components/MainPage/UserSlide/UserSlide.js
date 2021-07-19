@@ -63,7 +63,7 @@ export default function UserSlide({ $selector, isLoggedIn, user, setUserState })
     }
 
     if (!isLoggedIn && !isLoginScreen) {
-      renderSignupScreen(this.$UserSlideMain);
+      renderSignupScreen(this.$UserSlideMain, this.setState);
     }
 
     if (isLoggedIn) {
@@ -76,7 +76,7 @@ export default function UserSlide({ $selector, isLoggedIn, user, setUserState })
 }
 
 const renderLoginScreen = ($selector, setUserState) => new LoginScreen({ $selector, setUserState });
-const renderSignupScreen = ($selector) => new SignupScreen({ $selector });
+const renderSignupScreen = ($selector, setSlideTabState) => new SignupScreen({ $selector, setSlideTabState });
 const renderUserScreen = ($selector, username, setUserState) => new LogoutScreen({ $selector, username, setUserState });
 
 /**
