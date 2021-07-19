@@ -1,6 +1,6 @@
 const express = require('express');
 const { getReceiveChats, renderChatDetailPage } = require('../controller/chat');
-const { getReciveChatRoomsFromProduct } = require('../data/chat');
+const { getReciveChatRoomsFromProduct, getMySellingChatRooms, getMyBuyingChatRooms } = require('../data/chat');
 const { getProductSeller } = require('../data/product');
 const { checkToken } = require('../middleware/checkToken');
 const router = express.Router();
@@ -19,6 +19,19 @@ router.get('/:productId', async (req, res) => {
     res.sendStatus(403);
   }
   res.render('hi');
+});
+
+// 나의 채팅 목록을 전부 가져온다.
+router.get('/api/All', async (req, res) => {
+  // Token 검증 후 req.user에 id 삽입됨
+  req.user = '144';
+  const sellChats = await getMySellingChatRooms(req.user);
+  const buyChats = await getMyBuyingChatRooms(req.user);
+  const data = [...sellChats, ...buyChats];
+  data.sort((item1, item2) => {
+    // return item1.lastchattime.getTime() - item2.lastchattime.getTime();
+  });
+  res.status(200).send(data);
 });
 
 // 해당 상품의 chatting 목록을 보여준다.
@@ -41,11 +54,5 @@ router.get('/api/:productId', async (req, res) => {
 
 // 채팅방
 router.get('/api/:productId/:buyerId/:sellerId', getReceiveChats);
-
-// 나의 채팅 목록을 전부 가져온다.
-router.post('/api/All', (req, res) => {
-  // Token 검증 후 req.user에 id 삽입됨
-  req.user = '144';
-});
 
 module.exports = router;

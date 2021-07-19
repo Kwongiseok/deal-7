@@ -21,12 +21,26 @@ async function getReciveChatRoomsFromProduct(productid) {
     .then((res) => res[0]);
 }
 
-async function getSellChatRooms(userid) {
-  return pool.execute(`SELECT `);
+async function getMySellingChatRooms(userid) {
+  return pool
+    .execute(
+      `SELECT name, lastchat, lastchattime, sellerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id JOIN USER ON CHATROOM.buyer = USER.id WHERE PRODUCT.seller = ? AND CHATROOM.sellerIn=1`,
+      [userid]
+    )
+    .then((res) => res[0]);
+}
+
+async function getMyBuyingChatRooms(userid) {
+  return pool
+    .execute(
+      `SELECT name, lastchat, lastchattime, buyerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id JOIN USER ON CHATROOM.seller = USER.id WHERE CHATROOM.buyer = ? AND CHATROOM.buyerIn=1`,
+      [userid]
+    )
+    .then((res) => res[0]);
 }
 
 async function updateLastChat(roomid, text) {
-  return pool.execute(`UPDATE CHATROOM SET lastchat=?, lastchattime=?, SELLERIN=true, BUYERIN=true WHERE id=?`, [
+  return pool.execute(`UPDATE CHATROOM SET lastchat=?, lastchattime=?, SELLERIN=1, BUYERIN=1 WHERE id=?`, [
     text,
     new Date(),
     roomid,
@@ -73,6 +87,8 @@ module.exports = {
   getReciveChatsFromRoom,
   getReciveChatRoomInfo,
   getReciveChatRoomsFromProduct,
+  getMySellingChatRooms,
+  getMyBuyingChatRooms,
   plusBuyerUnreadCount,
   plusSellerUnreadCount,
   resetBuyerUnreadCount,
