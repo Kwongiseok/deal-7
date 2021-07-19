@@ -40,7 +40,6 @@ const CREATE_CHATROOM_TABLE_QUERY = `
     PRIMARY KEY (id));
 `;
 // FOREIGN KEY (productid) REFERENCES deal.product(id) ON DELETE CASCADE);
-// unreadCounts INT,
 
 const CREATE_CHAT_TABLE_QUERY = `
   CREATE TABLE IF NOT EXISTS deal.Chat (
