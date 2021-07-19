@@ -15,14 +15,22 @@ async function getReciveChatsFromRoom(chatroomid) {
 async function getReciveChatRoomsFromProduct(productid) {
   return pool
     .execute(
-      `SELECT buyer,lastchat,lastchattime, sellerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id WHERE PRODUCT.id=?`,
+      `SELECT name,lastchat,lastchattime, sellerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id JOIN USER ON CHATROOM.buyer = USER.id WHERE PRODUCT.id=?`,
       [productid]
     )
     .then((res) => res[0]);
 }
 
+async function getSellChatRooms(userid) {
+  return pool.execute(`SELECT `);
+}
+
 async function updateLastChat(roomid, text) {
-  return pool.execute(`UPDATE CHATROOM SET lastchat=?, lastchattime=? WHERE id=?`, [text, new Date(), roomid]);
+  return pool.execute(`UPDATE CHATROOM SET lastchat=?, lastchattime=?, SELLERIN=true, BUYERIN=true WHERE id=?`, [
+    text,
+    new Date(),
+    roomid,
+  ]);
 }
 
 async function plusSellerUnreadCount(chatroomid) {

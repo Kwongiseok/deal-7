@@ -34,6 +34,8 @@ const CREATE_CHATROOM_TABLE_QUERY = `
     url VARCHAR(100) NOT NULL,
     seller INT NOT NULL,
     buyer INT NOT NULL,
+    sellerin BOOLEAN, 
+    buyerin BOOLEAN,
     sellerunread INT default '0',
     buyerunread INT default '0',
     lastchat LONGTEXT,
