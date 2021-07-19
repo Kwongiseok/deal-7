@@ -36,17 +36,10 @@ router.get('/:productId/:buyerId/:sellerId', async (req, res) => {
   const data = await getReciveChatsFromRoom(roomId);
   if (data) {
     const item = data[0].map((chat) => {
-      if (chat.author === req.user) {
-        return {
-          text: chat.text,
-          isMine: true,
-        };
-      } else {
-        return {
-          text: chat.text,
-          isMine: false,
-        };
-      }
+      return {
+        text: chat.text,
+        isMine: chat.author === req.user,
+      };
     });
     res.send(item);
   }

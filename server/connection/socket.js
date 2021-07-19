@@ -14,17 +14,17 @@ class Socket {
     this.wss = new Websocket.Server({
       server,
       verifyClient: async (info, cb) => {
-        const parsedUrl = info.req.url.split('/');
-        const [productId, buyerId, sellerId] = [parsedUrl[2], parsedUrl[3], parsedUrl[4]];
-        const roomId = parseInt(String(productId) + String(buyerId));
-        // info.req.user = sellerId;
+        const [productId, buyerId, sellerId] = info.req.url.split('/').slice(2);
+        const roomId = `${productId}${buyerId}`;
+        // info.req.user = token으로부터 얻은 id;
         info.req.user = Math.random() * 100;
         info.req.room = roomId;
         const roomInfo = await getReciveChatRoomInfo(roomId);
-        if (roomInfo.buyer == buyerId || roomInfo.seller == sellerId) {
-          info.req.isBuyer = roomInfo.buyer == buyerId;
+
+        if (String(roomInfo.buyer) === buyerId || String(roomInfo.seller) === sellerId) {
+          info.req.isBuyer = String(roomInfo.buyer) === buyerId;
         }
-        info.req.isBuyer = roomInfo.buyer == buyerId;
+        info.req.isBuyer = String(roomInfo.buyer) === buyerId;
         cb(true);
       },
     });
@@ -62,6 +62,7 @@ function getSocketWS() {
   return socket.ws;
 }
 
+// 방에 있는 사람들에게 메세지를 전달과 동시에 unread counting
 function msgSender(identify, isBuyer, message) {
   return new Promise((resolve, reject) => {
     let count = 0;
@@ -76,14 +77,10 @@ function msgSender(identify, isBuyer, message) {
         }
       }
     }
-    if (count === 0) {
-      if (isBuyer) {
-        // buyer가 보냄
-        plusSellerUnreadCount(identify.room);
-      } else {
-        plusBuyerUnreadCount(identify.room);
-      }
-    }
+    if (count !== 0) return;
+
+    if (isBuyer) plusSellerUnreadCount(identify.room);
+    else plusBuyerUnreadCount(identify.room);
     resolve('succ');
   });
 }

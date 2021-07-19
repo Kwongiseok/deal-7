@@ -11,10 +11,10 @@ const {
 require('dotenv').config({ path: path.join(__dirname, '/config/.env') });
 
 const createdPool = createPool({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  database: process.env.DB_DATABASE || 'deal',
-  password: process.env.DB_PASSWORD ,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
 const pool = createdPool.promise();
