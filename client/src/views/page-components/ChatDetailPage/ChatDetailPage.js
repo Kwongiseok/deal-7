@@ -8,6 +8,7 @@ import ChatRoomAlertModal from './ChatRoomAlertModal/ChatRoomAlertModal.js';
 
 export default function ChatDetailPage() {
   this.state = {
+    name: '',
     chats: [],
   };
   const PRODUCT_ID = 1234;
@@ -33,11 +34,12 @@ export default function ChatDetailPage() {
     },
   });
 
-  new ChatDetailPageHeader({
+  const chatHeader = new ChatDetailPageHeader({
     $target: this.$chatDetailPage,
     onClickOutHandler: () => {
       chatAlertModal.showModal();
     },
+    initialState: { name: this.state.name },
   });
 
   new ChatDetailPageProduct({ $target: this.$chatDetailPage });
@@ -54,13 +56,12 @@ export default function ChatDetailPage() {
 
   this.setState = (nextState) => {
     this.state = nextState;
+    chatHeader.setState({ name: this.state.name });
     chatBody.setState({ ...chatBody.state, chats: this.state.chats });
   };
 
   window.onload = () =>
-    getChats(`/chat/${PRODUCT_ID}/${BUYER_ID}/${SELLER_ID}`).then((res) =>
-      this.setState({ ...this.state, chats: [...this.state.chats, ...res] })
-    );
+    getChats(`/chat/${PRODUCT_ID}/${BUYER_ID}/${SELLER_ID}`).then((res) => this.setState({ ...this.state, ...res }));
 }
 
 new ChatDetailPage();
