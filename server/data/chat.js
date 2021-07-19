@@ -15,7 +15,7 @@ async function getReciveChatsFromRoom(chatroomid) {
 async function getReciveChatRoomsFromProduct(productid) {
   return pool
     .execute(
-      `SELECT buyer,lastchat,lastchattime, sellerunread as unreadChats, thumbnail FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id WHERE PRODUCT.id=?`,
+      `SELECT buyer,lastchat,lastchattime, sellerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id WHERE PRODUCT.id=?`,
       [productid]
     )
     .then((res) => res[0]);
@@ -42,11 +42,13 @@ async function resetBuyerUnreadCount(chatroomid) {
 }
 
 async function createChatRoom(chatroomid, productId, seller, buyer) {
-  return pool.execute(`INSERT INTO CHATROOM (id, productId, seller, buyer) VALUES(?,?,?,?)`, [
+  const url = `http://localhost:8080/chat/${productId}/${buyer}/${seller}`;
+  return pool.execute(`INSERT INTO CHATROOM (id, productId, seller, buyer, url) VALUES(?,?,?,?,?)`, [
     chatroomid,
     productId,
     seller,
     buyer,
+    url,
   ]);
 }
 

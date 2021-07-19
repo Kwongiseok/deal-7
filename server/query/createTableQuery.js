@@ -31,6 +31,7 @@ const CREATE_CHATROOM_TABLE_QUERY = `
   CREATE TABLE IF NOT EXISTS deal.ChatRoom (
     id INT NOT NULL,
     productid INT NOT NULL,
+    url VARCHAR(100) NOT NULL,
     seller INT NOT NULL,
     buyer INT NOT NULL,
     sellerunread INT default '0',
