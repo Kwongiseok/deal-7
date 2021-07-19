@@ -54,7 +54,6 @@ const CREATE_CHAT_TABLE_QUERY = `
   PRIMARY KEY (id),
   FOREIGN KEY (chatroomid) REFERENCES deal.ChatRoom(id) ON DELETE CASCADE);
 `;
-// CREATEDAT DATE NOT NULL,
 
 module.exports = {
   CREATE_CHATROOM_TABLE_QUERY,

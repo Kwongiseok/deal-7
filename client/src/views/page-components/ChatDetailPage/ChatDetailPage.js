@@ -30,8 +30,9 @@ export default function ChatDetailPage() {
 
   const chatAlertModal = new ChatRoomAlertModal({
     $target,
-    onOutHandler: () => {
-      outChatRooms(this.state.roomId);
+    onOutHandler: async () => {
+      await outChatRooms(this.state.roomId);
+      history.back();
     },
   });
 
