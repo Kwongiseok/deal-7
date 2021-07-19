@@ -11,10 +11,11 @@ export default function ChatDetailPage() {
     chats: [],
   };
   const PRODUCT_ID = 1234;
-  const BUYER_ID = 123;
+  const BUYER_ID = 1244;
   const SELLER_ID = 144;
   const $target = document.querySelector('#root');
 
+  // TODO: 접속한 url으로부터 id 값들을 받아와서 넣어줘야한다.
   this.webSocket = new WebSocket(`ws://localhost:8080/chat/${PRODUCT_ID}/${BUYER_ID}/${SELLER_ID}`);
 
   this.webSocket.onmessage = (message) => {

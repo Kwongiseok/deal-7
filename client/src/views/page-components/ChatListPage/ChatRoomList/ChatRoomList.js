@@ -2,7 +2,6 @@ import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.j
 import formatDate from '../../../../utils/formatDate.js';
 
 export default function ChatRoomList({ $target, initialState }) {
-  // TODO 권기석 : 더미데이터, API 연동 후 수정할 예정입니다.
   this.state = initialState;
   this.$chatRoomList = createDOMwithSelector('ul', '.chatRoomList');
 
@@ -27,7 +26,7 @@ export default function ChatRoomList({ $target, initialState }) {
     <li class="chatRoomList__chatRoom" data-url=${item.url}>
       <div class="chatroom__chat__container">  
         <div class="chatRoom__info">
-          <span class="chatRoom__name">${item.username || '임시네임'}</span>
+          <span class="chatRoom__name">${item.name || '임시네임'}</span>
           <span class="chatRoom__lastTime">${formatDate(item.lastchattime)}</span>
         </div>
         <div class="chatRoom__chat__container">
