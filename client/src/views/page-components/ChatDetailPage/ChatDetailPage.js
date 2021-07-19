@@ -41,6 +41,12 @@ export default function ChatDetailPage() {
     onClickOutHandler: () => {
       chatAlertModal.showModal();
     },
+    onClickBackHandler: async () => {
+      if (this.state.name && this.state.roomId && this.state.chats.length === 0) {
+        await outChatRooms(this.state.roomId);
+      }
+      history.back();
+    },
     initialState: { name: this.state.name },
   });
 
