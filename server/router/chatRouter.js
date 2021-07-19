@@ -1,6 +1,13 @@
 const express = require('express');
 const { getReceiveChats, renderChatDetailPage } = require('../controller/chat');
-const { getReciveChatRoomsFromProduct, getMySellingChatRooms, getMyBuyingChatRooms } = require('../data/chat');
+const {
+  getReciveChatRoomsFromProduct,
+  getMySellingChatRooms,
+  getMyBuyingChatRooms,
+  getReciveChatRoomInfo,
+  outSellerFromRoom,
+  outBuyerFromRoom,
+} = require('../data/chat');
 const { getProductSeller } = require('../data/product');
 const { checkToken } = require('../middleware/checkToken');
 const router = express.Router();
@@ -50,6 +57,29 @@ router.get('/api/:productId', async (req, res) => {
     console.log(data);
     res.status(200).send(data);
   }
+});
+
+router.post('/api/out/:roomId', async (req, res) => {
+  const { roomId } = req.params;
+  req.user = 144;
+  const roomInfo = await getReciveChatRoomInfo(roomId);
+  if (!roomInfo) {
+    res.sendStatus(404);
+  }
+  if (roomInfo.seller === req.user) {
+    if (!roomInfo.buyerin) {
+      // buyer가 채팅방에 없을 때, 삭제
+    } else {
+      await outSellerFromRoom(roomId);
+    }
+  } else {
+    if (!roomInfo.sellerin) {
+      // seller가 채팅방에 없을 때, 삭제
+    } else {
+      await outBuyerFromRoom(roomId);
+    }
+  }
+  res.sendStatus(200);
 });
 
 // 채팅방
