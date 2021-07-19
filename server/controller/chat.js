@@ -1,3 +1,4 @@
+const { getUserName } = require('../data/auth');
 const {
   getReciveChatRoomInfo,
   resetSellerUnreadCount,
@@ -35,6 +36,7 @@ async function getReceiveChats(req, res) {
   // }
   const roomId = parseInt(req.params.productId + req.params.buyerId);
   const roomInfo = await getReciveChatRoomInfo(roomId);
+  const name = await getUserName(user === buyerId ? sellerId : buyerId);
 
   if (!roomInfo) {
     createChatRoom(parseInt(roomId), parseInt(productId), parseInt(sellerId), parseInt(buyerId));
@@ -58,7 +60,10 @@ async function getReceiveChats(req, res) {
         };
       }
     });
-    res.send(item);
+    res.send({
+      name,
+      chats: item,
+    });
   }
 }
 
