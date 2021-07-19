@@ -3,7 +3,7 @@ import LoginScreen from '../LoginScreen/LoginScreen.js';
 import LogoutScreen from '../LogoutScreen/LogoutScreen.js';
 import SignupScreen from '../SignupScreen/SignupScreen.js';
 
-export default function UserSlide({ $selector }) {
+export default function UserSlide({ $selector, isLoggedIn, user, setUserState }) {
   this.$UserSlide = createDOMwithSelector('div', '.user-slide');
   $selector.appendChild(this.$UserSlide);
 
@@ -17,10 +17,9 @@ export default function UserSlide({ $selector }) {
 
   //state
   this.state = {
-    isLoggedIn: false,
-    // isLoggedIn: true,
+    isLoggedIn,
+    user,
     isLoginScreen: true,
-    username: 'jong951005@gmail.com',
   };
 
   this.setState = (nextState) => {
@@ -59,15 +58,15 @@ export default function UserSlide({ $selector }) {
     this.$UserSlideMain = document.querySelector('.user-slide__main');
 
     if (!isLoggedIn && isLoginScreen) {
-      renderLoginScreen(this.$UserSlideMain);
+      renderLoginScreen(this.$UserSlideMain, setUserState);
     }
 
     if (!isLoggedIn && !isLoginScreen) {
-      renderSignupScreen(this.$UserSlideMain);
+      renderSignupScreen(this.$UserSlideMain, this.setState);
     }
 
     if (isLoggedIn) {
-      renderUserScreen(this.$UserSlideMain, this.state.username);
+      renderUserScreen(this.$UserSlideMain, this.state.user.name, setUserState);
     }
   };
 
@@ -75,9 +74,9 @@ export default function UserSlide({ $selector }) {
   bindEvents();
 }
 
-const renderLoginScreen = ($selector) => new LoginScreen({ $selector });
-const renderSignupScreen = ($selector) => new SignupScreen({ $selector });
-const renderUserScreen = ($selector, username) => new LogoutScreen({ $selector, username });
+const renderLoginScreen = ($selector, setUserState) => new LoginScreen({ $selector, setUserState });
+const renderSignupScreen = ($selector, setSlideTabState) => new SignupScreen({ $selector, setSlideTabState });
+const renderUserScreen = ($selector, username, setUserState) => new LogoutScreen({ $selector, username, setUserState });
 
 /**
  * 로그인 되어있을 경우,

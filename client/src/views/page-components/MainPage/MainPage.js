@@ -1,4 +1,6 @@
+import AuthAPI from '../../../apis/authAPI.js';
 import { SAMPLE_PRODUCTS_STATE } from '../../../dummy-file.js';
+import { checkUserLoginStatus } from '../../../utils/checkUserLoginStatus.js';
 import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
 import CategorySlide from './CategorySlide/CategorySlide.js';
 import CreateProductButton from './CreateProductButton/CreateProductButton.js';
@@ -11,9 +13,22 @@ import TownSlide from './TownSlide/TownSlide.js';
 import UserSlide from './UserSlide/UserSlide.js';
 
 function MainPage() {
+  checkUserLoginStatus.then(({ isLoggedIn, res }) => {
+    if (!isLoggedIn) return;
+
+    this.setUserState({
+      isLoggedIn: true,
+      user: {
+        accessToken: res.token.accessToken,
+        name: res.userDataRows[0].name,
+        town: JSON.parse(res.userDataRows[0].town),
+      },
+    });
+  });
+
   /**
    * State
-   * currentlyopendSlide
+   * currentlyOpenedSlide
    * - 현재 오픈되어 있는 슬라이드 입니다.
    * - 들어올 수 있는 값은 null | category | user | town | create | menu 입니다.
    */
@@ -25,8 +40,11 @@ function MainPage() {
       town: '역삼동',
       category: null,
     },
+    isLoggedIn: false,
     user: {
-      town: ['역삼동', '신부동'],
+      accessToken: null,
+      name: '',
+      town: [],
     },
   };
 
@@ -35,7 +53,13 @@ function MainPage() {
     this.render();
   };
 
+  this.setUserState = (userState) => {
+    this.setState({ ...this.state, ...userState });
+    this.renderComponenetRelatedUserState();
+  };
+
   // Events
+
   this.setCurrentlyOpenedSlide = (val) => {
     this.setState({ ...this.state, currentlyOpenedSlide: val });
   };
@@ -102,7 +126,12 @@ function MainPage() {
     currentCategory: this.state.productFilter.category,
     setCategoryFilter: this.setCategoryFilter,
   });
-  const $UserSlide = new UserSlide({ $selector: body });
+  const $UserSlide = new UserSlide({
+    $selector: body,
+    isLoggedIn: this.state.isLoggedIn,
+    user: this.state.user,
+    setUserState: this.setUserState,
+  });
   const $MenuSlide = new MenuSlide({ $selector: body });
   const $CreateProductSlide = new CreateProductSlide({
     $selector: body,
@@ -139,6 +168,11 @@ function MainPage() {
   };
 
   const triggerTownModal = (isTownModalOpened) => $TownModal.showTownModal(isTownModalOpened);
+
+  this.renderComponenetRelatedUserState = () => {
+    const { isLoggedIn, user } = this.state;
+    $UserSlide.setState({ isLoggedIn, user });
+  };
 
   bindEvents();
   this.render();
