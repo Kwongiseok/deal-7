@@ -24,3 +24,14 @@ export function getChatRoomsAboutProduct(url) {
     .then((res) => res.json())
     .then((res) => res);
 }
+
+export function getMyAllChatRooms() {
+  return fetch(`http://localhost:8080/chat/api/All`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => res);
+}

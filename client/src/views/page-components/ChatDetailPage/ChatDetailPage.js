@@ -48,7 +48,6 @@ export default function ChatDetailPage() {
     $target: this.$chatDetailPage,
     onSendChatHandler: (chat) => {
       this.webSocket.send(chat);
-      // TODO: API 요청
       this.setState({ ...this.state, chats: [...this.state.chats, { isMine: true, text: chat }] });
     },
   });
