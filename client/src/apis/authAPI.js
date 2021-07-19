@@ -26,4 +26,16 @@ AuthAPI.requestSignup = (data) => {
     .catch((err) => err);
 };
 
+AuthAPI.getAccessToken = (token) => {
+  return fetch(`${BASE_URL}/auth/refresh`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .catch((err) => err);
+};
+
 export default AuthAPI;
