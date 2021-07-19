@@ -38,21 +38,22 @@ const handleLogin = async (req, res) => {
  * 만약, 이미 해당 ID로 가입한 유저가 있을 경우, error를 반환합니다.
  */
 const handleSignup = async (req, res) => {
-  const { name, town } = req.body;
+  const { name, town: receivedTown } = req.body;
 
   try {
     if (!ID_REGEX.test(name)) throw { message: errorMessages.RECEIVE_INVALID_ID };
-
+    if (receivedTown === '') throw { message: errorMessages.RECEIVE_EMPTY_TOWN };
     const [userDataRows] = await pool.query(FIND_USER_QUERY, [name]);
     if (userDataRows.length !== 0) throw { message: errorMessages.RECEIVE_EXISTED_ID };
+
+    const town = JSON.stringify([receivedTown]);
 
     await pool.query(CREATE_USER_DATA_QUERY, [name, town, '']);
     res.status(201).json({ status: 'success', info: { name, town, likes: '[]' } });
   } catch (error) {
     const { message } = error;
-    const { RECEIVE_INVALID_ID, RECEIVE_EXISTED_ID } = errorMessages;
 
-    if ([RECEIVE_INVALID_ID, RECEIVE_EXISTED_ID].includes(message)) {
+    if (Object.values(errorMessages).includes(message)) {
       return res.status(400).json({ status: 'error', message });
     }
 
