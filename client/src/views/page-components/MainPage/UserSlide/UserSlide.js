@@ -3,7 +3,7 @@ import LoginScreen from '../LoginScreen/LoginScreen.js';
 import LogoutScreen from '../LogoutScreen/LogoutScreen.js';
 import SignupScreen from '../SignupScreen/SignupScreen.js';
 
-export default function UserSlide({ $selector }) {
+export default function UserSlide({ $selector, isLoggedIn, user, setUserState }) {
   this.$UserSlide = createDOMwithSelector('div', '.user-slide');
   $selector.appendChild(this.$UserSlide);
 
@@ -17,14 +17,14 @@ export default function UserSlide({ $selector }) {
 
   //state
   this.state = {
-    isLoggedIn: false,
-    // isLoggedIn: true,
+    isLoggedIn,
+    user,
     isLoginScreen: true,
-    username: 'jong951005@gmail.com',
   };
 
   this.setState = (nextState) => {
     this.state = { ...this.state, ...nextState };
+    console.log(this.state);
     this.render();
   };
 
@@ -59,7 +59,7 @@ export default function UserSlide({ $selector }) {
     this.$UserSlideMain = document.querySelector('.user-slide__main');
 
     if (!isLoggedIn && isLoginScreen) {
-      renderLoginScreen(this.$UserSlideMain);
+      renderLoginScreen(this.$UserSlideMain, setUserState);
     }
 
     if (!isLoggedIn && !isLoginScreen) {
@@ -67,7 +67,7 @@ export default function UserSlide({ $selector }) {
     }
 
     if (isLoggedIn) {
-      renderUserScreen(this.$UserSlideMain, this.state.username);
+      renderUserScreen(this.$UserSlideMain, this.state.user.name);
     }
   };
 
@@ -75,7 +75,7 @@ export default function UserSlide({ $selector }) {
   bindEvents();
 }
 
-const renderLoginScreen = ($selector) => new LoginScreen({ $selector });
+const renderLoginScreen = ($selector, setUserState) => new LoginScreen({ $selector, setUserState });
 const renderSignupScreen = ($selector) => new SignupScreen({ $selector });
 const renderUserScreen = ($selector, username) => new LogoutScreen({ $selector, username });
 

@@ -13,7 +13,7 @@ import UserSlide from './UserSlide/UserSlide.js';
 function MainPage() {
   /**
    * State
-   * currentlyopendSlide
+   * currentlyOpenedSlide
    * - 현재 오픈되어 있는 슬라이드 입니다.
    * - 들어올 수 있는 값은 null | category | user | town | create | menu 입니다.
    */
@@ -25,8 +25,11 @@ function MainPage() {
       town: '역삼동',
       category: null,
     },
+    isLoggedIn: false,
     user: {
-      town: ['역삼동', '신부동'],
+      accessToken: '',
+      town: [],
+      username: '',
     },
   };
 
@@ -35,7 +38,14 @@ function MainPage() {
     this.render();
   };
 
+  this.setUserState = (userState) => {
+    this.setState({ ...this.state, ...userState });
+    console.log(this.state);
+    this.renderComponenetRelatedUserState();
+  };
+
   // Events
+
   this.setCurrentlyOpenedSlide = (val) => {
     this.setState({ ...this.state, currentlyOpenedSlide: val });
   };
@@ -102,7 +112,12 @@ function MainPage() {
     currentCategory: this.state.productFilter.category,
     setCategoryFilter: this.setCategoryFilter,
   });
-  const $UserSlide = new UserSlide({ $selector: body });
+  const $UserSlide = new UserSlide({
+    $selector: body,
+    isLoggedIn: this.state.isLoggedIn,
+    user: this.state.user,
+    setUserState: this.setUserState,
+  });
   const $MenuSlide = new MenuSlide({ $selector: body });
   const $CreateProductSlide = new CreateProductSlide({
     $selector: body,
@@ -139,6 +154,11 @@ function MainPage() {
   };
 
   const triggerTownModal = (isTownModalOpened) => $TownModal.showTownModal(isTownModalOpened);
+
+  this.renderComponenetRelatedUserState = () => {
+    const { isLoggedIn, user } = this.state;
+    $UserSlide.setState({ isLoggedIn, user });
+  };
 
   bindEvents();
   this.render();
