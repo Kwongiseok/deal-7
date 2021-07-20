@@ -7,6 +7,7 @@ import ChatDetailPageFooter from './ChatDetailPageFooter/ChatDetailPageFooter.js
 import ChatDetailPageProduct from './ChatDetailPageProduct/ChatDetailPageProduct.js';
 import ChatDetailPageHeader from './ChatDetaiPageHeader/ChatDetailPageHeader.js';
 import ChatRoomAlertModal from './ChatRoomAlertModal/ChatRoomAlertModal.js';
+import '../../../index.css';
 
 export default function ChatDetailPage() {
   const PRODUCT_ID = 1;

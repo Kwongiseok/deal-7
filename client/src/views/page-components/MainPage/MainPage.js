@@ -12,6 +12,7 @@ import ProductsWrap from './ProductsWrap/ProductsWrap.js';
 import TownModal from './TownModal/TownModal.js';
 import TownSlide from './TownSlide/TownSlide.js';
 import UserSlide from './UserSlide/UserSlide.js';
+import '../../../index.css';
 
 function MainPage() {
   checkUserLoginStatus.then(({ isLoggedIn, res }) => {
