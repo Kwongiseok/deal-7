@@ -21,22 +21,22 @@ async function renderChatDetailPage(req, res) {
 async function getReceiveChats(req, res) {
   const { productId, buyerId, sellerId } = req.params;
   // userId를 토큰 해석을 통해서 가져온다. -> userId와 seller, buyer 비교 후 reset
-  if (String(req.user) !== buyerId && String(req.user) !== sellerId) {
+  if (String(req.id) !== buyerId && String(req.id) !== sellerId) {
     res.sendStatus(403);
   }
   const roomId = parseInt(productId + buyerId);
   const roomInfo = await getReciveChatRoomInfo(roomId);
-  const name = await getUserName(String(req.user) === buyerId ? sellerId : buyerId);
+  const name = await getUserName(String(req.id) === buyerId ? sellerId : buyerId);
 
-  if (roomInfo.seller === req.user) {
+  if (roomInfo.seller === req.id) {
     resetSellerUnreadCount(roomId);
-  } else if (roomInfo.buyerId === req.user) {
+  } else if (roomInfo.buyerId === req.id) {
     resetBuyerUnreadCount(roomId);
   }
   const data = await getReciveChatsFromRoom(roomId);
   if (data) {
     const item = data[0].map((chat) => {
-      if (chat.author === req.user) {
+      if (chat.author === req.id) {
         return {
           text: chat.text,
           isMine: true,

@@ -23,21 +23,17 @@ router.get('/:productId', async (req, res) => {
   if (!productSeller) {
     res.sendStatus(404);
   }
-  if (productSeller.userId !== req.user) {
-    // seller가 아닌경우
-    res.sendStatus(403);
-  }
   res.render('hi');
 });
 
 // 나의 채팅 목록을 전부 가져온다.
 router.get('/api/All', checkToken(), async (req, res) => {
-  // Token 검증 후 req.user에 id 삽입됨
-  const sellChats = await getMySellingChatRooms(req.user);
-  const buyChats = await getMyBuyingChatRooms(req.user);
+  // Token 검증 후req.id에 id 삽입됨
+  const sellChats = await getMySellingChatRooms(req.id);
+  const buyChats = await getMyBuyingChatRooms(req.id);
   const data = [...sellChats, ...buyChats];
   data.sort((item1, item2) => {
-    return item1.lastchattime.getTime() - item2.lastchattime.getTime();
+    return item2.lastchattime.getTime() - item1.lastchattime.getTime();
   });
   res.status(200).send(data);
 });
@@ -49,7 +45,7 @@ router.get('/api/:productId', checkToken(), async (req, res) => {
   if (!productSeller) {
     res.sendStatus(404);
   }
-  if (productSeller.userId !== req.user) {
+  if (productSeller.userId !== req.id) {
     // seller가 아닌경우
     res.sendStatus(403);
   } else {
@@ -61,16 +57,14 @@ router.get('/api/:productId', checkToken(), async (req, res) => {
 // 방 나갔을 때 동작
 router.post('/api/out/:roomId', checkToken(), async (req, res) => {
   const { roomId } = req.params;
-  req.user = 1244;
-  console.log('hi');
   const roomInfo = await getReciveChatRoomInfo(roomId);
   if (!roomInfo) {
     res.sendStatus(404);
   }
-  if (roomInfo.seller !== req.user && roomInfo.buyer !== req.user) {
+  if (roomInfo.seller !== req.id && roomInfo.buyer !== req.id) {
     res.sendStatus(403);
   }
-  if (roomInfo.seller === req.user) {
+  if (roomInfo.seller === req.id) {
     if (!roomInfo.buyerin) {
       // buyer가 채팅방에 없을 때, 삭제
       await deleteRoom(roomId);

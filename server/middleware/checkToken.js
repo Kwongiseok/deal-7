@@ -11,14 +11,9 @@ const checkToken = () => (req, res, next) => {
   try {
     const token = req.header('authorization')?.split(' ')[1];
     if (!token) throw { message: errorMessages.NOT_RECEIVE_TOKEN };
-    jwt.verify(token, JWTKey.secret, (err, decoded) => {
-      if (err) {
-        res.status(401).json({ status: 'error', message: 'Authentication Error' });
-      } else {
-        req.user = decoded.id;
-        next();
-      }
-    });
+    const { id } = jwt.verify(token, JWTKey.secret);
+    req.id = id;
+    next();
   } catch (error) {
     if (error.message === 'NOT_RECEIVE_TOKEN') {
       return res.status(400).json({ status: 'error', message: error.message });
