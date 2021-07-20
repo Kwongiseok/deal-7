@@ -13,9 +13,10 @@ const { getProductSeller } = require('../data/product');
 const { checkToken } = require('../middleware/checkToken');
 const router = express.Router();
 
+// 채팅 상세화면 렌더
 router.get('/:productId/:buyerId/:sellerId', renderChatDetailPage);
 
-// TODO: Token 미들웨어 추가할 예정, 채팅 목록 리스트 보여주는 화면
+// 제품에 대한 채팅 목록 리스트 보여주는 화면
 router.get('/:productId', async (req, res) => {
   const { productId } = req.params;
   const productSeller = await getProductSeller(productId);
@@ -57,7 +58,8 @@ router.get('/api/:productId', checkToken(), async (req, res) => {
   }
 });
 
-router.post('/api/out/:roomId', async (req, res) => {
+// 방 나갔을 때 동작
+router.post('/api/out/:roomId', checkToken(), async (req, res) => {
   const { roomId } = req.params;
   req.user = 1244;
   console.log('hi');
@@ -86,7 +88,7 @@ router.post('/api/out/:roomId', async (req, res) => {
   res.sendStatus(200);
 });
 
-// 채팅방
-router.get('/api/:productId/:buyerId/:sellerId', getReceiveChats);
+// 채팅방 채팅 받아오기
+router.get('/api/:productId/:buyerId/:sellerId', checkToken(), getReceiveChats);
 
 module.exports = router;
