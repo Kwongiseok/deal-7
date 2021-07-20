@@ -68,11 +68,11 @@ async function plusBuyerUnreadCount(chatroomid) {
 }
 
 async function resetSellerUnreadCount(chatroomid) {
-  return pool.execute(`UPDATE CHATROOM SET sellerunread = 0 WHERE id =?`, [chatroomid]);
+  return pool.execute(`UPDATE CHATROOM SET sellerunread = 0, sellerin=1 WHERE id =?`, [chatroomid]);
 }
 
 async function resetBuyerUnreadCount(chatroomid) {
-  return pool.execute(`UPDATE CHATROOM SET buyerunread = 0 WHERE id =?`, [chatroomid]);
+  return pool.execute(`UPDATE CHATROOM SET buyerunread = 0,buyerin=1 WHERE id =?`, [chatroomid]);
 }
 
 async function createChatRoom(chatroomid, productId, seller, buyer) {

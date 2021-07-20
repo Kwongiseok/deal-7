@@ -50,6 +50,9 @@ router.get('/api/:productId', checkToken(), async (req, res) => {
     res.sendStatus(403);
   } else {
     const data = await getReciveChatRoomsFromProduct(productId);
+    data.sort((item1, item2) => {
+      return item2.lastchattime.getTime() - item1.lastchattime.getTime();
+    });
     res.status(200).send(data);
   }
 });
