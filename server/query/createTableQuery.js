@@ -1,5 +1,5 @@
 const CREATE_USER_TABLE_QUERY = `
-    CREATE TABLE IF NOT EXISTS deal.User (
+    CREATE TABLE IF NOT EXISTS deal.USER (
         id INT NOT NULL AUTO_INCREMENT,
         name VARCHAR(200) NOT NULL,
         town VARCHAR(100) NOT NULL,
@@ -8,7 +8,7 @@ const CREATE_USER_TABLE_QUERY = `
 `;
 
 const CREATE_PRODUCT_TABLE_QUERY = `
-    CREATE TABLE IF NOT EXISTS deal.Product (
+    CREATE TABLE IF NOT EXISTS deal.PRODUCT (
         id INT NOT NULL AUTO_INCREMENT,
         title VARCHAR(200) NOT NULL,
         state VARCHAR(45) NOT NULL,
@@ -28,7 +28,7 @@ const CREATE_PRODUCT_TABLE_QUERY = `
 
 //  id(PK), product_id, seller, buyer, lastChat, lastChatTime, chats
 const CREATE_CHATROOM_TABLE_QUERY = `
-  CREATE TABLE IF NOT EXISTS deal.ChatRoom (
+  CREATE TABLE IF NOT EXISTS deal.CHATROOM (
     id INT NOT NULL,
     productid INT NOT NULL,
     url VARCHAR(100) NOT NULL,
@@ -45,14 +45,14 @@ const CREATE_CHATROOM_TABLE_QUERY = `
 // FOREIGN KEY (productid) REFERENCES deal.product(id) ON DELETE CASCADE);
 
 const CREATE_CHAT_TABLE_QUERY = `
-  CREATE TABLE IF NOT EXISTS deal.Chat (
+  CREATE TABLE IF NOT EXISTS deal.CHAT (
   id INT NOT NULL AUTO_INCREMENT,
   author VARCHAR(200) NOT NULL,
   text LONGTEXT NOT NULL,
   createdat DATETIME,
   chatroomid INT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (chatroomid) REFERENCES deal.ChatRoom(id) ON DELETE CASCADE);
+  FOREIGN KEY (chatroomid) REFERENCES deal.CHATROOM(id) ON DELETE CASCADE);
 `;
 
 module.exports = {
