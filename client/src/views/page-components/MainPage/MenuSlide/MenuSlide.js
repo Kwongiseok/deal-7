@@ -5,8 +5,10 @@ import LikeListScreen from '../LikeListScreen/LikeListScreen.js';
 
 import SaleListScreen from '../SaleListScreen/SaleListScreen.js';
 
-export default function MenuSlide({ $selector }) {
+export default function MenuSlide({ $selector, onGetChatList }) {
   this.$MenuSlide = createDOMwithSelector('div', '.menu-slide');
+  this.onGetChatList = onGetChatList;
+
   $selector.appendChild(this.$MenuSlide);
 
   this.openMenuSlide = (currentlyOpenedSlide) => {
@@ -47,13 +49,17 @@ export default function MenuSlide({ $selector }) {
    * 형식을 변경하고 (e.g. sale-list => saleList)
    * 상태를 변경합니다.
    */
-  const changeMenuSlideItemState = (target) => {
+  const changeMenuSlideItemState = async (target) => {
     if (!target.dataset.menuSlideItem) return;
 
     const [data, attribute] = target.dataset.menuSlideItem.split('-');
     const convertedItem = `${data}${attribute[0].toUpperCase()}${attribute.slice(1)}`;
-
-    this.setState({ currentlyMenuSlideItem: `${convertedItem}` });
+    if (convertedItem === 'chatList') {
+      const chatList = await this.onGetChatList();
+      this.setState({ currentlyMenuSlideItem: `${convertedItem}`, chatList });
+    } else {
+      this.setState({ currentlyMenuSlideItem: `${convertedItem}` });
+    }
   };
 
   //render

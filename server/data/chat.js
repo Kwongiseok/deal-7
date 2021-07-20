@@ -15,7 +15,7 @@ async function getReciveChatsFromRoom(chatroomid) {
 async function getReciveChatRoomsFromProduct(productid) {
   return pool
     .execute(
-      `SELECT name,lastchat,lastchattime, sellerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id JOIN USER ON CHATROOM.buyer = USER.id WHERE PRODUCT.id=?`,
+      `SELECT name,lastchat,lastchattime, sellerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id JOIN USER ON CHATROOM.buyer = USER.id WHERE PRODUCT.id=? AND CHATROOM.sellerIn=1`,
       [productid]
     )
     .then((res) => res[0]);
@@ -72,7 +72,7 @@ async function resetSellerUnreadCount(chatroomid) {
 }
 
 async function resetBuyerUnreadCount(chatroomid) {
-  return pool.execute(`UPDATE CHATROOM SET buyerunread = 0,buyerin=1 WHERE id =?`, [chatroomid]);
+  return pool.execute(`UPDATE CHATROOM SET buyerunread = 0, buyerin=1 WHERE id =?`, [chatroomid]);
 }
 
 async function createChatRoom(chatroomid, productId, seller, buyer) {

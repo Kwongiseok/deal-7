@@ -5,7 +5,14 @@ const {
   createChatRoom,
   resetBuyerUnreadCount,
   getReciveChatsFromRoom,
+  deleteRoom,
+  outSellerFromRoom,
+  outBuyerFromRoom,
+  getReciveChatRoomsFromProduct,
+  getMySellingChatRooms,
+  getMyBuyingChatRooms,
 } = require('../data/chat');
+const { getProductSeller } = require('../data/product');
 
 async function renderChatDetailPage(req, res) {
   const { productId, buyerId, sellerId } = req.params;
@@ -15,7 +22,71 @@ async function renderChatDetailPage(req, res) {
   if (!roomInfo) {
     createChatRoom(parseInt(roomId), parseInt(productId), parseInt(sellerId), parseInt(buyerId));
   }
-  res.send('hi');
+  res.send('chatDetailPage');
+}
+
+async function renderChatListPageFromProduct(req, res) {
+  const { productId } = req.params;
+  const productSeller = await getProductSeller(productId);
+  if (!productSeller) {
+    res.sendStatus(404);
+  }
+  res.send('chatListFromProduct');
+}
+
+async function getMyAllChatRooms(req, res) {
+  const sellChats = await getMySellingChatRooms(req.id);
+  const buyChats = await getMyBuyingChatRooms(req.id);
+  const data = [...sellChats, ...buyChats];
+  data.sort((item1, item2) => {
+    return item2.lastchattime.getTime() - item1.lastchattime.getTime();
+  });
+  res.status(200).send(data);
+}
+
+async function getChatRoomsFromProduct(req, res) {
+  const { productId } = req.params;
+  const productSeller = await getProductSeller(productId);
+  if (!productSeller) {
+    res.sendStatus(404);
+  }
+  if (productSeller.userId !== req.id) {
+    // seller가 아닌경우
+    res.sendStatus(403);
+  } else {
+    const data = await getReciveChatRoomsFromProduct(productId);
+    data.sort((item1, item2) => {
+      return item2.lastchattime.getTime() - item1.lastchattime.getTime();
+    });
+    res.status(200).send(data);
+  }
+}
+
+async function outChatRoom(req, res) {
+  const { roomId } = req.params;
+  const roomInfo = await getReciveChatRoomInfo(roomId);
+  if (!roomInfo) {
+    res.sendStatus(404);
+  }
+  if (roomInfo.seller !== req.id && roomInfo.buyer !== req.id) {
+    res.sendStatus(403);
+  }
+  if (roomInfo.seller === req.id) {
+    if (!roomInfo.buyerin) {
+      // buyer가 채팅방에 없을 때, 삭제
+      await deleteRoom(roomId);
+    } else {
+      await outSellerFromRoom(roomId);
+    }
+  } else {
+    if (!roomInfo.sellerin) {
+      // seller가 채팅방에 없을 때, 삭제
+      await deleteRoom(roomId);
+    } else {
+      await outBuyerFromRoom(roomId);
+    }
+  }
+  res.sendStatus(200);
 }
 
 async function getReceiveChats(req, res) {
@@ -27,16 +98,15 @@ async function getReceiveChats(req, res) {
   const roomId = parseInt(productId + buyerId);
   const roomInfo = await getReciveChatRoomInfo(roomId);
   const name = await getUserName(String(req.id) === buyerId ? sellerId : buyerId);
-
   if (roomInfo.seller === req.id) {
     resetSellerUnreadCount(roomId);
-  } else if (roomInfo.buyerId === req.id) {
+  } else if (roomInfo.buyer === req.id) {
     resetBuyerUnreadCount(roomId);
   }
   const data = await getReciveChatsFromRoom(roomId);
   if (data) {
     const item = data[0].map((chat) => {
-      if (chat.author === req.id) {
+      if (chat.author === String(req.id)) {
         return {
           text: chat.text,
           isMine: true,
@@ -57,6 +127,10 @@ async function getReceiveChats(req, res) {
 }
 
 module.exports = {
+  renderChatListPageFromProduct,
+  getMyAllChatRooms,
+  getChatRoomsFromProduct,
+  outChatRoom,
   renderChatDetailPage,
   getReceiveChats,
 };

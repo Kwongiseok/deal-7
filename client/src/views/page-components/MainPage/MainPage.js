@@ -1,4 +1,5 @@
 import AuthAPI from '../../../apis/authAPI.js';
+import { getMyAllChatRooms } from '../../../apis/chatAPI.js';
 import { SAMPLE_PRODUCTS_STATE } from '../../../dummy-file.js';
 import { checkUserLoginStatus } from '../../../utils/checkUserLoginStatus.js';
 import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
@@ -132,7 +133,13 @@ function MainPage() {
     user: this.state.user,
     setUserState: this.setUserState,
   });
-  const $MenuSlide = new MenuSlide({ $selector: body });
+  const $MenuSlide = new MenuSlide({
+    $selector: body,
+    onGetChatList: async () => {
+      const chatList = await getMyAllChatRooms(this.state.user.accessToken);
+      return chatList;
+    },
+  });
   const $CreateProductSlide = new CreateProductSlide({
     $selector: body,
     setCurrentlyOpenedSlide: this.setCurrentlyOpenedSlide,

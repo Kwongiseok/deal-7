@@ -1,4 +1,5 @@
 import { getChats, outChatRooms } from '../../../apis/chatAPI.js';
+import { checkUserLoginStatus } from '../../../utils/checkUserLoginStatus.js';
 import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
 import ChatDetailPageBody from './ChatDetailPageBody/ChatDetailPageBody.js';
 import ChatDetailPageFooter from './ChatDetailPageFooter/ChatDetailPageFooter.js';
@@ -7,22 +8,41 @@ import ChatDetailPageHeader from './ChatDetaiPageHeader/ChatDetailPageHeader.js'
 import ChatRoomAlertModal from './ChatRoomAlertModal/ChatRoomAlertModal.js';
 
 export default function ChatDetailPage() {
+  const PRODUCT_ID = 1;
+  const BUYER_ID = 2;
+  const SELLER_ID = 3;
+
+  checkUserLoginStatus.then(({ isLoggedIn, res }) => {
+    if (!isLoggedIn) return; // 메인 URL 추가할 예정
+    this.webSocket = new WebSocket(
+      `ws://localhost:8080/chat/${PRODUCT_ID}/${BUYER_ID}/${SELLER_ID}/${res.token.accessToken}`
+    );
+    this.webSocket.onmessage = (message) => {
+      this.setState({ ...this.state, chats: [...this.state.chats, { text: message.data, isMine: false }] });
+    };
+    this.setUserState({
+      isLoggedIn: true,
+      user: {
+        accessToken: res.token.accessToken,
+      },
+    });
+    getChats(`/chat/${PRODUCT_ID}/${BUYER_ID}/${SELLER_ID}`, res.token.accessToken).then((data) =>
+      this.setState({ ...this.state, ...data })
+    );
+  });
+
   this.state = {
     roomId: '',
     name: '',
     chats: [],
   };
-  const PRODUCT_ID = 1234;
-  const BUYER_ID = 1244;
-  const SELLER_ID = 144;
+  this.userState = {};
+
   const $target = document.querySelector('#root');
 
   // TODO: 접속한 url으로부터 id 값들을 받아와서 넣어줘야한다.
-  this.webSocket = new WebSocket(`ws://localhost:8080/chat/${PRODUCT_ID}/${BUYER_ID}/${SELLER_ID}`);
-
-  this.webSocket.onmessage = (message) => {
-    this.setState({ ...this.state, chats: [...this.state.chats, { text: message.data, isMine: false }] });
-  };
+  console.log(location.pathname);
+  this.webSocket = null;
 
   this.$chatDetailPage = createDOMwithSelector('div', '.chatDetailPage');
 
@@ -31,7 +51,7 @@ export default function ChatDetailPage() {
   const chatAlertModal = new ChatRoomAlertModal({
     $target,
     onOutHandler: async () => {
-      await outChatRooms(this.state.roomId);
+      await outChatRooms(this.state.roomId, this.userState.user.accessToken);
       history.back();
     },
   });
@@ -68,8 +88,11 @@ export default function ChatDetailPage() {
     chatBody.setState({ ...chatBody.state, chats: this.state.chats });
   };
 
-  window.onload = () =>
-    getChats(`/chat/${PRODUCT_ID}/${BUYER_ID}/${SELLER_ID}`).then((res) => this.setState({ ...this.state, ...res }));
+  this.setUserState = (userState) => {
+    this.userState = userState;
+  };
+
+  // window.onload = () =>
 }
 
 new ChatDetailPage();

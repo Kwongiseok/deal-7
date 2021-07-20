@@ -1,5 +1,5 @@
-import { createDOMwithSelector } from '../../../../utils/createDOMwithSelector.js';
-import formatDate from '../../../../utils/formatDate.js';
+import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
+import formatDate from '../../../utils/formatDate.js';
 
 export default function ChatRoomList({ $target, initialState }) {
   this.state = initialState;

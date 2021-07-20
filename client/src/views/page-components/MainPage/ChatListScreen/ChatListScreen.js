@@ -1,4 +1,5 @@
 import EMPTY_ERROR_MESSAGE from '../../../../constants/emptyErrorMessage.js';
+import ChatRoomList from '../../../components/ChatRoomList/ChatRoomList.js';
 import Product from '../../../components/Product/Product.js';
 import Thung from '../../../components/Thung/Thung.js';
 
@@ -8,6 +9,11 @@ export default function ChatListScreen({ $selector, chatList }) {
       return new Thung({
         $selector: document.querySelector('.menu-slide-main'),
         message: EMPTY_ERROR_MESSAGE['chatList'],
+      });
+    } else {
+      return new ChatRoomList({
+        $target: $selector,
+        initialState: chatList,
       });
     }
 
