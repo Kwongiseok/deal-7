@@ -1,6 +1,7 @@
 import { getChats, outChatRooms } from '../../../apis/chatAPI.js';
 import { checkUserLoginStatus } from '../../../utils/checkUserLoginStatus.js';
 import { createDOMwithSelector } from '../../../utils/createDOMwithSelector.js';
+import { $ } from '../../../utils/selector.js';
 import ChatDetailPageBody from './ChatDetailPageBody/ChatDetailPageBody.js';
 import ChatDetailPageFooter from './ChatDetailPageFooter/ChatDetailPageFooter.js';
 import ChatDetailPageProduct from './ChatDetailPageProduct/ChatDetailPageProduct.js';
@@ -38,7 +39,7 @@ export default function ChatDetailPage() {
   };
   this.userState = {};
 
-  const $target = document.querySelector('#root');
+  const $target = $('#root');
 
   // TODO: 접속한 url으로부터 id 값들을 받아와서 넣어줘야한다.
   console.log(location.pathname);

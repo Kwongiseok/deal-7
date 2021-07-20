@@ -12,11 +12,6 @@ export default function ChatListPage() {
         accessToken: res.token.accessToken,
       },
     });
-    // getMyAllChatRooms(res.token.accessToken).then((data) => {
-    //   if (data) {
-    //     this.setState(data);
-    //   }
-    // });
     getChatRoomsAboutProduct(1234, res.token.accessToken).then((data) => {
       if (data) {
         this.setState(data);

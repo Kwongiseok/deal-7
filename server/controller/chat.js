@@ -55,9 +55,7 @@ async function getChatRoomsFromProduct(req, res) {
     res.sendStatus(403);
   } else {
     const data = await getReciveChatRoomsFromProduct(productId);
-    data.sort((item1, item2) => {
-      return item2.lastchattime.getTime() - item1.lastchattime.getTime();
-    });
+    data.sort((item1, item2) => item2.lastchattime.getTime() - item1.lastchattime.getTime());
     res.status(200).send(data);
   }
 }

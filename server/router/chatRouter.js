@@ -7,7 +7,6 @@ const {
   getMyAllChatRooms,
   renderChatListPageFromProduct,
 } = require('../controller/chat');
-const { getProductSeller } = require('../data/product');
 const { checkToken } = require('../middleware/checkToken');
 const router = express.Router();
 

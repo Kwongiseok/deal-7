@@ -135,9 +135,8 @@ function MainPage() {
   });
   const $MenuSlide = new MenuSlide({
     $selector: body,
-    onGetChatList: async () => {
-      const chatList = await getMyAllChatRooms(this.state.user.accessToken);
-      return chatList;
+    onGetChatList: () => {
+      return getMyAllChatRooms(this.state.user.accessToken).then((res) => res);
     },
   });
   const $CreateProductSlide = new CreateProductSlide({

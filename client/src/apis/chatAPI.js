@@ -1,7 +1,7 @@
-// const base_url = 'http://localhost:8080';
-const base_url = 'http://localhost:8080/chat/api/1/2/3';
+const base_url = 'http://localhost:8080';
+
 export function getChats(url, token) {
-  return fetch(`${base_url}`, {
+  return fetch(`${base_url}/chat/api/1/2/3`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -23,7 +23,7 @@ export function getChats(url, token) {
 }
 
 export function getChatRoomsAboutProduct(url, token) {
-  return fetch(`http://localhost:8080/chat/api/1`, {
+  return fetch(`${base_url}/chat/api/1`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ export function getChatRoomsAboutProduct(url, token) {
 }
 
 export function getMyAllChatRooms(token) {
-  return fetch(`http://localhost:8080/chat/api/All`, {
+  return fetch(`${base_url}/chat/api/All`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ export function getMyAllChatRooms(token) {
 }
 
 export function outChatRooms(roomId, token) {
-  return fetch(`http://localhost:8080/chat/api/out/12`, {
+  return fetch(`${base_url}/chat/api/out/12`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
