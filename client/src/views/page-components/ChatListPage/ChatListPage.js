@@ -1,8 +1,25 @@
-import { getChatRooms } from '../../../apis/chatAPI.js';
+import { getChatRoomsAboutProduct, getMyAllChatRooms } from '../../../apis/chatAPI.js';
+import { checkUserLoginStatus } from '../../../utils/checkUserLoginStatus.js';
+import ChatRoomList from '../../components/ChatRoomList/ChatRoomList.js';
 import ChatListPageHeader from './ChatListPageHeader/ChatListPageHeader.js';
-import ChatRoomList from './ChatRoomList/ChatRoomList.js';
 
 export default function ChatListPage() {
+  checkUserLoginStatus.then(({ isLoggedIn, res }) => {
+    if (!isLoggedIn) return; // 메인 URL 추가할 예정
+    this.setUserState({
+      isLoggedIn: true,
+      user: {
+        accessToken: res.token.accessToken,
+      },
+    });
+    getChatRoomsAboutProduct(1234, res.token.accessToken).then((data) => {
+      if (data) {
+        this.setState(data);
+      }
+    });
+  });
+
+  this.userState = {};
   this.state = [];
   this.$chatListPage = document.querySelector('#root');
 
@@ -14,9 +31,8 @@ export default function ChatListPage() {
     this.state = nextState;
     chatRoomList.setState(nextState);
   };
-
-  window.onload = () => {
-    getChatRooms(1234).then((data) => this.setState(data));
+  this.setUserState = (userState) => {
+    this.userState = userState;
   };
 }
 

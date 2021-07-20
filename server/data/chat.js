@@ -1,7 +1,5 @@
 const { pool } = require('../db.js');
 
-// ('SELECT tw.id, tw.text, tw.createdAt, tw.userId, us.username, us.name, us.url FROM tweets as tw JOIN users as us ON tw.userId=us.id');
-
 async function getReciveChatRoomInfo(chatroomid) {
   return pool.execute(`SELECT * from CHATROOM WHERE id=?`, [chatroomid]).then((result) => result[0][0]);
 }
@@ -15,17 +13,50 @@ async function getReciveChatsFromRoom(chatroomid) {
 }
 
 async function getReciveChatRoomsFromProduct(productid) {
-  console.log(productid);
   return pool
     .execute(
-      `SELECT buyer,lastchat,lastchattime, sellerunread as unreadChats, thumbnail FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id WHERE PRODUCT.id=?`,
+      `SELECT name,lastchat,lastchattime, sellerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id JOIN USER ON CHATROOM.buyer = USER.id WHERE PRODUCT.id=? AND CHATROOM.sellerIn=1`,
       [productid]
     )
     .then((res) => res[0]);
 }
 
+async function getMySellingChatRooms(userid) {
+  return pool
+    .execute(
+      `SELECT name, lastchat, lastchattime, sellerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id JOIN USER ON CHATROOM.buyer = USER.id WHERE PRODUCT.seller = ? AND CHATROOM.sellerIn=1`,
+      [userid]
+    )
+    .then((res) => res[0]);
+}
+
+async function getMyBuyingChatRooms(userid) {
+  return pool
+    .execute(
+      `SELECT name, lastchat, lastchattime, buyerunread as unreadChats, thumbnail, url FROM PRODUCT JOIN CHATROOM ON CHATROOM.productid = PRODUCT.id JOIN USER ON CHATROOM.seller = USER.id WHERE CHATROOM.buyer = ? AND CHATROOM.buyerIn=1`,
+      [userid]
+    )
+    .then((res) => res[0]);
+}
+
+async function outSellerFromRoom(roomid) {
+  return pool.execute(`UPDATE CHATROOM SET sellerin=0 WHERE id=?`, [roomid]);
+}
+
+async function outBuyerFromRoom(roomid) {
+  return pool.execute(`UPDATE CHATROOM SET buyerin=0 WHERE id=?`, [roomid]);
+}
+
+async function deleteRoom(roomid) {
+  return pool.execute(`DELETE FROM CHATROOM WHERE id=?`, [roomid]);
+}
+
 async function updateLastChat(roomid, text) {
-  return pool.execute(`UPDATE CHATROOM SET lastchat=?, lastchattime=? WHERE id=?`, [text, new Date(), roomid]);
+  return pool.execute(`UPDATE CHATROOM SET lastchat=?, lastchattime=?, SELLERIN=1, BUYERIN=1 WHERE id=?`, [
+    text,
+    new Date(),
+    roomid,
+  ]);
 }
 
 async function plusSellerUnreadCount(chatroomid) {
@@ -33,23 +64,25 @@ async function plusSellerUnreadCount(chatroomid) {
 }
 
 async function plusBuyerUnreadCount(chatroomid) {
-  return pool.execute(`UPDATE CHATROOM SET sellerunread = buyerunread + 1 WHERE id =?`, [chatroomid]);
+  return pool.execute(`UPDATE CHATROOM SET buyerunread = buyerunread + 1 WHERE id =?`, [chatroomid]);
 }
 
 async function resetSellerUnreadCount(chatroomid) {
-  return pool.execute(`UPDATE CHATROOM SET sellerunread = 0 WHERE id =?`, [chatroomid]);
+  return pool.execute(`UPDATE CHATROOM SET sellerunread = 0, sellerin=1 WHERE id =?`, [chatroomid]);
 }
 
 async function resetBuyerUnreadCount(chatroomid) {
-  return pool.execute(`UPDATE CHATROOM SET sellerunread = 0 WHERE id =?`, [chatroomid]);
+  return pool.execute(`UPDATE CHATROOM SET buyerunread = 0, buyerin=1 WHERE id =?`, [chatroomid]);
 }
 
 async function createChatRoom(chatroomid, productId, seller, buyer) {
-  return pool.execute(`INSERT INTO CHATROOM (id, productId, seller, buyer) VALUES(?,?,?,?)`, [
+  const url = `http://localhost:8080/chat/${productId}/${buyer}/${seller}`;
+  return pool.execute(`INSERT INTO CHATROOM (id, productId, seller, buyer, url) VALUES(?,?,?,?,?)`, [
     chatroomid,
     productId,
     seller,
     buyer,
+    url,
   ]);
 }
 
@@ -66,6 +99,11 @@ module.exports = {
   getReciveChatsFromRoom,
   getReciveChatRoomInfo,
   getReciveChatRoomsFromProduct,
+  getMySellingChatRooms,
+  getMyBuyingChatRooms,
+  outSellerFromRoom,
+  outBuyerFromRoom,
+  deleteRoom,
   plusBuyerUnreadCount,
   plusSellerUnreadCount,
   resetBuyerUnreadCount,

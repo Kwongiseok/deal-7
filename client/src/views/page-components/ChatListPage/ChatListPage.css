@@ -1,5 +1,4 @@
 @import './ChatListPageHeader/ChatListPageHeader.css';
-@import './ChatRoomList/ChatRoomList.css';
 
 #root {
   overflow: hidden;

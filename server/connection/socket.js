@@ -6,6 +6,8 @@ const {
   plusBuyerUnreadCount,
   updateLastChat,
 } = require('../data/chat');
+const jwt = require('jsonwebtoken');
+const JWTKey = require('../config/jwt');
 
 const rooms = new Map();
 
@@ -14,17 +16,25 @@ class Socket {
     this.wss = new Websocket.Server({
       server,
       verifyClient: async (info, cb) => {
-        const [productId, buyerId, sellerId] = info.req.url.split('/').slice(2);
+        const [productId, buyerId, sellerId, token] = info.req.url.split('/').slice(2);
         const roomId = `${productId}${buyerId}`;
-        // info.req.user = token으로부터 얻은 id;
-        info.req.user = Math.random() * 100;
+        if (token === undefined) {
+          cb(false, 403, 'Unauthorized');
+        }
+        jwt.verify(token, JWTKey.secret, (err, decoded) => {
+          if (err) {
+            cb(false, 401, 'Unauthorized');
+          } else {
+            info.req.user = decoded.id; //[1]
+          }
+        });
         info.req.room = roomId;
         const roomInfo = await getReciveChatRoomInfo(roomId);
-
-        if (String(roomInfo.buyer) === buyerId || String(roomInfo.seller) === sellerId) {
-          info.req.isBuyer = String(roomInfo.buyer) === buyerId;
+        if (String(info.req.user) === buyerId || String(info.req.user) === sellerId) {
+          info.req.isBuyer = String(info.req.user) === buyerId;
+        } else {
+          cb(false, 401, 'Unauthorized');
         }
-        info.req.isBuyer = String(roomInfo.buyer) === buyerId;
         cb(true);
       },
     });

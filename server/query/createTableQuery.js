@@ -31,8 +31,11 @@ const CREATE_CHATROOM_TABLE_QUERY = `
   CREATE TABLE IF NOT EXISTS deal.ChatRoom (
     id INT NOT NULL,
     productid INT NOT NULL,
+    url VARCHAR(100) NOT NULL,
     seller INT NOT NULL,
-    buyer INT NOT NULL,
+    buyer INT NOT NULL, 
+    sellerin BOOLEAN default '0', 
+    buyerin BOOLEAN default '0',
     sellerunread INT default '0',
     buyerunread INT default '0',
     lastchat LONGTEXT,
@@ -51,7 +54,6 @@ const CREATE_CHAT_TABLE_QUERY = `
   PRIMARY KEY (id),
   FOREIGN KEY (chatroomid) REFERENCES deal.ChatRoom(id) ON DELETE CASCADE);
 `;
-// CREATEDAT DATE NOT NULL,
 
 module.exports = {
   CREATE_CHATROOM_TABLE_QUERY,

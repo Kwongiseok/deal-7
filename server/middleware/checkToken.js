@@ -11,8 +11,8 @@ const checkToken = () => (req, res, next) => {
   try {
     const token = req.header('authorization')?.split(' ')[1];
     if (!token) throw { message: errorMessages.NOT_RECEIVE_TOKEN };
-
-    jwt.verify(token, JWTKey.secret);
+    const { id } = jwt.verify(token, JWTKey.secret);
+    req.id = id;
     next();
   } catch (error) {
     if (error.message === 'NOT_RECEIVE_TOKEN') {
