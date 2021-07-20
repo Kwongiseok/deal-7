@@ -69,4 +69,4 @@ export const SAMPLE_PRODUCTS_STATE = [
   },
 ];
 
-export const SAMPLE_THUMBNAIL = '/client/public/images/icons/sample_image.png';
+export const SAMPLE_THUMBNAIL = '/public/images/icons/sample_image.png';

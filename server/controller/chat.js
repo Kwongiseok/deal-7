@@ -1,4 +1,6 @@
 const { getUserName } = require('../data/auth');
+const path = require('path');
+
 const {
   getReciveChatRoomInfo,
   resetSellerUnreadCount,
@@ -22,16 +24,16 @@ async function renderChatDetailPage(req, res) {
   if (!roomInfo) {
     createChatRoom(parseInt(roomId), parseInt(productId), parseInt(sellerId), parseInt(buyerId));
   }
-  res.send('chatDetailPage');
+  res.sendFile(path.join(__dirname, '../build', 'chatDetailPage.html'));
 }
 
 async function renderChatListPageFromProduct(req, res) {
   const { productId } = req.params;
   const productSeller = await getProductSeller(productId);
-  if (!productSeller) {
-    res.sendStatus(404);
-  }
-  res.send('chatListFromProduct');
+  // if (!productSeller) {
+  //   res.sendStatus(404);
+  // } else
+  res.sendFile(path.join(__dirname, '../build', 'chatListPage.html'));
 }
 
 async function getMyAllChatRooms(req, res) {

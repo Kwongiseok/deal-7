@@ -2,6 +2,7 @@ import { getChatRoomsAboutProduct, getMyAllChatRooms } from '../../../apis/chatA
 import { checkUserLoginStatus } from '../../../utils/checkUserLoginStatus.js';
 import ChatRoomList from '../../components/ChatRoomList/ChatRoomList.js';
 import ChatListPageHeader from './ChatListPageHeader/ChatListPageHeader.js';
+import '../../../index.css';
 
 export default function ChatListPage() {
   checkUserLoginStatus.then(({ isLoggedIn, res }) => {

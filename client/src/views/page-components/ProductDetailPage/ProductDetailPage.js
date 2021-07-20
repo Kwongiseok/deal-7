@@ -1,5 +1,6 @@
 import CreateProductSlide from '../../components/CreateProductSlide/CreateProductSlide.js';
 import ProductDetail from './ProductDetail/ProductDetail.js';
+import '../../../index.css';
 
 function ProductDetailPage() {
   this.state = {

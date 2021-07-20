@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // html 테스트 확�
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 재 빌드할 때 마다 삭제
 
 module.exports = {
-  entry: './src/views/page-components/ChatDetailPage/ChatDetailPage.js', // 기준
-  output: { path: path.resolve(__dirname, 'build'), filename: 'ChatDetailPage.js' }, // output 파일
+  entry: './src/views/page-components/MainPage/MainPage.js', // 기준
+  output: { path: path.resolve(__dirname, 'build'), filename: 'MainPage.js' }, // output 파일
   module: {
     rules: [
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
@@ -32,7 +32,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'public/fonts/[name].[hash:8].[ext]',
+              name: 'public/font/[name].[ext]',
             },
           },
         ],
@@ -40,7 +40,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/pages/chatDetailPage.html' }),
+    new HtmlWebpackPlugin({ template: './src/pages/mainPage.html' }),
     new CleanWebpackPlugin({
       cleanAfterEveryBuildPatterns: ['build'], // 옵션은 있어도 되고, 없어도 됨!
     }),
